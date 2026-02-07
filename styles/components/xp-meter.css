@@ -1,0 +1,186 @@
+/* XP Meter */
+.xp-meter-wrapper {
+    width: 100%;
+    background: #f8f8fb;
+    border: 1px solid #e0e0e6;
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+}
+
+.xp-meter-wrapper.meter-disabled {
+    opacity: 0.55;
+}
+
+.xp-meter-visual {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.xp-meter-track {
+    position: relative;
+    width: 70px;
+    height: 240px;
+    border-radius: 16px;
+    background: linear-gradient(180deg, rgba(103, 126, 234, 0.15) 0%, rgba(103, 126, 234, 0.05) 100%);
+    border: 2px solid #d7d7e0;
+    overflow: hidden;
+}
+
+.xp-meter-fill {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: calc(100% - 6px);
+    margin: 3px;
+    border-radius: 12px;
+    background: linear-gradient(180deg, #f44336 0%, #ff9800 45%, #4caf50 100%);
+    transition: height 0.3s ease;
+}
+
+.xp-meter-marker {
+    position: absolute;
+    left: 8%;
+    width: 84%;
+    border-top: 1px dashed rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+}
+
+.xp-meter-marker.marker-low {
+    border-color: rgba(76, 175, 80, 0.35);
+}
+
+.xp-meter-marker.marker-medium {
+    border-color: rgba(255, 152, 0, 0.45);
+}
+
+.xp-meter-marker.marker-high {
+    border-color: rgba(244, 67, 54, 0.55);
+}
+
+.xp-meter-value {
+    position: absolute;
+    left: 0;
+    bottom: 12px;
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+    pointer-events: none;
+}
+
+.xp-meter-legend {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.legend-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #555;
+}
+
+.legend-label {
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.legend-value {
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.meter-hint {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #888;
+    text-align: center;
+}
+
+/* XP Meter (Header / Compact) */
+.xp-meter-wrapper.xp-meter-header {
+    width: auto;
+    padding: 6px 8px;
+    gap: 10px;
+    background: transparent;
+    border: 1px solid #e0e0e6;
+    border-radius: 10px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.xp-meter-wrapper.xp-meter-header .xp-meter-visual {
+    width: auto;
+}
+
+.xp-meter-wrapper.xp-meter-header .xp-meter-track {
+    width: 14px;
+    height: 42px;
+    border-radius: 999px;
+    border-width: 1px;
+}
+
+.xp-meter-wrapper.xp-meter-header .xp-meter-fill {
+    width: calc(100% - 4px);
+    margin: 2px;
+    border-radius: 999px;
+}
+
+.xp-meter-wrapper.xp-meter-header .xp-meter-marker {
+    left: 14%;
+    width: 72%;
+    border-top-style: solid;
+    border-top-width: 1px;
+    opacity: 0.7;
+}
+
+/* Hide the big in-track label in header mode (use inline current XP instead). */
+.xp-meter-wrapper.xp-meter-header .xp-meter-value {
+    display: none;
+}
+
+.xp-meter-header-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.xp-meter-header-current {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-text-dark-primary, #1a1a1a);
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.xp-meter-wrapper.xp-meter-header .xp-meter-legend {
+    width: auto;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.xp-meter-wrapper.xp-meter-header .legend-item {
+    font-size: 10px;
+    line-height: 1.1;
+    gap: 2px;
+}
+
+.xp-meter-wrapper.xp-meter-header .legend-label {
+    letter-spacing: 0.04em;
+}
+
+.xp-meter-wrapper.xp-meter-header .legend-value {
+    font-size: 11px;
+}

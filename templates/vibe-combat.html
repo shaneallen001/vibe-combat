@@ -1,0 +1,339 @@
+<form class="vibe-combat-form">
+  <div class="builder-layout">
+    <section class="panel party-panel">
+      <header class="panel-header">
+        <div class="party-header-left">
+          <h3>Party</h3>
+          <div class="xp-meter-wrapper xp-meter-header {{#unless xpMeter.enabled}}meter-disabled{{/unless}}">
+            <div class="xp-meter-visual">
+              <div class="xp-meter-track">
+                <div class="xp-meter-fill" style="height: {{xpMeter.fillPercent}}%;"></div>
+                <div class="xp-meter-marker marker-low" style="bottom: {{xpMeter.lowPercent}}%;"></div>
+                <div class="xp-meter-marker marker-medium" style="bottom: {{xpMeter.mediumPercent}}%;"></div>
+                <div class="xp-meter-marker marker-high" style="bottom: {{xpMeter.highPercent}}%;"></div>
+                <div class="xp-meter-value">{{totalEncounterXp}}</div>
+              </div>
+            </div>
+            <div class="xp-meter-header-meta">
+              <div class="xp-meter-header-current">{{totalEncounterXp}} XP</div>
+              <div class="xp-meter-legend">
+                <div class="legend-item">
+                  <span class="legend-label">Low</span>
+                  <span class="legend-value">{{xpBudgets.low}}</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-label">Med</span>
+                  <span class="legend-value">{{xpBudgets.medium}}</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-label">High</span>
+                  <span class="legend-value">{{xpBudgets.high}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="header-actions">
+          {{#if hasParty}}
+          <button type="button" class="save-party" title="Save Party">
+            <i class="fas fa-save"></i>
+          </button>
+          {{/if}}
+          <button type="button" class="load-party" title="Load Party">
+            <i class="fas fa-folder-open"></i>
+          </button>
+          {{#if hasParty}}
+          <button type="button" class="clear-party" title="Clear Party">
+            <i class="fas fa-broom"></i>
+          </button>
+          {{/if}}
+        </div>
+      </header>
+      <div class="panel-body">
+        {{#unless hasParty}}
+        <p class="no-party-message">Add party members to calculate XP budgets.</p>
+        {{/unless}}
+        <div class="party-drop-zone">
+          {{#if hasParty}}
+          <div class="party-list">
+            {{#each partyMembers}}
+            <div class="party-member-item" data-actor-id="{{this.id}}">
+              <img class="member-portrait" src="{{this.portrait}}" alt="{{this.name}}">
+              <div class="member-info">
+                <strong>{{this.name}}</strong>
+                <span class="member-level">Level {{this.level}}</span>
+              </div>
+              <button type="button" class="remove-party-member" data-actor-id="{{this.id}}" title="Remove from party">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            {{/each}}
+          </div>
+          {{/if}}
+        </div>
+      </div>
+    </section>
+
+    <section class="panel enemies-panel">
+      <header class="panel-header">
+        <div class="enemies-header-left">
+          <h3>Enemies</h3>
+          <div class="enemies-summary">
+            <span class="encounter-total-xp">
+              <i class="fas fa-bolt"></i> {{totalEncounterXp}} XP
+            </span>
+            {{#if difficulty.enabled}}
+              <span class="difficulty-chip difficulty-{{difficulty.tier}}" title="{{difficulty.percent}}% of budget">
+                {{difficulty.label}}
+              </span>
+            {{/if}}
+          </div>
+        </div>
+        <div class="header-actions">
+          <button type="button" class="suggest-encounter" title="Suggest Encounter">
+            <i class="fas fa-wand-magic-sparkles"></i>
+          </button>
+          {{#if hasEncounter}}
+          <button type="button" class="place-enemies" title="Place Enemies">
+            <i class="fas fa-map-marker-alt"></i>
+          </button>
+          {{/if}}
+          <button type="button" class="add-stand-in" title="Add Stand-In">
+            <i class="fas fa-user-plus"></i>
+          </button>
+          {{#if hasEncounter}}
+          <button type="button" class="save-encounter" title="Save Encounter">
+            <i class="fas fa-save"></i>
+          </button>
+          {{/if}}
+          <button type="button" class="load-encounter" title="Load Encounter">
+            <i class="fas fa-folder-open"></i>
+          </button>
+          <button type="button" class="clear-encounter" title="Clear Encounter">
+            <i class="fas fa-broom"></i>
+          </button>
+        </div>
+      </header>
+      <div class="panel-body enemies-body encounter-drop-target {{#if hasEncounter}}has-content{{/if}}">
+        {{#if suggestion.visible}}
+          {{#if suggestion.hidden}}
+          <div class="suggestion-panel suggestion-collapsed suggestion-status-{{suggestion.status}}">
+            <div class="suggestion-collapsed-text">
+              <strong>Encounter suggestions hidden</strong>
+              <p class="suggestion-message">{{suggestion.message}}</p>
+            </div>
+            <button type="button" class="suggestion-toggle-btn suggestion-show">
+              <i class="fas fa-eye"></i> Show suggestions
+            </button>
+          </div>
+          {{else}}
+          <div class="suggestion-panel suggestion-status-{{suggestion.status}}">
+            <div class="suggestion-header">
+              <div class="suggestion-header-text">
+                <h4>{{suggestion.typeLabel}}</h4>
+                <p class="suggestion-message">{{suggestion.message}}</p>
+              </div>
+              <div class="suggestion-header-actions">
+                {{#if suggestion.canCancel}}
+                <button type="button" class="suggestion-cancel" title="Cancel">
+                  <i class="fas fa-stop"></i>
+                </button>
+                {{/if}}
+                {{#if suggestion.showTryAgain}}
+                <button type="button" class="suggestion-try-again" title="Try Again">
+                  <i class="fas fa-rotate-right"></i>
+                </button>
+                {{/if}}
+                <button type="button" class="suggestion-hide" title="Hide suggestions">
+                  <i class="fas fa-eye-slash"></i>
+                </button>
+              </div>
+            </div>
+            {{#if suggestion.summary}}
+            <p class="suggestion-summary">{{suggestion.summary}}</p>
+            {{/if}}
+            {{#if suggestion.metadata}}
+            <div class="suggestion-meta">
+              {{#if suggestion.metadata.dangerRating}}
+              <span class="meta-chip"><i class="fas fa-skull-crossbones"></i> {{suggestion.metadata.dangerRating}}</span>
+              {{/if}}
+              {{#if suggestion.metadata.recommendedBudgetXp}}
+              <span class="meta-chip"><i class="fas fa-coins"></i> {{suggestion.metadata.recommendedBudgetXp}} XP</span>
+              {{/if}}
+            </div>
+            {{/if}}
+            {{#if suggestion.error}}
+            <p class="suggestion-error">{{suggestion.error}}</p>
+            {{/if}}
+            {{#if suggestion.isLoading}}
+            <div class="suggestion-loading">
+              <div class="suggestion-spinner"></div>
+              <span>Generating encounter ideas...</span>
+            </div>
+            {{/if}}
+            {{#if suggestion.hasEntries}}
+            <div class="suggestion-carousel">
+              <div class="carousel-controls">
+                <div class="carousel-counter">
+                  <i class="fas fa-layer-group"></i>
+                  <span>{{suggestion.entriesLabel}}</span>
+                </div>
+                <div class="carousel-nav-buttons">
+                  <button type="button" class="carousel-nav prev" data-direction="prev" title="Scroll left" {{#unless suggestion.hasMultipleEntries}}disabled{{/unless}}>
+                    <i class="fas fa-chevron-left"></i>
+                  </button>
+                  <button type="button" class="carousel-nav next" data-direction="next" title="Scroll right" {{#unless suggestion.hasMultipleEntries}}disabled{{/unless}}>
+                    <i class="fas fa-chevron-right"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="carousel-viewport">
+                <div class="suggestion-cards" data-carousel-track>
+                  {{#each suggestion.entries}}
+                  <article class="suggestion-card" draggable="true" data-suggestion-id="{{this.id}}">
+                    <div class="card-media">
+                      <img src="{{this.portrait}}" alt="{{this.name}}">
+                    </div>
+                    <div class="card-body">
+                      <div class="card-title-row">
+                        <strong>{{this.name}}</strong>
+                        <span class="badge">{{this.crDisplay}}</span>
+                      </div>
+                      <div class="card-meta">
+                        <span>{{this.quantityLabel}}</span>
+                        {{#if this.role}}
+                        <span class="role-pill">{{this.role}}</span>
+                        {{/if}}
+                        {{#if this.sourceLabel}}
+                        <span class="match-source">{{this.sourceLabel}}</span>
+                        {{/if}}
+                      </div>
+                      <div class="card-footer">
+                        <span class="drag-hint">
+                          <i class="fas fa-hand-pointer"></i>
+                          Drag to add
+                        </span>
+                        {{#if this.notes}}
+                        <button type="button" class="card-tooltip" data-tooltip="{{this.notes}}" aria-label="View description">
+                          <i class="fas fa-comment-dots"></i>
+                        </button>
+                        {{/if}}
+                      </div>
+                    </div>
+                  </article>
+                  {{/each}}
+                </div>
+              </div>
+            </div>
+            <p class="carousel-instructions">
+              <i class="fas fa-hand-holding-magic"></i>
+              Scroll through the carousel and drag a card into the encounter to add it.
+            </p>
+            {{else}}
+            {{#unless suggestion.isLoading}}
+            <p class="suggestion-empty">No specific enemies were returned. Try again with different instructions.</p>
+            {{/unless}}
+            {{/if}}
+            {{#if suggestion.showActions}}
+            <div class="suggestion-actions">
+              <label>
+                <input type="checkbox" class="suggestion-option-clear" checked>
+                Replace current encounter
+              </label>
+              <button type="button" class="suggestion-load">
+                <i class="fas fa-download"></i> Load Suggestions
+              </button>
+            </div>
+            {{/if}}
+          </div>
+          {{/if}}
+        {{/if}}
+        {{#if hasEncounter}}
+        <div class="encounter-table-wrap">
+          <table class="encounter-table">
+            <thead>
+              <tr>
+                <th class="tokens-col">Tokens</th>
+                <th>Name</th>
+                <th>CR</th>
+                <th>Qty</th>
+                <th>Each</th>
+                <th>Total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each encounterEntries}}
+              <tr class="encounter-entry-row" data-index="{{this.index}}">
+                <td class="tokens-cell">
+                  <div class="enemy-token-strip">
+                    {{#if this.hasTokens}}
+                      {{#each this.displayTokens}}
+                      <img class="enemy-token" src="{{this}}" alt="">
+                      {{/each}}
+                    {{/if}}
+                    {{#if this.isEmptyQuantity}}
+                    <img class="enemy-token empty" src="{{this.tokenImage}}" alt="">
+                    {{/if}}
+                    {{#if this.extraTokens}}
+                    <span class="token-count-badge">+{{this.extraTokens}}</span>
+                    {{/if}}
+                  </div>
+                </td>
+                <td class="name-cell">
+                  {{#if this.actorName}}
+                    <strong>{{this.actorName}}</strong>
+                  {{else}}
+                    <span class="stand-in-text">Stand-in</span>
+                  {{/if}}
+                </td>
+                <td class="cr-cell">
+                  {{#if this.isActor}}
+                    <select class="encounter-cr-input" data-index="{{this.index}}" disabled>
+                      {{#each this.crOptions}}
+                      <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+                      {{/each}}
+                    </select>
+                  {{else}}
+                    <select class="encounter-cr-input" data-index="{{this.index}}">
+                      {{#each this.crOptions}}
+                      <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+                      {{/each}}
+                    </select>
+                  {{/if}}
+                </td>
+                <td class="qty-cell">
+                  <div class="qty-control">
+                    <button type="button" class="qty-button qty-decrement" data-index="{{this.index}}" title="Decrease quantity" {{#unless this.canDecrement}}disabled{{/unless}}>
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <input type="number" class="encounter-quantity-input" data-index="{{this.index}}" value="{{this.quantity}}" min="0">
+                    <button type="button" class="qty-button qty-increment" data-index="{{this.index}}" title="Increase quantity">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                </td>
+                <td class="xp-cell each-cell">{{this.xpPerCreature}} XP</td>
+                <td class="xp-cell total-cell">{{this.totalXp}} XP</td>
+                <td class="actions-cell">
+                  <button type="button" class="remove-encounter-entry" data-index="{{this.index}}" title="Remove entry">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+        {{else}}
+        <div class="encounter-empty">
+          <p class="drop-zone-text">
+            <i class="fas fa-user-ninja"></i> Drag and drop <strong>NPC</strong> actors here to build the encounter
+          </p>
+        </div>
+        {{/if}}
+      </div>
+    </section>
+  </div>
+</form>
+

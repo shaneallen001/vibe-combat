@@ -1,0 +1,226 @@
+/* Vibe Combat Button in Actor Directory */
+.vibe-combat-button {
+  margin-left: 8px;
+  padding: 4px 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.vibe-combat-button:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.vibe-combat-button:active {
+  transform: translateY(0);
+}
+
+/* Vibe Actor Button in Actor Directory */
+.vibe-actor-button {
+  margin-left: 8px;
+  padding: 4px 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.vibe-actor-button:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.vibe-actor-button:active {
+  transform: translateY(0);
+}
+
+/* Vibe Combat Application Window */
+#vibe-combat-app {
+  padding: 0;
+}
+
+.vibe-combat-form {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.builder-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(420px, 1.5fr);
+  gap: 16px;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-background-light-1, #ffffff);
+  border: 1px solid var(--color-border-light-2, #dcdcdc);
+  border-radius: 8px;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.panel-header {
+  background: var(--color-background-light-2, #f6f6f8);
+  border-bottom: 1px solid var(--color-border-light-2, #e2e2e2);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.panel-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text-dark-primary, #1a1a1a);
+  flex: 1;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.panel-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.save-party,
+.load-party,
+.clear-party,
+.place-enemies,
+.save-encounter,
+.load-encounter,
+.clear-encounter {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.save-party,
+.save-encounter {
+  background: #667eea;
+}
+
+.save-party:hover,
+.save-encounter:hover {
+  background: #5568d3;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.load-party,
+.load-encounter {
+  background: #4caf50;
+}
+
+.load-party:hover,
+.load-encounter:hover {
+  background: #45a049;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.clear-party,
+.clear-encounter {
+  background: #ff6b6b;
+}
+
+.clear-party:hover,
+.clear-encounter:hover {
+  background: #ee5a5a;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.save-party:focus-visible,
+.load-party:focus-visible,
+.clear-party:focus-visible,
+.place-enemies:focus-visible,
+.save-encounter:focus-visible,
+.load-encounter:focus-visible,
+.clear-encounter:focus-visible,
+.suggest-encounter:focus-visible,
+.add-stand-in:focus-visible,
+.remove-party-member:focus-visible,
+.remove-encounter-entry:focus-visible,
+.qty-button:focus-visible,
+.encounter-table select:focus-visible,
+.encounter-table input[type="number"]:focus-visible,
+.suggestion-toggle-btn:focus-visible,
+.suggestion-header-actions button:focus-visible,
+.carousel-nav:focus-visible,
+.suggestion-actions .suggestion-load:focus-visible {
+  outline: 2px solid var(--color-border-highlight, #667eea);
+  outline-offset: 2px;
+}
+
+.suggest-encounter {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #ffb347 0%, #ffcc33 100%);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(255, 179, 71, 0.4);
+  transition: all 0.2s ease;
+}
+
+.suggest-encounter:hover {
+  transform: translateY(-1px) scale(1.05);
+  box-shadow: 0 3px 6px rgba(255, 179, 71, 0.5);
+}
+
+.suggest-encounter:active {
+  transform: translateY(0) scale(1);
+}
+
+/* Responsive: collapse to one column on narrow windows */
+@media (max-width: 920px) {
+  .builder-layout {
+    grid-template-columns: 1fr;
+  }
+}

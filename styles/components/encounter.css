@@ -1,0 +1,496 @@
+.enemies-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    flex: 1;
+}
+
+.enemies-summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    min-width: 0;
+}
+
+.encounter-total-xp {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-text-dark-primary, #1a1a1a);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.encounter-total-xp i {
+    color: #667eea;
+}
+
+.difficulty-chip {
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    white-space: nowrap;
+}
+
+.difficulty-chip.difficulty-easy {
+    background: rgba(76, 175, 80, 0.12);
+    border-color: rgba(76, 175, 80, 0.35);
+    color: #2e7d32;
+}
+
+.difficulty-chip.difficulty-medium {
+    background: rgba(255, 152, 0, 0.14);
+    border-color: rgba(255, 152, 0, 0.35);
+    color: #ef6c00;
+}
+
+.difficulty-chip.difficulty-hard {
+    background: rgba(244, 67, 54, 0.12);
+    border-color: rgba(244, 67, 54, 0.35);
+    color: #c62828;
+}
+
+.difficulty-chip.difficulty-deadly {
+    background: rgba(156, 39, 176, 0.12);
+    border-color: rgba(156, 39, 176, 0.35);
+    color: #7b1fa2;
+}
+
+.difficulty-chip.difficulty-none {
+    background: rgba(120, 120, 120, 0.12);
+    border-color: rgba(120, 120, 120, 0.25);
+    color: #666;
+}
+
+.enemies-body {
+    border: 2px dashed #cfcfd3;
+    border-radius: 8px;
+    background: var(--color-background-light-3, #f9f9fb);
+    transition: all 0.2s ease;
+    padding: 12px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.enemies-body.has-content {
+    padding: 0;
+    border-style: solid;
+    border-color: var(--color-border-light-2, #e0e0e0);
+    background: var(--color-background-light-1, #ffffff);
+}
+
+.encounter-drop-target.drag-over {
+    border-color: #667eea;
+    background: #f0f0ff;
+    border-style: solid;
+}
+
+.encounter-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+    width: 100%;
+}
+
+.drop-zone-text {
+    text-align: center;
+    color: #666;
+    margin: 20px 0;
+    font-style: italic;
+}
+
+.drop-zone-text i {
+    margin-right: 8px;
+    color: #667eea;
+}
+
+/* Encounter Table */
+.encounter-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-background-light-1, #ffffff);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.encounter-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.encounter-table {
+    min-width: 640px;
+}
+
+.encounter-table th {
+    padding: 10px 8px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-dark-primary, #1a1a1a);
+    text-transform: uppercase;
+    letter-spacing: 0;
+    border-bottom: 2px solid #e0e0e0;
+    text-shadow: none;
+}
+
+.encounter-table thead {
+    background: var(--color-background-light-2, #f5f5f5);
+}
+
+.encounter-table tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.2s ease;
+}
+
+.encounter-table tbody tr:hover {
+    background: #f9f9f9;
+}
+
+.encounter-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.encounter-table td {
+    padding: 8px;
+    vertical-align: middle;
+}
+
+.encounter-table td:last-child {
+    text-align: center;
+}
+
+.encounter-table select,
+.encounter-table input[type="number"] {
+    padding: 4px 8px;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    font-size: 13px;
+    width: 100%;
+    max-width: 68px;
+}
+
+.cr-cell {
+    min-width: 90px;
+    white-space: nowrap;
+}
+
+.cr-cell .encounter-cr-input {
+    max-width: none;
+    min-width: 85px;
+}
+
+.encounter-table select:focus,
+.encounter-table input[type="number"]:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.encounter-table select:disabled {
+    background: #f5f5f5;
+    color: #666;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.stand-in-text {
+    color: #999;
+    font-style: italic;
+    font-size: 13px;
+}
+
+.name-cell strong {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-dark-primary, #1a1a1a);
+}
+
+.xp-cell {
+    font-size: 13px;
+    color: var(--color-text-dark-primary, #1a1a1a);
+    font-weight: 500;
+}
+
+.tokens-col {
+    width: 140px;
+}
+
+.tokens-cell {
+    width: 140px;
+}
+
+.enemy-token-strip {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.enemy-token {
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
+    object-fit: cover;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    margin-right: -10px;
+    background: #fff;
+}
+
+.enemy-token.empty {
+    opacity: 0.35;
+    filter: grayscale(0.6);
+    margin-right: 0;
+}
+
+.token-count-badge {
+    margin-left: 12px;
+    padding: 2px 6px;
+    border-radius: 12px;
+    background: #667eea;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.qty-cell {
+    width: 140px;
+}
+
+.qty-control {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.qty-button {
+    width: 28px;
+    height: 28px;
+    background: #f0f1ff;
+    color: #4a4f8c;
+    border: 1px solid #c8ccff;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.qty-button:hover {
+    background: #dfe2ff;
+}
+
+.qty-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
+.encounter-quantity-input {
+    max-width: 60px;
+    text-align: center;
+}
+
+.remove-encounter-entry {
+    background: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    padding: 0;
+    font-size: 11px;
+}
+
+.remove-encounter-entry:hover {
+    background: #cc0000;
+    transform: scale(1.1);
+}
+
+.add-stand-in {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+}
+
+.add-stand-in:hover {
+    background: #5568d3;
+    transform: translateY(-1px) scale(1.05);
+    box-shadow: 0 3px 6px rgba(102, 126, 234, 0.4);
+}
+
+.add-stand-in:active {
+    transform: translateY(0) scale(1);
+}
+
+/* Encounter List Dialog */
+.vibe-encounter-list-dialog {
+    padding: 8px 0;
+}
+
+.encounter-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 500px;
+    overflow-y: auto;
+    padding: 4px;
+}
+
+.vibe-encounter-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 44px;
+}
+
+.vibe-encounter-item:hover,
+.vibe-encounter-item.hover {
+    background: #f0f4ff;
+    border-color: #667eea;
+    box-shadow: 0 2px 4px rgba(102, 126, 234, 0.15);
+}
+
+.encounter-item-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.encounter-default-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    color: #ccc;
+    font-size: 14px;
+    width: 20px;
+    height: 20px;
+}
+
+.encounter-default-toggle:hover {
+    transform: scale(1.15);
+}
+
+.encounter-default-toggle .fa-star {
+    transition: all 0.2s ease;
+}
+
+.encounter-default-toggle .fa-star.default-active {
+    color: #ffa500;
+}
+
+.encounter-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a1a1a;
+    flex: 1;
+}
+
+.encounter-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.vibe-encounter-item:hover .encounter-item-actions,
+.vibe-encounter-item.hover .encounter-item-actions {
+    opacity: 1;
+}
+
+.encounter-load-btn,
+.encounter-delete-btn {
+    background: none;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    color: #555;
+    font-size: 12px;
+    width: 32px;
+    height: 32px;
+}
+
+.encounter-load-btn:hover {
+    background: #4caf50;
+    border-color: #4caf50;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+}
+
+.encounter-delete-btn:hover {
+    background: #ff4444;
+    border-color: #ff4444;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(255, 68, 68, 0.3);
+}
+
+.encounter-load-btn i,
+.encounter-delete-btn i {
+    font-size: 13px;
+}
+
+/* Scrollbar styling for encounter list */
+.encounter-list-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.encounter-list-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.encounter-list-container::-webkit-scrollbar-thumb {
+    background: #c0c0c0;
+    border-radius: 4px;
+}
+
+.encounter-list-container::-webkit-scrollbar-thumb:hover {
+    background: #a0a0a0;
+}

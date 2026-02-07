@@ -1,0 +1,40 @@
+<form class="vibe-combat-suggestion-sources">
+  <p class="notes">
+    These sources define the <strong>allowed creature catalog</strong> for AI encounter
+    suggestions. Gemini must return UUIDs from this list.
+  </p>
+
+  <div class="form-group">
+    <label>
+      <input type="checkbox" name="includeWorldActors" {{#if includeWorldActors}}checked{{/if}}>
+      Include world NPC actors
+    </label>
+    <p class="notes">If enabled, NPC actors in your world can be suggested.</p>
+  </div>
+
+  <hr>
+
+  <div class="form-group">
+    <label>Compendium Packs (Creatures)</label>
+    <p class="notes">
+      Select which creature compendium packs Gemini may choose from. (In Foundry, monsters are stored as
+      <em>Actor</em> documents.) Large selections may increase prompt size and slow or fail requests.
+    </p>
+    <div class="vibe-combat-pack-list" style="max-height: 360px; overflow: auto; border: 1px solid #ddd; padding: 8px; border-radius: 6px;">
+      {{#each actorPacks}}
+      <label style="display: flex; align-items: center; gap: 8px; padding: 4px 0;">
+        <input type="checkbox" name="packIds" value="{{this.packId}}" {{#if this.checked}}checked{{/if}}>
+        <span>{{this.label}}</span>
+        <span class="notes" style="margin-left: auto; opacity: 0.8;">{{this.packId}}</span>
+      </label>
+      {{/each}}
+    </div>
+  </div>
+
+  <footer class="sheet-footer flexrow" style="margin-top: 12px;">
+    <button type="submit" name="submit">
+      <i class="fas fa-save"></i> Save
+    </button>
+  </footer>
+</form>
+
