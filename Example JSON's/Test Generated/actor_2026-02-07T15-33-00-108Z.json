@@ -1,0 +1,290 @@
+{
+  "name": "Lichling",
+  "type": "npc",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "abilities": {
+      "str": {
+        "value": 11,
+        "proficient": 0
+      },
+      "dex": {
+        "value": 16,
+        "proficient": 0
+      },
+      "con": {
+        "value": 16,
+        "proficient": 1
+      },
+      "int": {
+        "value": 22,
+        "proficient": 1
+      },
+      "wis": {
+        "value": 14,
+        "proficient": 1
+      },
+      "cha": {
+        "value": 18,
+        "proficient": 1
+      }
+    },
+    "attributes": {
+      "ac": {
+        "value": 17,
+        "calc": "natural"
+      },
+      "hp": {
+        "value": 135,
+        "max": 135,
+        "formula": ""
+      },
+      "movement": {
+        "walk": 30,
+        "fly": 0,
+        "swim": 0,
+        "burrow": 0,
+        "climb": 0,
+        "hover": false,
+        "units": "ft"
+      },
+      "senses": {
+        "darkvision": 120,
+        "blindsight": 0,
+        "tremorsense": 0,
+        "truesight": 0,
+        "units": "ft",
+        "special": ""
+      },
+      "spellcasting": "int"
+    },
+    "details": {
+      "cr": 8,
+      "type": {
+        "value": "undead"
+      },
+      "alignment": "lawful evil",
+      "biography": {
+        "value": "\n                        Once a promising student of arcane arts, the individual who would become the Lichling became obsessed with cheating death. Driven by a fear of mortality and a thirst for forbidden knowledge, they delved into necromancy, eventually attempting the dark ritual of lichdom. The ritual was sabotaged or flawed, leaving them in this stunted, lich-like state. Now, they constantly seek to gather the power and components necessary to finally achieve true lichdom, seeing their current existence as a temporary, humiliating setback.\n                        <hr>\n                        <p><strong>Behavior:</strong> The Lichling is a cunning and patient manipulator, preferring to weaken its foes with debilitating spells before engaging directly. It views most living creatures as tools or obstacles, to be used or destroyed as its arcane ambitions dictate. It seeks to expand its knowledge and power, often by delving into forgotten ruins or seeking out powerful artifacts.</p>\n                        <p><strong>Appearance:</strong> A desiccated corpse animated by powerful necromantic magic, the Lichling resembles a shriveled humanoid figure draped in tattered, yet once-fine, robes. Its eyes glow with an eerie, malevolent green light, and its skeletal fingers are often adorned with ancient rings. A faint aura of decay and cold surrounds it.</p>\n                        <p><strong>Twist:</strong> The Lichling is not truly a lich, but a powerful wizard who has undergone a ritual to achieve lichdom but failed at the final step, leaving them in a state of perpetual undeath with a fragile phylactery and a constant hunger for more power to complete the transformation.</p>\n                        <p><strong>Habitat:</strong> Unknown</p>\n                        <p><strong>Treasure:</strong> The Lichling carries a Staff of the Magi and wears Robes of the Archmagi. Its phylactery, if found, is a small, obsidian orb pulsating with dark energy.</p>\n                    "
+      },
+      "race": "Lichling"
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": [
+          "common",
+          "draconic",
+          "elven",
+          "infernal"
+        ]
+      },
+      "di": {
+        "value": [
+          "poison"
+        ]
+      },
+      "dr": {
+        "value": [
+          "necrotic"
+        ]
+      },
+      "ci": {
+        "value": [
+          "charmed",
+          "exhaustion",
+          "frightened",
+          "paralyzed",
+          "poisoned"
+        ]
+      }
+    },
+    "skills": {
+      "arc": {
+        "value": 12,
+        "ability": ""
+      },
+      "his": {
+        "value": 12,
+        "ability": ""
+      },
+      "ins": {
+        "value": 8,
+        "ability": ""
+      },
+      "prc": {
+        "value": 8,
+        "ability": ""
+      }
+    }
+  },
+  "items": [
+    {
+      "name": "Legendary Resistance (1/Day)",
+      "type": "feat",
+      "_id": "f7sebpyyfw0t1ujw",
+      "img": "icons/magic/aura/shield-protective-arcane-blue.webp",
+      "system": {
+        "description": {
+          "value": "If the [[lookup @name lowercase]] fails a saving throw, it can choose to succeed instead."
+        },
+        "activities": {
+          "qvxjrk4ktlhctks7": {
+            "_id": "qvxjrk4ktlhctks7",
+            "type": "utility",
+            "activation": {
+              "type": "legendary",
+              "value": 1,
+              "condition": "Once per day, when the Lichling fails a saving throw."
+            },
+            "description": {
+              "value": "If the [[lookup @name lowercase]] fails a saving throw, it can choose to succeed instead."
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "unique"
+      }
+    },
+    {
+      "name": "Rejuvenation",
+      "type": "feat",
+      "_id": "ynmdxnjtekfntpsc",
+      "img": "icons/magic/symbols/sickle-moon-glowing-red.webp",
+      "system": {
+        "description": {
+          "value": "A destroyed [[lookup @name lowercase]] gains a new body in 1d10 days, regaining all its hit points. The [[lookup @name lowercase]] appears in an unoccupied space within 5 feet of the phylactery. Only the destruction of the [[lookup @name lowercase]]'s phylactery can prevent this trait."
+        },
+        "activities": {},
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "unique"
+      }
+    },
+    {
+      "name": "Turn Resistance",
+      "type": "feat",
+      "_id": "z7ivudddxh7ibqiq",
+      "img": "icons/magic/symbols/unholy-inscription.webp",
+      "system": {
+        "description": {
+          "value": "The [[lookup @name lowercase]] has advantage on saving throws against any effect that turns undead."
+        },
+        "activities": {},
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      }
+    },
+    {
+      "name": "Staff of the Magi",
+      "type": "equipment",
+      "_id": "rdsh5ldhuvjzhxqi",
+      "img": "icons/weapons/staves/staff-ornate-wood-runes.webp",
+      "system": {
+        "description": {
+          "value": "A powerful arcane focus."
+        },
+        "activities": {},
+        "quantity": 1,
+        "weight": 5,
+        "price": {
+          "value": 50000,
+          "denomination": "gp"
+        },
+        "rarity": "very rare"
+      }
+    },
+    {
+      "name": "Robes of the Archmagi",
+      "type": "equipment",
+      "_id": "eth4yovecew8cmbf",
+      "img": "icons/equipment/chest/robe-worn-blue.webp",
+      "system": {
+        "description": {
+          "value": "Provides magical protection and enhances spellcasting."
+        },
+        "activities": {},
+        "quantity": 1,
+        "weight": 2,
+        "price": {
+          "value": 75000,
+          "denomination": "gp"
+        },
+        "rarity": "legendary"
+      }
+    },
+    {
+      "name": "Spellbook",
+      "type": "equipment",
+      "_id": "lbc6yrrurry5cvnx",
+      "img": "icons/containers/book/book-spell-bound-leather.webp",
+      "system": {
+        "description": {
+          "value": "Contains the [[lookup @name lowercase]]'s known spells."
+        },
+        "activities": {},
+        "quantity": 1,
+        "weight": 3,
+        "price": {
+          "value": 25,
+          "denomination": "gp"
+        },
+        "rarity": "common"
+      }
+    },
+    {
+      "name": "Spellcasting",
+      "type": "feat",
+      "img": "icons/magic/symbols/circled-gem-pink.webp",
+      "system": {
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "description": {
+          "value": "<p class=\"feature\">The [[lookup @name lowercase]] casts one of the following spells, using INT as the spellcasting ability:</p>\n<p class=\"feature-trait\"><strong>At Will:</strong> <em>Fireball, Animate Dead, Chill Touch, Mage Hand, Ray of Frost, Vicious Mockery</em></p>\n<p class=\"feature-trait\"><strong>3/Day Each:</strong> <em>Blight, Counterspell</em></p>\n<p class=\"feature-trait\"><strong>2/Day Each:</strong> <em>Cone of Cold, Dominate Person, Lightning Bolt</em></p>\n<p class=\"feature-trait\"><strong>1/Day Each:</strong> <em>Power Word Kill, Fly, Scrying</em></p>",
+          "chat": ""
+        },
+        "identifier": "spellcasting",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "advancement": [],
+        "cover": null,
+        "crewed": false
+      },
+      "effects": [],
+      "flags": {},
+      "_id": "1JAlp2fRLiHWac12"
+    }
+  ],
+  "prototypeToken": {
+    "name": "Lichling",
+    "displayName": 20,
+    "actorLink": false,
+    "disposition": -1,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/svg/mystery-man.svg",
+      "scaleX": 1,
+      "scaleY": 1
+    }
+  }
+}

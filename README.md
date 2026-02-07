@@ -148,6 +148,7 @@ This is the heart of the actor generation system. It follows a 4-step process:
 *   **Step 4: The Builder (Assembly)**:
     *   Combines the selected UUIDs and fabricated Items into the final Actor document.
     *   Calculates final data (CR, HP, AC) and creates the document.
+    *   **Spellcasting**: For spellcasters, builds a "Spellcasting" feat with `cast`-type activities referencing spell UUIDs (matching official 2024 5e data model).
 
 #### 3. Encounter Builder (`scripts/ui/vibe-combat-app.js`)
 -   **Class**: `VibeCombatApp` (extends `Application`).

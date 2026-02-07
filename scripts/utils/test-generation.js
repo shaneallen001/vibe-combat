@@ -113,7 +113,7 @@ async function runTest() {
     console.log("🚀 Starting Standalone Actor Generation Test...");
     console.log(`📂 Output Directory: ${EXAMPLE_DIR}`);
 
-    const prompt = "A warrior with a longsword and chain mail armor. CR 1.";
+    const prompt = "A CR 8 lich-like undead wizard spellcaster. Uses intelligence for spellcasting. Has Fireball and Animate Dead at will, and Power Word Kill 1/day.";
 
     try {
         // Test 1: Architect Agent (Blueprint only)

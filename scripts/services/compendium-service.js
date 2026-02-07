@@ -114,6 +114,17 @@ export async function getAll(type) {
 }
 
 /**
+ * Get the compendium UUID for a spell by name
+ * @param {string} spellName - The name of the spell
+ * @returns {string|null} - The compendium UUID or null if not found
+ */
+export async function getSpellUuid(spellName) {
+    if (!spellName) return null;
+    const matches = await search(spellName, ["spell"]);
+    return matches.length > 0 ? matches[0].uuid : null;
+}
+
+/**
  * Retrieve the full data for a specific index entry
  * @param {object} indexEntry 
  */

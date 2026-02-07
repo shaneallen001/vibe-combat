@@ -7,6 +7,7 @@ import { ArchitectAgent } from "../agents/architect-agent.js";
 import { QuartermasterAgent } from "../agents/quartermaster-agent.js";
 import { BlacksmithAgent } from "../agents/blacksmith-agent.js";
 import * as CompendiumService from "./compendium-service.js";
+import { getSpellUuid } from "./compendium-service.js";
 import { sanitizeCustomItem, ensureActivityIds, ensureItemHasImage } from "../factories/actor-factory.js";
 
 export class GeminiPipeline {
@@ -53,7 +54,7 @@ export class GeminiPipeline {
      * Step 2: The Quartermaster
      */
     async runQuartermaster(blueprint) {
-        // 1. Prepare items to review (Features + Equipment + Spells)
+        // 1. Prepare items to review (Features + Equipment - Spells are handled separately)
         const itemsToReview = [...(blueprint.features || [])];
 
         // Add equipment items (weapons, armor, shields, gear)
@@ -65,9 +66,7 @@ export class GeminiPipeline {
             })));
         }
 
-        if (blueprint.spellcasting?.spells) {
-            itemsToReview.push(...blueprint.spellcasting.spells.map(s => ({ name: s, type: "spell", description: "Spell" })));
-        }
+        // NOTE: Spells are NOT processed here - they're handled in runBuilder via _buildSpellcastingFeat
 
         // 2. Search for candidates
         const candidates = {};
@@ -140,7 +139,10 @@ export class GeminiPipeline {
             return sanitized;
         }));
 
-        // 3. Prepare System Data
+        // 3. Build Spellcasting Feat (if applicable)
+        const spellcastingFeat = await this._buildSpellcastingFeat(blueprint);
+
+        // 4. Prepare System Data
         const system = {
             abilities: blueprint.stats.abilities,
             attributes: {
@@ -154,7 +156,8 @@ export class GeminiPipeline {
                     truesight: blueprint.senses?.truesight || 0,
                     units: "ft",
                     special: ""
-                }
+                },
+                spellcasting: blueprint.spellcasting?.ability || ""
             },
             details: {
                 cr: blueprint.cr,
@@ -207,13 +210,18 @@ export class GeminiPipeline {
             }
         }
 
-        // 4. Construct Actor Data
+        // 5. Construct Actor Data
+        const allItems = [...compendiumItems, ...processedCustomItems];
+        if (spellcastingFeat) {
+            allItems.push(spellcastingFeat);
+        }
+
         const actorData = {
             name: blueprint.name,
             type: "npc",
             img: "icons/svg/mystery-man.svg",
             system: system,
-            items: this._applyDynamicDescriptions([...compendiumItems, ...processedCustomItems], blueprint.name),
+            items: this._applyDynamicDescriptions(allItems, blueprint.name),
             prototypeToken: {
                 name: blueprint.name,
                 displayName: 20, // Hover
@@ -249,6 +257,165 @@ export class GeminiPipeline {
                 scaleX: s.scale,
                 scaleY: s.scale
             }
+        };
+    }
+
+    /**
+     * Build a Spellcasting feat item with cast-type activities
+     * This matches the official 5e 2024 data model for NPC spellcasters
+     */
+    async _buildSpellcastingFeat(blueprint) {
+        if (!blueprint.spellcasting?.spells) return null;
+
+        const spells = blueprint.spellcasting.spells;
+        const ability = blueprint.spellcasting.ability || "int";
+
+        // Combine all spells
+        const allAtWill = spells.atWill || [];
+        const allPerDay = spells.perDay || [];
+
+        if (allAtWill.length === 0 && allPerDay.length === 0) return null;
+
+        // Build activities object
+        const activities = {};
+        let activityIndex = 0;
+
+        // Process at-will spells
+        for (const spellName of allAtWill) {
+            const uuid = await getSpellUuid(spellName);
+            if (!uuid) {
+                console.warn(`Vibe Combat | Could not find spell UUID for: ${spellName}`);
+                continue;
+            }
+
+            const actId = foundry.utils.randomID(16);
+            activities[actId] = {
+                type: "cast",
+                _id: actId,
+                sort: activityIndex++,
+                activation: { type: "action", value: null, override: false },
+                consumption: {
+                    scaling: { allowed: false },
+                    spellSlot: true,
+                    targets: []
+                },
+                description: { chatFlavor: "" },
+                duration: { units: "inst", concentration: false, override: false },
+                range: { override: false },
+                target: {
+                    template: { contiguous: false, units: "ft" },
+                    affects: { choice: false },
+                    override: false,
+                    prompt: true
+                },
+                uses: { spent: 0, recovery: [], max: "" },
+                spell: {
+                    uuid: uuid,
+                    level: null,  // Null for at-will/cantrips
+                    properties: [],
+                    spellbook: true,
+                    ability: ""
+                },
+                name: ""
+            };
+        }
+
+        // Process per-day spells
+        for (const spellEntry of allPerDay) {
+            const spellName = spellEntry.spell;
+            const uses = spellEntry.uses || 1;
+
+            const uuid = await getSpellUuid(spellName);
+            if (!uuid) {
+                console.warn(`Vibe Combat | Could not find spell UUID for: ${spellName}`);
+                continue;
+            }
+
+            const actId = foundry.utils.randomID(16);
+            activities[actId] = {
+                type: "cast",
+                _id: actId,
+                sort: activityIndex++,
+                activation: { type: "action", value: null, override: false },
+                consumption: {
+                    scaling: { allowed: false },
+                    spellSlot: true,
+                    targets: [{
+                        type: "activityUses",
+                        value: "1",
+                        scaling: {}
+                    }]
+                },
+                description: { chatFlavor: "" },
+                duration: { units: "inst", concentration: false, override: false },
+                range: { override: false },
+                target: {
+                    template: { contiguous: false, units: "ft" },
+                    affects: { choice: false },
+                    override: false,
+                    prompt: true
+                },
+                uses: {
+                    spent: 0,
+                    recovery: [{ period: "day", type: "recoverAll" }],
+                    max: String(uses)
+                },
+                spell: {
+                    uuid: uuid,
+                    level: null,
+                    properties: [],
+                    spellbook: true,
+                    ability: ""
+                },
+                name: ""
+            };
+        }
+
+        // Build description HTML
+        let descParts = [];
+        descParts.push(`<p class="feature">The [[lookup @name lowercase]] casts one of the following spells, using ${ability.toUpperCase()} as the spellcasting ability:</p>`);
+
+        if (allAtWill.length > 0) {
+            descParts.push(`<p class="feature-trait"><strong>At Will:</strong> <em>${allAtWill.join(", ")}</em></p>`);
+        }
+
+        // Group per-day spells by usage
+        const byUses = {};
+        for (const entry of allPerDay) {
+            const key = entry.uses || 1;
+            if (!byUses[key]) byUses[key] = [];
+            byUses[key].push(entry.spell);
+        }
+
+        for (const [uses, spellNames] of Object.entries(byUses).sort((a, b) => b[0] - a[0])) {
+            descParts.push(`<p class="feature-trait"><strong>${uses}/Day Each:</strong> <em>${spellNames.join(", ")}</em></p>`);
+        }
+
+        return {
+            name: "Spellcasting",
+            type: "feat",
+            img: "icons/magic/symbols/circled-gem-pink.webp",
+            system: {
+                type: { value: "monster", subtype: "" },
+                activities: activities,
+                uses: { spent: 0, recovery: [], max: "" },
+                description: {
+                    value: descParts.join("\n"),
+                    chat: ""
+                },
+                identifier: "spellcasting",
+                source: { revision: 1, rules: "2024" },
+                enchant: {},
+                prerequisites: { level: null, repeatable: false },
+                properties: [],
+                requirements: "",
+                advancement: [],
+                cover: null,
+                crewed: false
+            },
+            effects: [],
+            flags: {},
+            _id: foundry.utils.randomID(16)
         };
     }
 

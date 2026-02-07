@@ -51,11 +51,15 @@ export const BlueprintSchema = z.object({
         type: z.enum(["action", "bonus", "reaction", "passive", "legendary", "mythic"]),
     })).describe("Special abilities and actions."),
     spellcasting: z.object({
-        level: z.number(),
-        school: z.string(),
-        ability: z.string(),
-        spells: z.array(z.string()),
-    }).optional(),
+        ability: z.enum(["int", "wis", "cha"]).describe("Spellcasting ability: 'int' for wizards, 'wis' for clerics/druids, 'cha' for sorcerers/warlocks."),
+        spells: z.object({
+            atWill: z.array(z.string()).default([]).describe("Spells that can be cast at will (unlimited)."),
+            perDay: z.array(z.object({
+                spell: z.string(),
+                uses: z.number().describe("Number of times per day this spell can be cast.")
+            })).default([]).describe("Spells with limited daily uses."),
+        }),
+    }).optional().describe("Spellcasting configuration. Include only if the creature is a spellcaster."),
     behavior: z.string().describe("Combat tactics and behavior."),
     appearance: z.string().describe("Visual description."),
     twist: z.string().describe("A unique or unexpected trait."),

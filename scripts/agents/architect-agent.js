@@ -21,6 +21,19 @@ export class ArchitectAgent extends GenerativeAgent {
     - Provide rich, evocative descriptions.
     - Include appropriate equipment (weapons, armor, shields, gear) for the creature.
     - Use common D&D 5e item names (e.g., "Longsword", "Chain Mail", "Light Crossbow").
+    
+    SPELLCASTING (if applicable):
+    - Set the spellcasting ability based on creature type:
+      - Wizards, liches, archmages: "int"
+      - Clerics, druids: "wis"  
+      - Sorcerers, warlocks, bards: "cha"
+    - Use common SRD spell names exactly (e.g., "Fireball", "Lightning Bolt", "Animate Dead").
+    - For spells.atWill: Include cantrips and spells the creature can cast unlimited times.
+    - For spells.perDay: Include limited-use spells with appropriate daily limits:
+      - Powerful spells (7th-9th level): typically 1/day
+      - Mid-level spells (4th-6th level): typically 1-2/day
+      - Lower-level spells (1st-3rd level): typically 2-3/day or at-will
+    - Match the spell selection to the creature's theme and CR.
     `;
     }
 }
