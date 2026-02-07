@@ -1,0 +1,295 @@
+{
+  "name": "Veteran Guard",
+  "type": "npc",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "abilities": {
+      "str": {
+        "value": 13,
+        "proficient": 1
+      },
+      "dex": {
+        "value": 11,
+        "proficient": 0
+      },
+      "con": {
+        "value": 12,
+        "proficient": 0
+      },
+      "int": {
+        "value": 10,
+        "proficient": 0
+      },
+      "wis": {
+        "value": 11,
+        "proficient": 0
+      },
+      "cha": {
+        "value": 10,
+        "proficient": 0
+      }
+    },
+    "attributes": {
+      "ac": {
+        "value": 16,
+        "calc": "natural"
+      },
+      "hp": {
+        "value": 59,
+        "max": 59,
+        "formula": ""
+      },
+      "movement": {
+        "walk": 30,
+        "fly": 0,
+        "swim": 0,
+        "burrow": 0,
+        "climb": 0,
+        "hover": false,
+        "units": "ft"
+      },
+      "senses": {
+        "darkvision": 0,
+        "blindsight": 0,
+        "tremorsense": 0,
+        "truesight": 0,
+        "units": "ft",
+        "special": ""
+      }
+    },
+    "details": {
+      "cr": 1,
+      "type": {
+        "value": "humanoid"
+      },
+      "alignment": "lawful neutral",
+      "biography": {
+        "value": "\n                        These guards have served in the military or city watch for years, gaining valuable combat experience and a keen sense of duty. They have seen their share of skirmishes and understand the harsh realities of combat. While not necessarily heroes, they are reliable and possess a grim determination forged through experience.\n                        <hr>\n                        <p><strong>Behavior:</strong> The Veteran Guard is disciplined and follows orders to the letter. They are vigilant and prioritize the safety of their assigned post or charge above all else. They will engage threats directly but will also call for backup if overwhelmed.</p>\n                        <p><strong>Appearance:</strong> A human of average height and build, clad in functional chain mail. Their face is stern and weathered, with watchful eyes that constantly scan their surroundings. They carry a longsword at their hip and a shield emblazoned with a city or faction crest.</p>\n                        <p><strong>Twist:</strong> The Veteran Guard secretly harbors a deep loyalty to a fallen order or a lost cause, which occasionally influences their judgment in subtle ways, making them more sympathetic to certain individuals or situations.</p>\n                        <p><strong>Habitat:</strong> City gates, barracks, royal courts, border forts, or any location requiring vigilant protection.</p>\n                        <p><strong>Treasure:</strong> A few silver pieces, a worn city insignia, and perhaps a small, sentimental trinket from a past campaign.</p>\n                    "
+      },
+      "race": "Veteran Guard"
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": [
+          "Common"
+        ]
+      },
+      "di": {
+        "value": []
+      },
+      "dr": {
+        "value": []
+      },
+      "ci": {
+        "value": []
+      }
+    },
+    "skills": {
+      "ath": {
+        "value": 3,
+        "ability": ""
+      },
+      "prc": {
+        "value": 2,
+        "ability": ""
+      }
+    }
+  },
+  "items": [
+    {
+      "name": "Second Wind",
+      "type": "feat",
+      "_id": "3f9c7a1b2d8e4f6a",
+      "img": "icons/skills/healing/heart-wings-red.webp",
+      "system": {
+        "description": {
+          "value": "As a bonus action, the guard can regain 1d10 + 4 hit points."
+        },
+        "activities": {
+          "a1b2c3d4e5f6a7b8": {
+            "_id": "a1b2c3d4e5f6a7b8",
+            "type": "heal",
+            "activation": {
+              "type": "bonus",
+              "value": 1
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 1,
+                  "denomination": 10,
+                  "types": [
+                    "healing"
+                  ]
+                }
+              ]
+            },
+            "description": {
+              "value": "Regain 1d10 + 4 hit points."
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      }
+    },
+    {
+      "name": "Action Surge",
+      "type": "feat",
+      "_id": "9a8b7c6d5e4f3a2b",
+      "img": "icons/magic/time/clock-unfolding-blue.webp",
+      "system": {
+        "description": {
+          "value": "On its turn, the guard can take one additional action."
+        },
+        "activities": {
+          "c1d2e3f4a5b6c7d8": {
+            "_id": "c1d2e3f4a5b6c7d8",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1
+            },
+            "description": {
+              "value": "On its turn, the guard can take one additional action."
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      }
+    },
+    {
+      "name": "Longsword",
+      "type": "weapon",
+      "_id": "1a2b3c4d5e6f7a8b",
+      "img": "systems/dnd5e/icons/weapons/longsword.webp",
+      "system": {
+        "description": {
+          "value": "A sturdy, well-maintained longsword."
+        },
+        "activities": {
+          "b1c2d3e4f5a6b7c8": {
+            "_id": "b1c2d3e4f5a6b7c8",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1
+            },
+            "attack": {
+              "flat": false,
+              "bonus": "+4",
+              "ability": "str"
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 1,
+                  "denomination": 8,
+                  "types": [
+                    "slashing"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 3,
+        "rarity": "common"
+      }
+    },
+    {
+      "name": "Chain Mail",
+      "type": "equipment",
+      "_id": "e8f7a6b5c4d3e2f1",
+      "img": "systems/dnd5e/icons/items/armor/chain-mail.webp",
+      "system": {
+        "description": {
+          "value": "Standard issue chain mail, showing signs of regular wear and tear."
+        },
+        "activities": {},
+        "quantity": 1,
+        "weight": 55,
+        "price": {
+          "value": 75,
+          "denomination": "gp"
+        },
+        "rarity": "common"
+      }
+    },
+    {
+      "name": "Shield",
+      "type": "equipment",
+      "_id": "f1e2d3c4b5a6f7e8",
+      "img": "systems/dnd5e/icons/items/armor/shield.webp",
+      "system": {
+        "description": {
+          "value": "A solid wooden shield with the city's insignia."
+        },
+        "activities": {},
+        "quantity": 1,
+        "weight": 6,
+        "price": {
+          "value": 10,
+          "denomination": "gp"
+        },
+        "rarity": "common"
+      }
+    },
+    {
+      "name": "Rations",
+      "type": "equipment",
+      "_id": "a1b2c3d4e5f6a7b8",
+      "img": "systems/dnd5e/icons/items/consumables/rations.webp",
+      "system": {
+        "description": {
+          "value": "Three days' worth of travel rations."
+        },
+        "activities": {},
+        "quantity": 3,
+        "weight": 1,
+        "price": {
+          "value": 0.5,
+          "denomination": "gp"
+        },
+        "rarity": "common"
+      }
+    },
+    {
+      "name": "Waterskin",
+      "type": "equipment",
+      "_id": "b8a7f6e5d4c3b2a1",
+      "img": "systems/dnd5e/icons/items/consumables/waterskin.webp",
+      "system": {
+        "description": {
+          "value": "A full waterskin."
+        },
+        "activities": {},
+        "quantity": 1,
+        "weight": 5,
+        "price": {
+          "value": 1,
+          "denomination": "sp"
+        },
+        "rarity": "common"
+      }
+    }
+  ],
+  "prototypeToken": {
+    "name": "Veteran Guard",
+    "displayName": 20,
+    "actorLink": false,
+    "disposition": -1,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/svg/mystery-man.svg",
+      "scaleX": 1,
+      "scaleY": 1
+    }
+  }
+}

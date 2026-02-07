@@ -19,6 +19,8 @@ export class ArchitectAgent extends GenerativeAgent {
     - Validate abilities against standard 5e limits (1-30).
     - Ensure HP and AC match the CR.
     - Provide rich, evocative descriptions.
+    - Include appropriate equipment (weapons, armor, shields, gear) for the creature.
+    - Use common D&D 5e item names (e.g., "Longsword", "Chain Mail", "Light Crossbow").
     `;
     }
 }

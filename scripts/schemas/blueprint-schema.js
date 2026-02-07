@@ -40,6 +40,11 @@ export const BlueprintSchema = z.object({
     resistances: z.array(z.string()).default([]),
     immunities: z.array(z.string()).default([]),
     condition_immunities: z.array(z.string()).default([]),
+    equipment: z.array(z.object({
+        name: z.string(),
+        type: z.enum(["weapon", "armor", "shield", "gear"]),
+        description: z.string().optional(),
+    })).describe("Weapons, armor, and other equipment the creature carries.").default([]),
     features: z.array(z.object({
         name: z.string(),
         description: z.string(),

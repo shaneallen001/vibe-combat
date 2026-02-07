@@ -22,19 +22,23 @@ export class BlacksmithAgent extends GenerativeAgent {
     }
 
     /**
-     * Override generate to convert Array activities back to Map (Record)
+     * Override generate to sanitize IDs and convert Array activities to Map (Record)
      */
     async generate(context) {
         // 1. Generate items with Array-based activities (easier for AI)
         const items = await super.generate(context);
 
-        // 2. Convert Activities Array -> Object Map
+        // 2. Sanitize and convert
         return items.map(item => {
+            // Always regenerate item _id with valid 16-char alphanumeric
+            item._id = foundry.utils.randomID(16);
+
+            // Convert activities Array -> Object Map and sanitize activity IDs
             if (item.system?.activities && Array.isArray(item.system.activities)) {
                 const activityMap = {};
                 item.system.activities.forEach(activity => {
-                    // Ensure ID
-                    if (!activity._id) activity._id = foundry.utils.randomID(16);
+                    // Always regenerate activity _id with valid 16-char alphanumeric
+                    activity._id = foundry.utils.randomID(16);
                     activityMap[activity._id] = activity;
                 });
                 item.system.activities = activityMap;
@@ -42,4 +46,5 @@ export class BlacksmithAgent extends GenerativeAgent {
             return item;
         });
     }
+
 }

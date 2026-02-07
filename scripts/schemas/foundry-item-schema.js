@@ -8,7 +8,7 @@ const DamagePartSchema = z.object({
 });
 
 const ActivitySchema = z.object({
-    _id: z.string().length(16).regex(/^[a-zA-Z0-9]+$/),
+    _id: z.string().min(1).default(""), // Relaxed; will be sanitized to 16-char alphanumeric post-generation
     type: z.enum(["attack", "save", "utility", "heal", "damage", "enchant", "summon"]),
     activation: z.object({
         type: z.string().default("action"),
@@ -49,7 +49,7 @@ const ActivitySchema = z.object({
 export const FoundryItemSchema = z.object({
     name: z.string(),
     type: z.enum(["weapon", "feat", "spell", "equipment", "consumable"]),
-    _id: z.string().length(16).regex(/^[a-zA-Z0-9]+$/),
+    _id: z.string().min(1).default(""), // Relaxed; will be sanitized to 16-char alphanumeric post-generation
     img: z.string().default("icons/svg/mystery-man.svg"),
     system: z.object({
         description: z.object({
@@ -57,7 +57,7 @@ export const FoundryItemSchema = z.object({
         }),
         activities: z.record(ActivitySchema).default({}),
         // Common fields for spells/weapons
-        level: z.number().min(0).max(9).optional(), // For spells
+        level: z.number().min(0).optional(), // For spells/feats (no max; feats can reference higher spellcaster levels)
         school: z.string().optional(), // For spells
         quantity: z.number().default(1),
         weight: z.number().default(0),

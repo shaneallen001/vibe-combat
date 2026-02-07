@@ -113,7 +113,7 @@ async function runTest() {
     console.log("🚀 Starting Standalone Actor Generation Test...");
     console.log(`📂 Output Directory: ${EXAMPLE_DIR}`);
 
-    const prompt = "A rowdy tavern brawler who loves a good fistfight but has a heart of gold. CR 1.";
+    const prompt = "A warrior with a longsword and chain mail armor. CR 1.";
 
     try {
         // Test 1: Architect Agent (Blueprint only)

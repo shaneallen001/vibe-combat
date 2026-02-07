@@ -53,8 +53,18 @@ export class GeminiPipeline {
      * Step 2: The Quartermaster
      */
     async runQuartermaster(blueprint) {
-        // 1. Prepare items to review (Features + Spells)
+        // 1. Prepare items to review (Features + Equipment + Spells)
         const itemsToReview = [...(blueprint.features || [])];
+
+        // Add equipment items (weapons, armor, shields, gear)
+        if (blueprint.equipment) {
+            itemsToReview.push(...blueprint.equipment.map(e => ({
+                name: e.name,
+                type: e.type === "weapon" ? "weapon" : "equipment",
+                description: e.description || e.name
+            })));
+        }
+
         if (blueprint.spellcasting?.spells) {
             itemsToReview.push(...blueprint.spellcasting.spells.map(s => ({ name: s, type: "spell", description: "Spell" })));
         }
@@ -62,7 +72,18 @@ export class GeminiPipeline {
         // 2. Search for candidates
         const candidates = {};
         for (const item of itemsToReview) {
-            const typeFilter = item.type === "spell" ? ["spell"] : ["feat", "weapon"];
+            // Determine search types based on item type
+            let typeFilter;
+            if (item.type === "spell") {
+                typeFilter = ["spell"];
+            } else if (item.type === "weapon") {
+                typeFilter = ["weapon"];
+            } else if (item.type === "equipment") {
+                typeFilter = ["equipment"];
+            } else {
+                typeFilter = ["feat", "weapon"];
+            }
+
             const results = await CompendiumService.search(item.name, typeFilter);
             // Take top 3 results
             candidates[item.name] = results.slice(0, 3).map(i => ({ name: i.name, uuid: i.uuid, type: i.type }));

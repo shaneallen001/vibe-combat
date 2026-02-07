@@ -1,0 +1,274 @@
+{
+  "name": "Veteran",
+  "type": "npc",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "abilities": {
+      "str": {
+        "value": 13,
+        "proficient": 1
+      },
+      "dex": {
+        "value": 13,
+        "proficient": 0
+      },
+      "con": {
+        "value": 14,
+        "proficient": 1
+      },
+      "int": {
+        "value": 10,
+        "proficient": 0
+      },
+      "wis": {
+        "value": 11,
+        "proficient": 0
+      },
+      "cha": {
+        "value": 10,
+        "proficient": 0
+      }
+    },
+    "attributes": {
+      "ac": {
+        "value": 16,
+        "calc": "natural"
+      },
+      "hp": {
+        "value": 58,
+        "max": 58,
+        "formula": ""
+      },
+      "movement": {
+        "walk": 30,
+        "fly": 0,
+        "swim": 0,
+        "burrow": 0,
+        "climb": 0,
+        "hover": false,
+        "units": "ft"
+      },
+      "senses": {
+        "darkvision": 0,
+        "blindsight": 0,
+        "tremorsense": 0,
+        "truesight": 0,
+        "units": "ft",
+        "special": ""
+      }
+    },
+    "details": {
+      "cr": 1,
+      "type": {
+        "value": "humanoid"
+      },
+      "alignment": "any alignment",
+      "biography": {
+        "value": "\n                        Having served in numerous campaigns and skirmishes, this veteran has seen the best and worst of what the world has to offer. They are a survivor, a pragmatist, and a reliable fighter who has learned to trust their instincts and their blade. Their past is filled with hard-won victories and bitter losses, shaping them into the skilled warrior they are today. They may be found guarding caravans, serving in a town militia, or perhaps as a sellsword seeking their next contract.\n                        <hr>\n                        <p><strong>Behavior:</strong> The veteran is a seasoned combatant, preferring direct confrontation. It uses its longsword and shield effectively, utilizing its Shield Bearer feature for enhanced defense. When the opportunity arises, it employs its Combat Maneuver to disrupt opponents, aiming to disarm, trip, or push them. It fights with grim determination and tactical awareness, prioritizing the protection of allies or the completion of its objective.</p>\n                        <p><strong>Appearance:</strong> The veteran is a human of average height and build, with weathered features and a stern expression. Their chain mail armor is well-maintained but bears the marks of past battles. A sturdy shield is strapped to their left arm, and a worn longsword is sheathed at their hip. Their eyes are sharp and observant, constantly scanning their surroundings.</p>\n                        <p><strong>Twist:</strong> Despite their hardened exterior and combat prowess, the veteran harbors a secret passion for poetry and often composes verses in their downtime, though they would never admit it.</p>\n                        <p><strong>Habitat:</strong> Often found in military outposts, frontier towns, or anywhere conflict is a common occurrence.</p>\n                        <p><strong>Treasure:</strong> None</p>\n                    "
+      },
+      "race": "Veteran"
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": [
+          "any one language"
+        ]
+      },
+      "di": {
+        "value": []
+      },
+      "dr": {
+        "value": []
+      },
+      "ci": {
+        "value": []
+      }
+    },
+    "skills": {
+      "ath": {
+        "value": 3,
+        "ability": ""
+      },
+      "ins": {
+        "value": 2,
+        "ability": ""
+      },
+      "prc": {
+        "value": 2,
+        "ability": ""
+      },
+      "sur": {
+        "value": 2,
+        "ability": ""
+      }
+    }
+  },
+  "items": [
+    {
+      "name": "Shield Bearer",
+      "type": "feat",
+      "_id": "hcu5wcnx603i1atn",
+      "img": "icons/skills/defense/shield- Απόσπασμα-boss-metal.webp",
+      "system": {
+        "description": {
+          "value": "While the [[lookup @name lowercase]] is wielding a shield, it has a +2 bonus to AC."
+        },
+        "activities": {},
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      }
+    },
+    {
+      "name": "Combat Maneuver (1/short rest)",
+      "type": "feat",
+      "_id": "oxuodxtymue4sjo9",
+      "img": "icons/skills/attack/weapon-sword-scimitar-unholy.webp",
+      "system": {
+        "description": {
+          "value": "As a bonus action, the [[lookup @name lowercase]] can expend a use of this feature to attempt a combat maneuver. Choose one: Disarm (target drops weapon), Trip (target knocked prone), or Shove (target pushed 10 feet). Make an attack roll contested by the target's Strength (Athletics) or Dexterity (Acrobatics) check (target's choice). On a success, the maneuver takes effect."
+        },
+        "activities": {
+          "6kmp02wysygpgfa3": {
+            "_id": "6kmp02wysygpgfa3",
+            "type": "utility",
+            "activation": {
+              "type": "bonus",
+              "value": 1
+            },
+            "save": {
+              "ability": [
+                "str",
+                "dex"
+              ],
+              "dc": {
+                "calculation": "other",
+                "formula": "@actor.system.attributes.check.dc"
+              }
+            },
+            "description": {
+              "value": "Choose one: Disarm (target drops weapon), Trip (target knocked prone), or Shove (target pushed 10 feet). Make an attack roll contested by the target's Strength (Athletics) or Dexterity (Acrobatics) check (target's choice). On a success, the maneuver takes effect."
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common",
+        "uses": {
+          "spent": 0,
+          "max": "1/short rest",
+          "recovery": [
+            {
+              "period": "short rest",
+              "type": "formula",
+              "formula": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Longsword",
+      "type": "weapon",
+      "_id": "hc2q7m7dns4jsqfw",
+      "img": "icons/weapons-full/longsword.webp",
+      "system": {
+        "description": {
+          "value": "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 5 (1d8 + 1) slashing damage, or 6 (1d10 + 1) slashing damage if used with two hands."
+        },
+        "activities": {
+          "bzkird9hhjhggd6m": {
+            "_id": "bzkird9hhjhggd6m",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1
+            },
+            "attack": {
+              "flat": true,
+              "bonus": "+3",
+              "ability": "str"
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 1,
+                  "denomination": 8,
+                  "types": [
+                    "slashing"
+                  ],
+                  "bonus": "+1"
+                }
+              ]
+            },
+            "description": {
+              "value": "or 6 (1d10 + 1) slashing damage if used with two hands."
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 3,
+        "rarity": "common"
+      }
+    },
+    {
+      "name": "Chain Mail",
+      "type": "equipment",
+      "_id": "axshlzufhunorlyq",
+      "img": "icons/armor/metal_plate_layered.webp",
+      "system": {
+        "description": {
+          "value": "Chain Mail"
+        },
+        "activities": {},
+        "quantity": 1,
+        "weight": 55,
+        "rarity": "common"
+      }
+    },
+    {
+      "name": "Shield",
+      "type": "equipment",
+      "_id": "fzbbzubuuw4hvglt",
+      "img": "icons/armor/shield_heavy_metal_round.webp",
+      "system": {
+        "description": {
+          "value": "Shield"
+        },
+        "activities": {},
+        "quantity": 1,
+        "weight": 6,
+        "rarity": "common"
+      }
+    },
+    {
+      "name": "Explorer's Pack",
+      "type": "equipment",
+      "_id": "axzwb08cft3apj92",
+      "img": "icons/containers/backpack/backpack-worn-leather.webp",
+      "system": {
+        "description": {
+          "value": "Explorer's Pack"
+        },
+        "activities": {},
+        "quantity": 1,
+        "weight": 59,
+        "rarity": "common"
+      }
+    }
+  ],
+  "prototypeToken": {
+    "name": "Veteran",
+    "displayName": 20,
+    "actorLink": false,
+    "disposition": -1,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/svg/mystery-man.svg",
+      "scaleX": 1,
+      "scaleY": 1
+    }
+  }
+}
