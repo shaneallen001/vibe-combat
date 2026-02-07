@@ -45,6 +45,27 @@ Access the Vibe Actor interface via the "Vibe Actor" button in the Actor Directo
 
 This section is intended for developers (human or AI) working on this module.
 
+### Standalone Testing
+
+> [!IMPORTANT]
+> **Model Usage Rule**: This module is strictly configured to use `gemini-2.5-flash-lite` for all text generation tasks to ensure speed and cost-efficiency. Do not change this to other models without explicit approval.
+
+
+You can run the actor generation logic without launching Foundry VTT using the standalone test script. This is useful for testing the AI prompts and pipeline logic quickly.
+
+1.  **Prerequisites**:
+    *   Node.js installed.
+    *   `GEMINI_API_KEY` set in a `.env` file in the module root (see `.env.example`).
+
+2.  **Running the Test**:
+    ```bash
+    node scripts/utils/test-generation.js
+    ```
+
+3.  **Output**:
+    *   **Success**: Generated Blueprint JSONs are saved to `Example JSON's/Test Generated/`.
+    *   **Failure**: Errors are logged to `Error Logs/Test Errors.md`.
+
 ### Architecture & Vision: "The Vibe Architect"
 
 The core philosophy of this module is to move beyond simple "text-to-statblock" generation. We aim to build a **"Vibe Architect"**—a system that engineers unique, system-integrated actors.
@@ -167,10 +188,36 @@ Logic for AI generation is encapsulated in `GeminiPipeline`.
 *   `VibeActorDialog` handles the prompt input.
 *   `VibeCombatApp` handles the encounter tracker.
 
+## Known Issues & Error Handling
+
+This section documents common errors and their solutions.
+
+### API Errors
+
+| Error Code | Status               | Cause                                             | Solution                                                             |
+| ---------- | -------------------- | ------------------------------------------------- | -------------------------------------------------------------------- |
+| **400**    | `INVALID_ARGUMENT`   | Invalid JSON structure or parameter               | The module uses `v1beta` to ensure structured output compatibility.  |
+| **429**    | `RESOURCE_EXHAUSTED` | Rate limit exceeded (20 req/period for free tier) | The module implements exponential backoff. Wait for the retry delay. |
+| **503**    | `UNAVAILABLE`        | Model overloaded                                  | Retry with backoff (transient error).                                |
+
+### Rate Limiting Best Practices
+
+> [!IMPORTANT]
+> The 4-step pipeline (Architect → Quartermaster → Blacksmith → Builder) makes multiple API calls per generation. With the free tier limit of 20 requests, users can only generate ~5 actors per rate limit window.
+
+**Recommendations:**
+1. **Distinguish error types:**
+   - `429` errors: Wait for the `retryDelay`.
+   - `503` errors: Retry immediately.
+   - `400` errors: Report as bug (should be handled by module).
+2. **Consider paid tier** for heavy usage.
+
+
+
 ## Development Guidelines
 
 All FoundryVTT code must be compatible with the following version information:
 
--   **Core Version**: 13.348
+-   **Core Version**: 13.351
 -   **System ID**: dnd5e
 -   **System Version**: 5.1.8

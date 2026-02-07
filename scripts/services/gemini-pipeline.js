@@ -3,7 +3,9 @@
  * Orchestrates the multi-step AI actor generation process.
  */
 
-import { callGemini, extractJson } from "./gemini-service.js";
+import { ArchitectAgent } from "../agents/architect-agent.js";
+import { QuartermasterAgent } from "../agents/quartermaster-agent.js";
+import { BlacksmithAgent } from "../agents/blacksmith-agent.js";
 import * as CompendiumService from "./compendium-service.js";
 import { sanitizeCustomItem, ensureActivityIds, ensureItemHasImage } from "../factories/actor-factory.js";
 
@@ -40,61 +42,19 @@ export class GeminiPipeline {
 
     /**
      * Step 1: The Architect
-     * Generates the concept and blueprint.
      */
     async runArchitect(request) {
-        const prompt = `
-        You are the "Architect", an expert D&D 5e monster designer.
-        
-        Task: Design a unique concept for a D&D 5e NPC based on the user's request.
-        
-        User Request:
-        - Description: ${request.prompt}
-        - Target CR: ${request.cr || "Appropriate for description"}
-        - Type: ${request.type || "Any"}
-        - Size: ${request.size || "Any"}
-        
-        Output a "Blueprint" JSON object with:
-        - "name": Creative name.
-        - "cr": Target Challenge Rating (number).
-        - "type": Creature type (lowercase, e.g., "undead").
-        - "alignment": Alignment string (e.g., "Chaotic Evil").
-        - "stats": { 
-            "ac": number, 
-            "hp": number, 
-            "movement": { "walk": number, "fly": number, "swim": number, "burrow": number, "climb": number, "hover": boolean }, 
-            "abilities": { "str": number, "dex": number, "con": number, "int": number, "wis": number, "cha": number } 
-        }
-        - "saves": Array of abilities with save proficiency (e.g., ["dex", "con"]).
-        - "skills": Object with skill names and values (e.g., { "stealth": 5, "perception": 3 }). Use standard 5e skill names.
-        - "senses": { "darkvision": number, "blindsight": number, "tremorsense": number, "truesight": number }.
-        - "languages": Array of languages (lowercase, e.g., ["common", "draconic"]).
-        - "resistances": Array of damage types (lowercase).
-        - "immunities": Array of damage types (lowercase).
-        - "condition_immunities": Array of conditions (lowercase).
-        - "features": Array of desired features/actions. Each object: { "name": string, "description": string, "type": "action"|"bonus"|"reaction"|"passive" }.
-        - "spellcasting": { "level": number, "school": string, "ability": string, "spells": [string] } (Optional, if spellcaster. List ONLY the spell name, e.g., "Fireball").
-        - "behavior": Short description of combat tactics.
-        - "appearance": Visual description.
-        - "twist": A unique, unexpected trait or legendary action.
-        - "biography": A rich, engaging backstory and description (HTML format allowed).
-        - "habitat": String (e.g., "forest").
-        - "treasure": String (e.g., "standard").
-        
-        Ensure the stats are mathematically balanced for the target CR in D&D 5e.
-        `;
-
-        const response = await callGemini({ apiKey: this.apiKey, prompt });
-        return extractJson(response);
+        const agent = new ArchitectAgent(this.apiKey);
+        // Transform request to match expected context if needed, or pass directly
+        return await agent.generate(request);
     }
 
     /**
      * Step 2: The Quartermaster
-     * Selects existing items or requests custom ones.
      */
     async runQuartermaster(blueprint) {
         // 1. Prepare items to review (Features + Spells)
-        const itemsToReview = [...blueprint.features];
+        const itemsToReview = [...(blueprint.features || [])];
         if (blueprint.spellcasting?.spells) {
             itemsToReview.push(...blueprint.spellcasting.spells.map(s => ({ name: s, type: "spell", description: "Spell" })));
         }
@@ -108,90 +68,30 @@ export class GeminiPipeline {
             candidates[item.name] = results.slice(0, 3).map(i => ({ name: i.name, uuid: i.uuid, type: i.type }));
         }
 
-        const prompt = `
-        You are the "Quartermaster".
-        
-        Task: Review the Actor Blueprint and the available Compendium Candidates.
-        For each feature in the Blueprint, decide whether to use an existing Compendium item or request a Custom item.
-        
-        Blueprint Features (and Spells):
-        ${JSON.stringify(itemsToReview, null, 2)}
-        
-        Available Candidates (Found in Database):
-        ${JSON.stringify(candidates, null, 2)}
-        
-        Output a JSON object:
-        {
-            "selectedUuids": [ "uuid1", "uuid2" ], // List of UUIDs to use directly.
-            "customRequests": [ // List of features that need custom generation.
-                { "name": "Feature Name", "description": "Full description", "type": "action" } 
-            ]
-        }
-        
-        Rules:
-        - If a Candidate matches the feature well, prefer using its UUID.
-        - If no Candidate fits, add the feature to "customRequests".
-        - You can also add standard items (like "Longsword") to "customRequests" if they weren't in the candidates but are needed.
-        `;
+        const context = {
+            blueprintFeatures: itemsToReview,
+            candidates: candidates
+        };
 
-        const response = await callGemini({ apiKey: this.apiKey, prompt });
-        return extractJson(response);
+        const agent = new QuartermasterAgent(this.apiKey);
+        return await agent.generate(context);
     }
 
     /**
      * Step 3: The Blacksmith
-     * Generates data for custom items.
      */
     async runBlacksmith(blueprint, customRequests) {
         if (!customRequests || customRequests.length === 0) return [];
 
-        const exampleItem = {
-            "name": "Bite",
-            "type": "weapon",
-            "_id": "dnd5eitem0000001",
-            "img": "icons/svg/sword.svg",
-            "system": {
-                "description": { "value": "<p>Melee Weapon Attack.</p>" },
-                "activities": {
-                    "dnd5eactivity000": {
-                        "_id": "dnd5eactivity000",
-                        "type": "attack",
-                        "activation": { "type": "action" },
-                        "attack": { "flat": true, "bonus": "10" },
-                        "damage": {
-                            "parts": [{ "number": 2, "denomination": 10, "types": ["piercing"] }]
-                        }
-                    }
-                }
-            }
+        const context = {
+            creatureName: blueprint.name,
+            cr: blueprint.cr,
+            stats: blueprint.stats,
+            requests: customRequests
         };
 
-        const prompt = `
-        You are the "Blacksmith".
-        
-        Task: Generate valid Foundry VTT Item Data for the requested custom features.
-        
-        Context:
-        - Creature: ${blueprint.name} (CR ${blueprint.cr})
-        - Stats: ${JSON.stringify(blueprint.stats)}
-        
-        Requests:
-        ${JSON.stringify(customRequests, null, 2)}
-        
-        Output a JSON ARRAY of Item objects.
-        
-        CRITICAL RULES:
-        - Follow the D&D 5e data model for Foundry VTT v4.0+.
-        - Use "system.activities" for damage and attacks.
-        - Ensure "_id"s are unique 16-char strings.
-        
-        EXAMPLE ITEM STRUCTURE:
-        ${JSON.stringify(exampleItem, null, 2)}
-        `;
-
-        const response = await callGemini({ apiKey: this.apiKey, prompt });
-        const items = extractJson(response);
-        return Array.isArray(items) ? items : [items];
+        const agent = new BlacksmithAgent(this.apiKey);
+        return await agent.generate(context);
     }
 
     /**
@@ -212,12 +112,12 @@ export class GeminiPipeline {
         }
 
         // 2. Process Custom Items
-        const processedCustomItems = customItems.map(item => {
-            const sanitized = sanitizeCustomItem(item);
+        const processedCustomItems = await Promise.all(customItems.map(async item => {
+            const sanitized = await sanitizeCustomItem(item);
             ensureActivityIds(sanitized);
-            ensureItemHasImage(sanitized);
+            await ensureItemHasImage(sanitized);
             return sanitized;
-        });
+        }));
 
         // 3. Prepare System Data
         const system = {
@@ -286,7 +186,6 @@ export class GeminiPipeline {
             }
         }
 
-        // 4. Construct Actor Data
         // 4. Construct Actor Data
         const actorData = {
             name: blueprint.name,
@@ -378,7 +277,12 @@ export class GeminiPipeline {
         };
 
         const result = {};
-        for (const [name, value] of Object.entries(skills)) {
+        for (const skill of skills) {
+            // Handle case where skill might be { name: "Athletics", value: 5 }
+            // or potentially just strings if the AI gets confused, but schema enforces object.
+            const name = skill.name;
+            const value = skill.value;
+
             const key = map[name.toLowerCase()];
             if (key) {
                 result[key] = { value: value, ability: "" };

@@ -4,6 +4,7 @@
  */
 
 import { htmlToPlainText, paragraphsFromText, replaceNamesWithUuids, escapeRegExp, stripAbilityLabel } from "../utils/text-utils.js";
+import { validateImagePath } from "../utils/file-utils.js";
 
 export function ensureValidId(value) {
     const sanitized = (value ?? "").replace(/[^a-z0-9]/gi, "").toLowerCase();
@@ -15,9 +16,11 @@ export function ensureItemHasId(item) {
     item._id = ensureValidId(item._id);
 }
 
-export function ensureItemHasImage(item) {
+export async function ensureItemHasImage(item) {
     if (item.img && item.img !== "" && !item.img.toLowerCase().includes("placeholder")) {
-        return;
+        const isValid = await validateImagePath(item.img);
+        if (isValid) return;
+        // console.warn(`Vibe Combat | Invalid image path detected: ${item.img}. Replacing with default.`);
     }
 
     switch (item.type?.toLowerCase()) {
@@ -64,10 +67,10 @@ export function autoEquipIfArmor(item) {
     }
 }
 
-export function sanitizeCustomItem(item) {
+export async function sanitizeCustomItem(item) {
     const cloned = foundry.utils.duplicate(item);
     ensureItemHasId(cloned);
-    ensureItemHasImage(cloned);
+    await ensureItemHasImage(cloned);
     ensureActivityIds(cloned);
     return cloned;
 }

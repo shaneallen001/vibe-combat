@@ -1,0 +1,89 @@
+{
+  "name": "Brenda 'The Bruiser' Brawn",
+  "cr": 1,
+  "type": "humanoid (human)",
+  "alignment": "chaotic good",
+  "stats": {
+    "ac": 14,
+    "hp": 75,
+    "movement": {
+      "walk": 30,
+      "fly": 0,
+      "swim": 0,
+      "burrow": 0,
+      "climb": 0,
+      "hover": false
+    },
+    "abilities": {
+      "str": 16,
+      "dex": 14,
+      "con": 16,
+      "int": 10,
+      "wis": 12,
+      "cha": 13
+    }
+  },
+  "saves": [
+    "str",
+    "con"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "value": 5
+    },
+    {
+      "name": "Intimidation",
+      "value": 3
+    },
+    {
+      "name": "Perception",
+      "value": 3
+    }
+  ],
+  "senses": {
+    "darkvision": 0,
+    "blindsight": 0,
+    "tremorsense": 0,
+    "truesight": 0
+  },
+  "languages": [
+    "Common"
+  ],
+  "resistances": [],
+  "immunities": [],
+  "condition_immunities": [],
+  "features": [
+    {
+      "name": "Multiattack",
+      "description": "Brenda makes two unarmed strikes.",
+      "type": "action"
+    },
+    {
+      "name": "Unarmed Strike",
+      "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 1d8 + 3 bludgeoning damage.",
+      "type": "action"
+    },
+    {
+      "name": "Brawler's Fury",
+      "description": "When Brenda hits a creature with an unarmed strike, she can attempt to grapple the target as a bonus action.",
+      "type": "bonus"
+    },
+    {
+      "name": "Heart of Gold",
+      "description": "Brenda has advantage on attack rolls against any creature that has dealt damage to an innocent bystander or an ally within 30 feet of her in the last round.",
+      "type": "passive"
+    },
+    {
+      "name": "Tavern Toughness",
+      "description": "Brenda has advantage on saving throws against being poisoned or frightened.",
+      "type": "passive"
+    }
+  ],
+  "behavior": "Brenda loves a good scrap. She'll wade into the thick of a fight, aiming to knock opponents prone or grapple them before delivering powerful blows. If she sees an ally or an innocent civilian being targeted, she'll prioritize protecting them, sometimes even stepping in front of an attack or using her Brawler's Fury to subdue the threat.",
+  "appearance": "Brenda is a woman of imposing stature, with broad shoulders, powerful arms, and a no-nonsense demeanor. Her face is a roadmap of past scuffles – a crooked nose, a scar above her left eyebrow, and perpetually scruffy hair often tied back with a leather thong. Despite the gruff exterior, her eyes often hold a surprising warmth and a mischievous twinkle, especially after a few rounds of ale. She favors practical, slightly worn leather armor that doesn't restrict her movement.",
+  "twist": "Brenda, despite her love for breaking things (and faces), is an incredibly skilled carpenter and woodcarver. She secretly spends her quiet hours meticulously repairing tavern furniture, crafting intricate wooden figures, and even designing surprisingly elegant, yet sturdy, new pieces. She often uses her carpentry skills to 'fix' problems in a less violent manner, rebuilding trust as much as she rebuilds a broken chair.",
+  "biography": "Born and raised in the rough-and-tumble dockyards, Brenda learned to fight before she could read. Her early life was a constant struggle for survival, often involving bare-knuckle brawls to defend her younger siblings or claim a meager meal. After a particularly brutal street fight left her gravely wounded, a kindly retired carpenter took her in and taught her the trade. While she never lost her love for a good fight – especially one in defense of the weak – she found a surprising solace in the meticulous art of woodworking. Now, she works as a bouncer and occasional enforcer for a local tavern, 'The Gilded Mug,' owned by her former mentor's niece, using her strength to keep the peace and her skills to keep the place from falling apart, one brawl at a time.",
+  "habitat": "Brenda is most commonly found in bustling taverns, alehouses, and the rougher districts of any large city. She's particularly fond of establishments that host underground fighting rings or those known for frequent, spirited arguments that inevitably devolve into fisticuffs.",
+  "treasure": "A worn leather pouch containing 35 gp, an intricately carved wooden bird (her own work, worth 25 gp), and a small, perfectly balanced punching dagger she won in a friendly wager."
+}

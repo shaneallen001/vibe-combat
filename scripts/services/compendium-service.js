@@ -167,7 +167,7 @@ export async function buildCompendiumBackedItems(aiItems = []) {
             const compendiumItem = await getItemData(bestMatch);
             if (compendiumItem) {
                 autoEquipIfArmor(compendiumItem);
-                ensureItemHasImage(compendiumItem);
+                await ensureItemHasImage(compendiumItem);
                 ensureActivityIds(compendiumItem);
                 resolvedItems.push(compendiumItem);
                 reusedCount++;
@@ -175,7 +175,7 @@ export async function buildCompendiumBackedItems(aiItems = []) {
             }
         }
 
-        const customItem = sanitizeCustomItem(rawItem);
+        const customItem = await sanitizeCustomItem(rawItem);
         autoEquipIfArmor(customItem);
         ensureActivityIds(customItem);
         resolvedItems.push(customItem);

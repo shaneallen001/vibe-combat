@@ -1,0 +1,84 @@
+{
+  "name": "Brenda 'Bonesmasher' O'Malley",
+  "cr": 1,
+  "type": "humanoid (human)",
+  "alignment": "Chaotic Good",
+  "stats": {
+    "ac": 13,
+    "hp": 78,
+    "movement": {
+      "walk": 30,
+      "fly": 0,
+      "swim": 0,
+      "burrow": 0,
+      "climb": 0,
+      "hover": false
+    },
+    "abilities": {
+      "str": 16,
+      "dex": 12,
+      "con": 14,
+      "int": 10,
+      "wis": 10,
+      "cha": 12
+    }
+  },
+  "saves": [
+    "str",
+    "con"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "value": 5
+    },
+    {
+      "name": "Intimidation",
+      "value": 3
+    },
+    {
+      "name": "Perception",
+      "value": 2
+    }
+  ],
+  "senses": {
+    "darkvision": 0,
+    "blindsight": 0,
+    "tremorsense": 0,
+    "truesight": 0
+  },
+  "languages": [
+    "Common"
+  ],
+  "resistances": [],
+  "immunities": [],
+  "condition_immunities": [],
+  "features": [
+    {
+      "name": "Multiattack",
+      "description": "Brenda makes two unarmed strikes.",
+      "type": "action"
+    },
+    {
+      "name": "Unarmed Strike",
+      "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 7 (1d8 + 3) bludgeoning damage.",
+      "type": "action"
+    },
+    {
+      "name": "Brawler's Grit",
+      "description": "Brenda has advantage on saving throws against being charmed or frightened.",
+      "type": "passive"
+    },
+    {
+      "name": "Protective Instinct",
+      "description": "When an ally within 5 feet of Brenda is attacked, she can use her reaction to impose disadvantage on the attack roll.",
+      "type": "reaction"
+    }
+  ],
+  "behavior": "Brenda charges headfirst into battle, preferring to get up close and personal. She focuses on targets that threaten her allies, using her Protective Instinct to shield them from harm. She's not afraid to grapple or shove opponents, relishing in the chaos of a good brawl. If overwhelmed, she'll try to create an opening for her friends to escape, even if it means taking a few extra punches herself.",
+  "appearance": "Brenda is a burly woman with broad shoulders and calloused fists, her arms covered in faded tattoos of tavern logos and brawling trophies. Her short, messy red hair is often escaping from a leather headband. A perpetual scowl usually rests on her face, but a mischievous glint in her eyes and a quick, genuine smile for friends betray her 'heart of gold'. Her nose has been broken more than once, and a scar runs across her left eyebrow, souvenirs of countless barroom skirmishes.",
+  "twist": "Despite her rough exterior and love for fighting, Brenda has a surprisingly delicate touch when it comes to tending to injured animals. She secretly harbors a small collection of rescued birds and stray cats in a hidden nook behind the tavern, nursing them back to health with gentle care and hushed lullabies.",
+  "biography": "Brenda grew up on the rough-and-tumble streets of a port city, where disputes were often settled with fists rather than words. She quickly learned to defend herself and those weaker than her, earning a reputation as a fierce, if somewhat reckless, protector. Her early life was marked by frequent tavern brawls, not always started by her, but always finished by her. Despite her chaotic tendencies, she developed a deep sense of loyalty and justice, always stepping in to defend the underdog or break up truly unfair fights. She drifted from town to town, working odd jobs, but always finding herself drawn to the local tavern, where the scent of ale and the promise of a friendly (or not-so-friendly) spar felt like home.",
+  "habitat": "Brenda can be found in bustling taverns, underground fighting pits, or the back alleys of any major city. She prefers establishments with strong ale and a lively atmosphere, often settling in for weeks or months at a time before her wanderlust takes hold again.",
+  "treasure": "A pouch containing 2d6 gp, a worn leather tankard with a personalized inscription, and a lucky bent coin she claims has saved her life more times than she can count."
+}

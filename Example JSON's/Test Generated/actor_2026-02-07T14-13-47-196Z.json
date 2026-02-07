@@ -1,0 +1,251 @@
+{
+  "name": "Bartholomew 'Barty' Stonefist",
+  "type": "npc",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "abilities": {
+      "str": {
+        "value": 16,
+        "proficient": 1
+      },
+      "dex": {
+        "value": 12,
+        "proficient": 0
+      },
+      "con": {
+        "value": 14,
+        "proficient": 1
+      },
+      "int": {
+        "value": 10,
+        "proficient": 0
+      },
+      "wis": {
+        "value": 11,
+        "proficient": 0
+      },
+      "cha": {
+        "value": 13,
+        "proficient": 0
+      }
+    },
+    "attributes": {
+      "ac": {
+        "value": 13,
+        "calc": "natural"
+      },
+      "hp": {
+        "value": 39,
+        "max": 39,
+        "formula": ""
+      },
+      "movement": {
+        "walk": 30,
+        "fly": 0,
+        "swim": 0,
+        "burrow": 0,
+        "climb": 0,
+        "hover": false,
+        "units": "ft"
+      },
+      "senses": {
+        "darkvision": 0,
+        "blindsight": 0,
+        "tremorsense": 0,
+        "truesight": 0,
+        "units": "ft",
+        "special": ""
+      }
+    },
+    "details": {
+      "cr": 1,
+      "type": {
+        "value": "humanoid"
+      },
+      "alignment": "chaotic good",
+      "biography": {
+        "value": "\n                        Barty grew up in the rougher parts of the city, learning to fight to survive. He found solace and camaraderie in taverns, where his strength and willingness to throw down earned him a reputation. However, beneath the brawler was a kind soul who couldn't stand to see others bullied. He often uses his winnings from underground fights to help those less fortunate, though he'd never admit it.\n                        <hr>\n                        <p><strong>Behavior:</strong> Barty loves a good scrap and will readily engage anyone he perceives as a threat or an affront to his sense of fairness. He's boisterous and loud but rarely seeks to kill, preferring to subdue or incapacitate. He's fiercely loyal to his friends and will defend them with his life.</p>\n                        <p><strong>Appearance:</strong> Barty is a burly human with thick, calloused hands and a perpetually bruised nose. His knuckles are scarred, and his knuckles are often bandaged. He wears simple, sturdy clothes that have seen better days, usually stained with ale or sweat. A wide, often drunken grin is his most common expression.</p>\n                        <p><strong>Twist:</strong> Despite his rough exterior and love for brawling, Barty is a surprisingly talented cook, especially when it comes to hearty stews. He secretly dreams of opening his own small eatery, but his impulsiveness and short temper always seem to get in the way.</p>\n                        <p><strong>Habitat:</strong> Seedy taverns, back alleys, and anywhere a good brawl might break out.</p>\n                        <p><strong>Treasure:</strong> A pouch with 15 gp, a tarnished silver locket containing a faded portrait of a stern-looking woman, and a half-eaten sausage.</p>\n                    "
+      },
+      "race": "Bartholomew 'Barty' Stonefist"
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": [
+          "Common"
+        ]
+      },
+      "di": {
+        "value": []
+      },
+      "dr": {
+        "value": []
+      },
+      "ci": {
+        "value": []
+      }
+    },
+    "skills": {
+      "ath": {
+        "value": 5,
+        "ability": ""
+      },
+      "itm": {
+        "value": 3,
+        "ability": ""
+      }
+    }
+  },
+  "items": [
+    {
+      "name": "Tavern Brawler",
+      "type": "feat",
+      "_id": "a1b2c3d4e5f67890",
+      "img": "systems/dnd5e/icons/features/feat/tavern-brawler.webp",
+      "system": {
+        "description": {
+          "value": "You are a master of improvised weapons and unarmed combat. You gain the following benefits:\n- You are proficient with improvised weapons.\n- Before making an attack with a brawling weapon or unarmed strike, you can give up your attack for the turn to make a special shove attack. If you do so, you can immediately follow up with a shove. This shove attack does not provoke an opportunity attack.\n- When you hit with an unarmed strike or improvised weapon, you can use your bonus action to attempt to grapple the target. If the target is of a size category no larger than yours, they must succeed on a DC 13 Strength saving throw or be knocked prone."
+        },
+        "activities": {
+          "f0e9d8c7b6a54321": {
+            "_id": "f0e9d8c7b6a54321",
+            "type": "utility",
+            "activation": {
+              "type": "bonus",
+              "value": 1,
+              "condition": "Before making an attack with a brawling weapon or unarmed strike, you can give up your attack for the turn to make a special shove attack."
+            },
+            "description": {
+              "value": "Make a special shove attack. If you do so, you can immediately follow up with a shove. This shove attack does not provoke an opportunity attack."
+            }
+          },
+          "1234567890abcdef": {
+            "_id": "1234567890abcdef",
+            "type": "utility",
+            "activation": {
+              "type": "bonus",
+              "value": 1,
+              "condition": "When you hit with an unarmed strike or improvised weapon."
+            },
+            "save": {
+              "ability": [
+                "str"
+              ],
+              "dc": {
+                "calculation": "default",
+                "formula": "8 + @prof + @abilities.str.mod"
+              }
+            },
+            "description": {
+              "value": "Attempt to grapple the target. If the target is of a size category no larger than yours, they must succeed on a DC 13 Strength saving throw or be knocked prone."
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      }
+    },
+    {
+      "name": "Second Wind",
+      "type": "feat",
+      "_id": "fedcba0987654321",
+      "img": "systems/dnd5e/icons/features/feat/second-wind.webp",
+      "system": {
+        "description": {
+          "value": "Barty can use a bonus action to regain 1d10 + 4 hit points."
+        },
+        "activities": {
+          "9876543210fedcba": {
+            "_id": "9876543210fedcba",
+            "type": "heal",
+            "activation": {
+              "type": "bonus",
+              "value": 1
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 1,
+                  "denomination": 10,
+                  "types": [
+                    "healing"
+                  ]
+                }
+              ]
+            },
+            "description": {
+              "value": "Regain 1d10 + 4 hit points."
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common",
+        "uses": {
+          "spent": 0,
+          "max": "1",
+          "recovery": [
+            {
+              "period": "longRest",
+              "type": "charges"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Heart of Gold",
+      "type": "feat",
+      "_id": "0123456789abcdef",
+      "img": "icons/magic/control/fear-aura-red-pink.webp",
+      "system": {
+        "description": {
+          "value": "When Barty sees someone in genuine distress, he feels compelled to help. If he witnesses an act of cruelty or injustice, he must succeed on a DC 10 Wisdom saving throw or be compelled to intervene, even if it puts him at risk."
+        },
+        "activities": {
+          "abcdef9876543210": {
+            "_id": "abcdef9876543210",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "Witnessing an act of cruelty or injustice."
+            },
+            "save": {
+              "ability": [
+                "wis"
+              ],
+              "dc": {
+                "calculation": "fixed",
+                "formula": "10"
+              }
+            },
+            "target": {
+              "template": {
+                "contiguous": true,
+                "units": "self"
+              }
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      }
+    }
+  ],
+  "prototypeToken": {
+    "name": "Bartholomew 'Barty' Stonefist",
+    "displayName": 20,
+    "actorLink": false,
+    "disposition": -1,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/svg/mystery-man.svg",
+      "scaleX": 1,
+      "scaleY": 1
+    }
+  }
+}
