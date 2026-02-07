@@ -4,13 +4,13 @@
  */
 
 export class ImageGenerationDialog {
-    static async prompt(defaultName) {
-        return new Promise((resolve) => {
-            const content = `
+  static async prompt(defaultName) {
+    return new Promise((resolve) => {
+      const content = `
         <div style="display:grid; gap:0.5rem;">
           <div>
             <label>Subject (short)</label>
-            <input name="subject" type="text" placeholder="e.g., ${defaultName || "Elf ranger"}">
+            <input name="subject" type="text" value="${defaultName || ""}" placeholder="e.g., Elf ranger">
           </div>
           <div>
             <label>Description (details, style, mood)</label>
@@ -25,26 +25,26 @@ export class ImageGenerationDialog {
           </p>
         </div>
       `;
-            new Dialog({
-                title: "Generate Actor Image",
-                content,
-                buttons: {
-                    ok: {
-                        label: "Generate",
-                        icon: '<i class="fas fa-wand-magic-sparkles"></i>',
-                        callback: (html) => {
-                            const subject = html.find('[name="subject"]').val()?.trim();
-                            const desc = html.find('[name="desc"]').val()?.trim();
-                            const finalPrompt = (subject || desc) ? [subject, desc].filter(Boolean).join(": ") : "";
-                            const wantTransparent = html.find('[name="transparent"]')[0]?.checked;
-                            resolve({ prompt: finalPrompt, background: wantTransparent ? "transparent" : "auto" });
-                        }
-                    },
-                    cancel: { label: "Cancel", callback: () => resolve({}) }
-                },
-                default: "ok",
-                close: () => resolve({})
-            }).render(true);
-        });
-    }
+      new Dialog({
+        title: "Generate Actor Image",
+        content,
+        buttons: {
+          ok: {
+            label: "Generate",
+            icon: '<i class="fas fa-wand-magic-sparkles"></i>',
+            callback: (html) => {
+              const subject = html.find('[name="subject"]').val()?.trim();
+              const desc = html.find('[name="desc"]').val()?.trim();
+              const finalPrompt = (subject || desc) ? [subject, desc].filter(Boolean).join(": ") : "";
+              const wantTransparent = html.find('[name="transparent"]')[0]?.checked;
+              resolve({ prompt: finalPrompt, background: wantTransparent ? "transparent" : "auto" });
+            }
+          },
+          cancel: { label: "Cancel", callback: () => resolve({}) }
+        },
+        default: "ok",
+        close: () => resolve({})
+      }).render(true);
+    });
+  }
 }

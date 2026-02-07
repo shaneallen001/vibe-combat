@@ -268,12 +268,12 @@ export class GeminiPipeline {
         // Ensure we handle the case where abilities might be raw numbers from the AI
         if (blueprint.stats.abilities) {
             for (const [key, val] of Object.entries(blueprint.stats.abilities)) {
-                 // Check if it's already an object (just in case), otherwise convert
-                 if (typeof val === 'number') {
-                     system.abilities[key] = { value: val, proficient: 0 };
-                 } else {
-                     system.abilities[key] = val;
-                 }
+                // Check if it's already an object (just in case), otherwise convert
+                if (typeof val === 'number') {
+                    system.abilities[key] = { value: val, proficient: 0 };
+                } else {
+                    system.abilities[key] = val;
+                }
             }
         }
 
@@ -287,21 +287,81 @@ export class GeminiPipeline {
         }
 
         // 4. Construct Actor Data
+        // 4. Construct Actor Data
         const actorData = {
             name: blueprint.name,
             type: "npc",
             img: "icons/svg/mystery-man.svg",
             system: system,
-            items: [...compendiumItems, ...processedCustomItems],
+            items: this._applyDynamicDescriptions([...compendiumItems, ...processedCustomItems], blueprint.name),
             prototypeToken: {
                 name: blueprint.name,
                 displayName: 20, // Hover
                 actorLink: false,
                 disposition: -1, // Hostile by default
+                ...this._getTokenSizing(blueprint.size)
             }
         };
 
         return actorData;
+    }
+
+    /**
+     * Get token dimensions based on creature size
+     */
+    _getTokenSizing(size) {
+        const sizeMap = {
+            "tiny": { width: 0.5, height: 0.5, scale: 0.5 },
+            "sm": { width: 1, height: 1, scale: 0.8 },
+            "med": { width: 1, height: 1, scale: 1 },
+            "lg": { width: 2, height: 2, scale: 1 },
+            "huge": { width: 3, height: 3, scale: 1 },
+            "grg": { width: 4, height: 4, scale: 1 }
+        };
+
+        const s = sizeMap[size?.toLowerCase()] || sizeMap["med"];
+
+        return {
+            width: s.width,
+            height: s.height,
+            texture: {
+                src: "icons/svg/mystery-man.svg",
+                scaleX: s.scale,
+                scaleY: s.scale
+            }
+        };
+    }
+
+    /**
+     * Replace actor name with dynamic lookup in item descriptions
+     */
+    _applyDynamicDescriptions(items, actorName) {
+        if (!actorName) return items;
+
+        // Escape special regex characters in the name
+        const escapedName = actorName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const nameRegex = new RegExp(`\\b${escapedName}\\b`, 'gi');
+        const replacement = "[[lookup @name lowercase]]";
+
+        return items.map(item => {
+            const newItem = foundry.utils.duplicate(item);
+
+            // Handle main description
+            if (newItem.system?.description?.value) {
+                newItem.system.description.value = newItem.system.description.value.replace(nameRegex, replacement);
+            }
+
+            // Handle activities descriptions (if any)
+            if (newItem.system?.activities) {
+                for (const activity of Object.values(newItem.system.activities)) {
+                    if (activity.description?.value) {
+                        activity.description.value = activity.description.value.replace(nameRegex, replacement);
+                    }
+                }
+            }
+
+            return newItem;
+        });
     }
 
     /**

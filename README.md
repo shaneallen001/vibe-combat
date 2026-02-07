@@ -45,6 +45,15 @@ Access the Vibe Actor interface via the "Vibe Actor" button in the Actor Directo
 
 This section is intended for developers (human or AI) working on this module.
 
+### Architecture & Vision: "The Vibe Architect"
+
+The core philosophy of this module is to move beyond simple "text-to-statblock" generation. We aim to build a **"Vibe Architect"**—a system that engineers unique, system-integrated actors.
+
+Key Principles:
+1.  **Pipeline Approach**: Generation is broken into distinct steps (Concept -> Selection -> Fabrication -> Assembly).
+2.  **System Integration**: We prioritize using *existing* Compendium items (UUIDs) over generating custom data to keep world size low and leverage existing automation (Midi-QOL, etc.).
+3.  **Smart Indexing**: We maintain a lightweight index of available content to feed into the AI.
+
 ### Codebase Structure
 
 The module follows a standard Foundry VTT module structure with a focus on modular JavaScript (ES modules).
@@ -103,7 +112,23 @@ vibe-combat/
 -   **Initialization**: Verifies the `dnd5e` system and registers settings.
 -   **UI Injection**: Uses `button-injector.js` to place "Vibe Combat" and "Vibe Actor" buttons in the sidebar.
 
-#### 2. Encounter Builder (`scripts/ui/vibe-combat-app.js`)
+#### 2. The Gemini Pipeline (`scripts/services/gemini-pipeline.js`)
+This is the heart of the actor generation system. It follows a 4-step process:
+
+*   **Step 1: The Architect (Concept)**:
+    *   Generates a high-level "Blueprint" (JSON) from the user's prompt.
+    *   Decides on stats, flavor, "Twists", and desired features.
+*   **Step 2: The Quartermaster (Selection)**:
+    *   Takes the Blueprint features and searches the `CompendiumService` for matches.
+    *   Decides whether to use an existing Item UUID or request a custom item.
+*   **Step 3: The Blacksmith (Fabrication)**:
+    *   For any requested *custom* items, this step generates valid Foundry V5+ Item Data.
+    *   Ensures rigorous adherence to the `dnd5e` data model (activities, damage parts).
+*   **Step 4: The Builder (Assembly)**:
+    *   Combines the selected UUIDs and fabricated Items into the final Actor document.
+    *   Calculates final data (CR, HP, AC) and creates the document.
+
+#### 3. Encounter Builder (`scripts/ui/vibe-combat-app.js`)
 -   **Class**: `VibeCombatApp` (extends `Application`).
 -   **Responsibility**: Orchestrates the UI for Party vs. Encounter management.
 -   **Delegation**:
@@ -111,15 +136,9 @@ vibe-combat/
     -   **Interaction**: Uses `DragDropHandler` for drag-and-drop and `PlacementHandler` for token placement.
     -   **Dialogs**: Uses `PartyDialogs` and `EncounterDialogs` for user interactions.
 
-#### 3. Managers (`scripts/managers/`)
--   **PartyManager**: Manages party members, saves/loads parties from settings.
--   **EncounterManager**: Manages encounter entries, saves/loads encounters from settings.
-
-#### 4. Services (`scripts/services/`)
--   **GeminiService**: Handles all interactions with the Google Gemini API.
--   **GeminiPipeline**: Orchestrates the multi-step actor generation process (Architect -> Quartermaster -> Blacksmith -> Builder).
--   **CompendiumService**: Efficiently searches and retrieves items from compendiums.
--   **ImageGenerationService**: Handles image generation requests and file saving.
+#### 4. Compendium Service (`scripts/services/compendium-service.js`)
+*   **Smart Indexing**: On load, it indexes standard `dnd5e` compendiums (Spells, Items, Features).
+*   **Fuzzy Search**: Used by the Quartermaster to find items even if the AI doesn't know the exact name (e.g., matching "Fireball" when AI asks for "Fireball Spell").
 
 #### 5. AI Actor Generator (`scripts/ui/dialogs/vibe-actor-dialog.js`)
 -   **Class**: `VibeActorDialog`.
@@ -130,26 +149,23 @@ vibe-combat/
 -   **Responsibility**: Coordinates the image generation workflow.
 -   **Integration**: Uses `ImageGenerationDialog` for prompts and `ImageGenerationService` for the backend work.
 
-### Data Flow
-
-1.  **User Action**: User clicks "Vibe Combat" in Combat Tracker.
-2.  **App Render**: `VibeCombatApp` renders using `templates/vibe-combat.html`.
-3.  **Interaction**: User drags an Actor into the "Party" zone.
-4.  **Update**: `_onDrop` handler processes the actor, updates `partyMembers`, recalculates XP, and re-renders.
-5.  **AI Request**: User opens "Vibe Actor", enters prompt, clicks "Generate".
-6.  **Pipeline Execution**: `VibeActorDialog` initiates the `GeminiPipeline`.
-    -   **Architect**: Generates a blueprint concept.
-    -   **Quartermaster**: Selects compendium items or requests custom ones.
-    -   **Blacksmith**: Fabricates custom item data.
-    -   **Builder**: Assembles the final actor data.
-7.  **Creation**: On success, a new Actor is created in the world and the sheet is opened.
-
 ### Development Notes
 
--   **System Compatibility**: Strictly requires `dnd5e`.
+-   **System Compatibility**: Strictly requires `dnd5e` v4.0+.
 -   **API Keys**: The module relies on `game.settings.get("vibe-combat", "geminiApiKey")`.
 -   **Async/Await**: Heavy use of async functions for API calls and Foundry document creation.
 -   **Modular Architecture**: The codebase is split into Managers, Services, Factories, and UI components. Shared logic is kept in `utils/`.
+
+### Extending the Module
+
+#### Adding New AI Capabilities
+Logic for AI generation is encapsulated in `GeminiPipeline`.
+*   To add a new "Step" (e.g., a "Lore Writer"), add a method to the `GeminiPipeline` class and call it in `generateActor`.
+*   To change the prompts, check the specific step methods (`runArchitect`, `runQuartermaster`, etc.).
+
+#### Customizing the UI
+*   `VibeActorDialog` handles the prompt input.
+*   `VibeCombatApp` handles the encounter tracker.
 
 ## Development Guidelines
 
