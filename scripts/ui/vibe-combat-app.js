@@ -3,11 +3,11 @@
  * Main application class for managing party XP budgets and encounters
  */
 
-import { getCrOptions } from "../constants.js";
+import { getCrOptions, SUGGESTION_TYPES } from "../constants.js";
 import { getActorLevel, getActorCr, getActorPortrait, getEncounterTokenImage } from "../utils/actor-helpers.js";
 import { getXpForCr, getXpThresholdsForLevel, calculateXpBudgets, calculateEncounterXp } from "../utils/xp-calculator.js";
 import { getDragEventData } from "../utils/drag-drop.js";
-import { EncounterSuggestionService, SUGGESTION_TYPES } from "./encounter-suggestion-service.js";
+import { EncounterSuggestionService } from "../services/encounter-suggestion-service.js";
 import { PartyManager } from "../managers/party-manager.js";
 import { EncounterManager } from "../managers/encounter-manager.js";
 import { PartyDialogs } from "./dialogs/party-dialogs.js";

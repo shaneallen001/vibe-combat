@@ -1,5 +1,5 @@
-import { z } from "./zod.mjs";
-import { zodToJsonSchema } from "./zod-to-json-schema.mjs";
+import { z } from "../libs/zod.js";
+import { zodToJsonSchema } from "../utils/zod-to-json-schema.js";
 
 function testZodNullable() {
     console.log("Testing ZodNullable support...");

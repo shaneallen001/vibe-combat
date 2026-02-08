@@ -113,3 +113,33 @@ export function getActorClasses(actor) {
   return classes;
 }
 
+/**
+ * Map skill names to dnd5e skill keys
+ * @param {Array} skills - Array of skill objects { name: "Athletics", value: 5 }
+ * @returns {Object} Skills object keyed by dnd5e abbreviations
+ */
+export function mapSkillsToKeys(skills) {
+  if (!skills) return {};
+  const map = {
+    "acrobatics": "acr", "animal handling": "ani", "arcana": "arc", "athletics": "ath",
+    "deception": "dec", "history": "his", "insight": "ins", "intimidation": "itm",
+    "investigation": "inv", "medicine": "med", "nature": "nat", "perception": "prc",
+    "performance": "prf", "persuasion": "per", "religion": "rel", "sleight of hand": "slt",
+    "stealth": "ste", "survival": "sur"
+  };
+
+  const result = {};
+  for (const skill of skills) {
+    // Handle case where skill might be { name: "Athletics", value: 5 }
+    // or potentially just strings if the AI gets confused, but schema enforces object.
+    const name = skill.name;
+    const value = skill.value;
+
+    const key = map[name.toLowerCase()];
+    if (key) {
+      result[key] = { value: value, ability: "" };
+    }
+  }
+  return result;
+}
+

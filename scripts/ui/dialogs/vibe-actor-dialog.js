@@ -9,51 +9,21 @@ import { ensureItemHasId, ensureActivityIds } from "../../factories/actor-factor
 import { ImageGenerator } from "../image-generator.js";
 
 export class VibeActorDialog {
-  static show() {
+  static async show() {
     const apiKey = game.settings.get("vibe-combat", "geminiApiKey");
     if (!apiKey || apiKey.trim() === "") {
       ui.notifications.error("Please configure your Gemini API key in module settings first.");
       return;
     }
 
-    // Generate CR options
-    const crOptions = getCrOptions();
+    // Generate context for template
+    const context = {
+      crOptions: getCrOptions(),
+      typeOptions: CREATURE_TYPES,
+      sizeOptions: SIZE_OPTIONS
+    };
 
-    const content = `
-      <form>
-        <div class="form-group">
-          <label>Challenge Rating (CR):</label>
-          <select name="cr" style="width: 100%; margin-bottom: 8px;">
-            <option value="">Any</option>
-            ${crOptions.map(cr => `<option value="${cr}" ${cr === "1" ? "selected" : ""}>${cr}</option>`).join("")}
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Type:</label>
-          <select name="type" style="width: 100%; margin-bottom: 8px;">
-            <option value="">Any</option>
-            ${CREATURE_TYPES.map(type => `<option value="${type}" ${type === "Humanoid" ? "selected" : ""}>${type}</option>`).join("")}
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Size:</label>
-          <select name="size" style="width: 100%; margin-bottom: 8px;">
-            <option value="">Any</option>
-            ${SIZE_OPTIONS.map(size => `<option value="${size}" ${size === "Medium" ? "selected" : ""}>${size}</option>`).join("")}
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Description/Prompt:</label>
-          <textarea name="prompt" rows="4" style="width: 100%; margin-bottom: 8px;" placeholder="Describe the creature you want to generate...">Rowdy tavern brawler</textarea>
-        </div>
-        <div class="form-group">
-          <label style="display:flex; align-items:center; gap:5px; cursor:pointer;">
-            <input type="checkbox" name="generateImage" checked>
-            Generate Image after creation?
-          </label>
-        </div>
-      </form>
-    `;
+    const content = await renderTemplate("modules/vibe-combat/templates/vibe-actor-dialog.html", context);
 
     new Dialog({
       title: "Vibe Actor - Generate Creature",
@@ -75,6 +45,8 @@ export class VibeActorDialog {
               return;
             }
 
+            // Note: generateActor is static, so we call VibeActorDialog.generateActor
+            // (or this.generateActor if 'this' is bound to the class, which it is in a static method)
             await this.generateActor(cr, type, size, prompt, generateImage);
           }
         },

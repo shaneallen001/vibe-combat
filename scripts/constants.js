@@ -107,3 +107,45 @@ export const XP_THRESHOLDS_BY_LEVEL = {
   20: { low: 6400, medium: 13200, high: 22000, deadly: 22000 }
 };
 
+/**
+ * Encounter Suggestion Types
+ * Defines the available encounter styles for AI suggestions
+ */
+export const SUGGESTION_TYPES = [
+  {
+    id: "minion-squad",
+    label: "Minion Squad",
+    description: "A horde of fragile foes (CR 0-1/2) that threaten through numbers.",
+    promptHint: "Favor 4-8 creatures such as bandits, cultists, or beasts."
+  },
+  {
+    id: "mid-tier-brute",
+    label: "Single Mid-Tier Brute",
+    description: "One durable melee-focused enemy (CR 2-6).",
+    promptHint: "Choose a frontline monster with notable hit points or resistances."
+  },
+  {
+    id: "mid-tier-caster",
+    label: "Mid-Tier Caster",
+    description: "A spellcaster that pressures the party with control or burst (CR 3-7).",
+    promptHint: "Lean on mages, priests, or fiends that wield impactful spells."
+  },
+  {
+    id: "high-level-boss",
+    label: "High Level Boss",
+    description: "A single dangerous enemy (CR 8-15) possibly with legendary actions.",
+    promptHint: "Bring cinematic abilities and consider a small support entourage."
+  },
+  {
+    id: "mixed-encounter",
+    label: "Mixed Encounter",
+    description: "A varied composition that covers multiple combat roles.",
+    promptHint: "Blend melee threats, ranged pressure, and utility creatures."
+  },
+  {
+    id: "elite-squad",
+    label: "Elite Squad",
+    description: "2-4 strong enemies cooperating tactically (CR 5+ each).",
+    promptHint: "Select creatures that coordinate abilities and exploit party weaknesses."
+  }
+];

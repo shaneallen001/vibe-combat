@@ -1,8 +1,8 @@
 import {
   EncounterSuggestionService,
-  SUGGESTION_TYPES,
   DEFAULT_SUGGESTION_PROMPT
-} from "./ui/encounter-suggestion-service.js";
+} from "./services/encounter-suggestion-service.js";
+import { SUGGESTION_TYPES } from "./constants.js";
 import { SuggestionSourcesConfig } from "./ui/suggestion-sources-config.js";
 
 /**

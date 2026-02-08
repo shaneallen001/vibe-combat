@@ -185,24 +185,14 @@ export function extractJson(text) {
     }
 }
 
-/**
- * Generate Actor Data from Gemini
- */
-export async function generateActorData({ apiKey, cr, type, size, prompt }) {
-    // Build the system instruction for Gemini
-    let userPrompt = `Monster Description: ${prompt}`;
+if (type) {
+    userPrompt += `\nType: ${type}`;
+}
+if (size) {
+    userPrompt += `\nSize: ${size}`;
+}
 
-    if (cr) {
-        userPrompt += `\nChallenge Rating (CR): ${cr}`;
-    }
-    if (type) {
-        userPrompt += `\nType: ${type}`;
-    }
-    if (size) {
-        userPrompt += `\nSize: ${size}`;
-    }
-
-    const systemInstruction = `You are an expert D&D 5e monster designer and a Foundry VTT data architect.
+const systemInstruction = `You are an expert D&D 5e monster designer and a Foundry VTT data architect.
 
 Your task is to generate a complete and valid JSON object representing a D&D 5e monster stat block for Foundry VTT, specifically for the "dnd5e" system (v4.0+).
 
@@ -336,6 +326,6 @@ ${userPrompt}
 
 Generate ONLY the JSON object.`;
 
-    const generatedText = await callGemini({ apiKey, prompt: systemInstruction });
-    return extractJson(generatedText);
+const generatedText = await callGemini({ apiKey, prompt: systemInstruction });
+return extractJson(generatedText);
 }

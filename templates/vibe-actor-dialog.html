@@ -1,0 +1,39 @@
+<form>
+    <div class="form-group">
+        <label>Challenge Rating (CR):</label>
+        <select name="cr" style="width: 100%; margin-bottom: 8px;">
+            <option value="">Any</option>
+            {{#each crOptions}}
+            <option value="{{this}}" {{#if (eq this "1")}}selected{{/if}}>{{this}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Type:</label>
+        <select name="type" style="width: 100%; margin-bottom: 8px;">
+            <option value="">Any</option>
+            {{#each typeOptions}}
+            <option value="{{this}}" {{#if (eq this "Humanoid")}}selected{{/if}}>{{this}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Size:</label>
+        <select name="size" style="width: 100%; margin-bottom: 8px;">
+            <option value="">Any</option>
+            {{#each sizeOptions}}
+            <option value="{{this}}" {{#if (eq this "Medium")}}selected{{/if}}>{{this}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Description/Prompt:</label>
+        <textarea name="prompt" rows="4" style="width: 100%; margin-bottom: 8px;" placeholder="Describe the creature you want to generate...">Rowdy tavern brawler</textarea>
+    </div>
+    <div class="form-group">
+        <label style="display:flex; align-items:center; gap:5px; cursor:pointer;">
+            <input type="checkbox" name="generateImage" checked>
+            Generate Image after creation?
+        </label>
+    </div>
+</form>

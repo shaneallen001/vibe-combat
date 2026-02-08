@@ -6,7 +6,8 @@ import {
   getEncounterTokenImage,
   getActorClasses
 } from "../utils/actor-helpers.js";
-import { callGemini, extractJson } from "../services/gemini-service.js";
+import { callGemini, extractJson } from "./gemini-service.js";
+import { SUGGESTION_TYPES } from "../constants.js";
 
 const FALLBACK_IMAGE = "icons/svg/mystery-man.svg";
 const DEFAULT_PROMPT_TEMPLATE = `Prioritize balanced, narratively coherent D&D 5e encounters. Favor official Wizards of the Coast or SRD monsters when possible. Respect the requested encounter style while ensuring the overall threat stays within safe bounds for the supplied party. Assume modern dnd5e (v4+) stat blocks.`;
@@ -27,44 +28,7 @@ const RESPONSE_SCHEMA_DESCRIPTION = `{
   ]
 }`;
 
-export const SUGGESTION_TYPES = [
-  {
-    id: "minion-squad",
-    label: "Minion Squad",
-    description: "A horde of fragile foes (CR 0-1/2) that threaten through numbers.",
-    promptHint: "Favor 4-8 creatures such as bandits, cultists, or beasts."
-  },
-  {
-    id: "mid-tier-brute",
-    label: "Single Mid-Tier Brute",
-    description: "One durable melee-focused enemy (CR 2-6).",
-    promptHint: "Choose a frontline monster with notable hit points or resistances."
-  },
-  {
-    id: "mid-tier-caster",
-    label: "Mid-Tier Caster",
-    description: "A spellcaster that pressures the party with control or burst (CR 3-7).",
-    promptHint: "Lean on mages, priests, or fiends that wield impactful spells."
-  },
-  {
-    id: "high-level-boss",
-    label: "High Level Boss",
-    description: "A single dangerous enemy (CR 8-15) possibly with legendary actions.",
-    promptHint: "Bring cinematic abilities and consider a small support entourage."
-  },
-  {
-    id: "mixed-encounter",
-    label: "Mixed Encounter",
-    description: "A varied composition that covers multiple combat roles.",
-    promptHint: "Blend melee threats, ranged pressure, and utility creatures."
-  },
-  {
-    id: "elite-squad",
-    label: "Elite Squad",
-    description: "2-4 strong enemies cooperating tactically (CR 5+ each).",
-    promptHint: "Select creatures that coordinate abilities and exploit party weaknesses."
-  }
-];
+// SUGGESTION_TYPES is now imported from ../constants.js
 
 const CLASS_ROLE_MAP = new Map([
   ["barbarian", "Bruiser"],

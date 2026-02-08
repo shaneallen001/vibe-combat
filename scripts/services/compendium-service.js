@@ -3,7 +3,7 @@
  * Handles looking up items in system compendiums
  */
 
-import { autoEquipIfArmor, ensureItemHasImage, ensureActivityIds, sanitizeCustomItem, ensureItemHasId } from "../factories/actor-factory.js";
+import { autoEquipIfArmor, ensureItemHasImage, ensureActivityIds, sanitizeCustomItem, ensureItemHasId } from "../utils/item-utils.js";
 
 const COMPENDIUM_MAP = {
     "dnd5e.spells": ["spell"],
