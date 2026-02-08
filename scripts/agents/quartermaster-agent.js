@@ -18,6 +18,7 @@ export class QuartermasterAgent extends GenerativeAgent {
     - If a Candidate matches the feature well (name and intent), prefer using its UUID.
     - If no Candidate fits, add the feature to "customRequests".
     - You can also add standard items (like "Longsword") to "customRequests" if they weren't in the candidates but are needed.
+    - NEVER request a "Spellcasting" feature - the pipeline handles spellcasting separately.
     `;
     }
 }

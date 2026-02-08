@@ -210,8 +210,13 @@ export class GeminiPipeline {
             }
         }
 
-        // 5. Construct Actor Data
-        const allItems = [...compendiumItems, ...processedCustomItems];
+        // 5. Filter out any Spellcasting feats from custom items (pipeline builds its own)
+        const filteredCustomItems = processedCustomItems.filter(
+            item => item.name?.toLowerCase() !== "spellcasting"
+        );
+
+        // 6. Construct Actor Data
+        const allItems = [...compendiumItems, ...filteredCustomItems];
         if (spellcastingFeat) {
             allItems.push(spellcastingFeat);
         }
@@ -284,8 +289,7 @@ export class GeminiPipeline {
         for (const spellName of allAtWill) {
             const uuid = await getSpellUuid(spellName);
             if (!uuid) {
-                console.warn(`Vibe Combat | Could not find spell UUID for: ${spellName}`);
-                continue;
+                console.warn(`Vibe Combat | Could not find spell UUID for at-will spell: ${spellName}. Activity will be created without UUID link.`);
             }
 
             const actId = foundry.utils.randomID(16);
@@ -327,8 +331,7 @@ export class GeminiPipeline {
 
             const uuid = await getSpellUuid(spellName);
             if (!uuid) {
-                console.warn(`Vibe Combat | Could not find spell UUID for: ${spellName}`);
-                continue;
+                console.warn(`Vibe Combat | Could not find spell UUID for per-day spell: ${spellName}. Activity will be created without UUID link.`);
             }
 
             const actId = foundry.utils.randomID(16);
