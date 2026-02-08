@@ -139,8 +139,10 @@ export class GeminiPipeline {
             return sanitized;
         }));
 
-        // 3. Build Spellcasting Feat (if applicable)
-        const spellcastingFeat = await this._buildSpellcastingFeat(blueprint);
+        // 3. Build Spellcasting Feat and embedded spells (if applicable)
+        const spellcastingResult = await this._buildSpellcastingFeat(blueprint);
+        const spellcastingFeat = spellcastingResult?.feat || null;
+        const embeddedSpells = spellcastingResult?.embeddedSpells || [];
 
         // 4. Prepare System Data
         const system = {
@@ -219,6 +221,8 @@ export class GeminiPipeline {
         const allItems = [...compendiumItems, ...filteredCustomItems];
         if (spellcastingFeat) {
             allItems.push(spellcastingFeat);
+            // Add embedded spell items (fetched from compendium, linked to cast activities)
+            allItems.push(...embeddedSpells);
         }
 
         const actorData = {
@@ -268,6 +272,7 @@ export class GeminiPipeline {
     /**
      * Build a Spellcasting feat item with cast-type activities
      * This matches the official 5e 2024 data model for NPC spellcasters
+     * @returns {Object|null} { feat: Object, embeddedSpells: Array } or null if no spells
      */
     async _buildSpellcastingFeat(blueprint) {
         if (!blueprint.spellcasting?.spells) return null;
@@ -281,8 +286,12 @@ export class GeminiPipeline {
 
         if (allAtWill.length === 0 && allPerDay.length === 0) return null;
 
-        // Build activities object
+        // Generate feat ID upfront so we can reference it in spell links
+        const featId = foundry.utils.randomID(16);
+
+        // Build activities object and collect spell references for embedding
         const activities = {};
+        const spellRefs = []; // { uuid, activityId } - for fetching and linking
         let activityIndex = 0;
 
         // Process at-will spells
@@ -305,7 +314,7 @@ export class GeminiPipeline {
                 },
                 description: { chatFlavor: "" },
                 duration: { units: "inst", concentration: false, override: false },
-                range: { override: false },
+                range: { override: false, units: "self" },
                 target: {
                     template: { contiguous: false, units: "ft" },
                     affects: { choice: false },
@@ -322,6 +331,10 @@ export class GeminiPipeline {
                 },
                 name: ""
             };
+
+            if (uuid) {
+                spellRefs.push({ uuid, activityId: actId });
+            }
         }
 
         // Process per-day spells
@@ -351,7 +364,7 @@ export class GeminiPipeline {
                 },
                 description: { chatFlavor: "" },
                 duration: { units: "inst", concentration: false, override: false },
-                range: { override: false },
+                range: { override: false, units: "self" },
                 target: {
                     template: { contiguous: false, units: "ft" },
                     affects: { choice: false },
@@ -372,6 +385,10 @@ export class GeminiPipeline {
                 },
                 name: ""
             };
+
+            if (uuid) {
+                spellRefs.push({ uuid, activityId: actId });
+            }
         }
 
         // Build description HTML
@@ -394,7 +411,7 @@ export class GeminiPipeline {
             descParts.push(`<p class="feature-trait"><strong>${uses}/Day Each:</strong> <em>${spellNames.join(", ")}</em></p>`);
         }
 
-        return {
+        const feat = {
             name: "Spellcasting",
             type: "feat",
             img: "icons/magic/symbols/circled-gem-pink.webp",
@@ -409,7 +426,7 @@ export class GeminiPipeline {
                 identifier: "spellcasting",
                 source: { revision: 1, rules: "2024" },
                 enchant: {},
-                prerequisites: { level: null, repeatable: false },
+                prerequisites: { level: null, repeatable: false, items: [] },
                 properties: [],
                 requirements: "",
                 advancement: [],
@@ -418,8 +435,42 @@ export class GeminiPipeline {
             },
             effects: [],
             flags: {},
-            _id: foundry.utils.randomID(16)
+            _id: featId
         };
+
+        // Fetch and embed spell items
+        const embeddedSpells = [];
+        for (const ref of spellRefs) {
+            try {
+                const spellDoc = await fromUuid(ref.uuid);
+                if (spellDoc) {
+                    const spellData = spellDoc.toObject();
+
+                    // Generate new ID for the embedded spell
+                    spellData._id = foundry.utils.randomID(16);
+
+                    // Link spell to its cast activity (critical for Foundry to recognize it)
+                    spellData.flags = spellData.flags || {};
+                    spellData.flags.dnd5e = spellData.flags.dnd5e || {};
+                    spellData.flags.dnd5e.cachedFor = `.Item.${featId}.Activity.${ref.activityId}`;
+
+                    // Mark as a sourced spell
+                    spellData.system = spellData.system || {};
+                    spellData.system.method = "spell";
+
+                    // Ensure _stats has compendium source for reference
+                    spellData._stats = spellData._stats || {};
+                    spellData._stats.compendiumSource = ref.uuid;
+
+                    embeddedSpells.push(spellData);
+                    console.log(`Vibe Combat | Embedded spell: ${spellData.name}`);
+                }
+            } catch (err) {
+                console.warn(`Vibe Combat | Failed to fetch spell from ${ref.uuid}:`, err);
+            }
+        }
+
+        return { feat, embeddedSpells };
     }
 
     /**
