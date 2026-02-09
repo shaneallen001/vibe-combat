@@ -4,10 +4,11 @@
  */
 
 import { registerModuleSettings } from "./settings.js";
-import { addVibeCombatButton, addVibeActorButton, getActorSheetHeaderButtons } from "./ui/button-injector.js";
+import { addVibeCombatButton, addVibeActorButton } from "./ui/button-injector.js";
 import { VibeActorDialog } from "./ui/dialogs/vibe-actor-dialog.js";
 import { VibeCombatApp } from "./ui/vibe-combat-app.js";
 import { ImageGenerator } from "./ui/image-generator.js";
+import { VibeAdjustmentDialog } from "./ui/dialogs/vibe-adjustment-dialog.js";
 
 Hooks.once("ready", () => {
   // Ensure we're using the dnd5e system
@@ -52,8 +53,50 @@ Hooks.on("renderActorDirectory", (app, html, data) => {
   });
 });
 
-// Hook into Actor Sheet header buttons to add the Generate Image button
-Hooks.on("getActorSheetHeaderButtons", (app, buttons) => {
-  getActorSheetHeaderButtons(app, buttons);
+
+
+// Function to hook header buttons for various sheet types
+
+// Hook for ApplicationV2 sheets (Foundry V13+)
+Hooks.on("getHeaderControlsApplicationV2", (app, controls) => {
+  // Only for GMs
+  if (!game.user.isGM) return;
+
+  // Check if it's an Actor Sheet
+  if (app instanceof foundry.applications.sheets.ActorSheetV2) { // Verify this class name in environment if possible, or use duck typing/base class check
+    const actor = app.document;
+    if (!actor) return;
+
+    console.log("Vibe Combat | getHeaderControlsApplicationV2 called for:", actor.name);
+
+    // Add "Vibe Image" button
+    console.log("Vibe Combat | Injecting Vibe Image button for", actor.name);
+    controls.push({
+      icon: "fas fa-magic",
+      label: "Vibe Image",
+      action: "vibeImage",
+      onClick: async () => {
+        console.log("Vibe Combat | Vibe Image button clicked for", actor.name);
+        try {
+          await ImageGenerator.generateImage(actor);
+        } catch (error) {
+          console.error("Vibe Combat | Error in Vibe Image handler:", error);
+        }
+      }
+    });
+
+    // Add "Vibe Adjust" button
+    controls.push({
+      icon: "fas fa-wrench",
+      label: "Vibe Adjust",
+      action: "vibeAdjustActor",
+      onClick: () => {
+        new VibeAdjustmentDialog(actor).render(true);
+      }
+    });
+  }
 });
+
+
+
 

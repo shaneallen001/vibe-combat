@@ -1,4 +1,5 @@
 import { ImageGenerator } from "./image-generator.js";
+import { VibeAdjustmentDialog } from "./dialogs/vibe-adjustment-dialog.js";
 
 /**
  * Button Injector
@@ -246,26 +247,4 @@ export function addVibeActorButton(app, html, showVibeActorDialogFn) {
   }
 }
 
-/**
- * Add the Generate Image button to the Actor Sheet Header Buttons
- */
-export function getActorSheetHeaderButtons(app, buttons) {
-  // Only for GMs
-  if (!game.user.isGM) return;
 
-  const actor = app.actor || app.document;
-  if (!actor) return;
-
-  // Check for duplicates
-  if (buttons.some(b => b.label === "Generate Image")) return;
-
-  // Add the button to the end of the list (standard for dropdowns)
-  buttons.push({
-    label: "Generate Image",
-    class: "vibe-image-button",
-    icon: "fas fa-magic",
-    onclick: async () => {
-      await ImageGenerator.generateImage(actor);
-    }
-  });
-}

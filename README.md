@@ -37,7 +37,16 @@ Access the Vibe Actor interface via the "Vibe Actor" button in the Actor Directo
 -   **Auto-Image**: Check "Generate Image after creation?" to automatically prompt for an image after the actor is created.
 
 ### AI Image Generation
--   **From Actor Sheet**: Open any actor sheet, click the "Configure" (or "Sheet Configuration") menu in the header, and select "Generate Image" to create or update the actor's token image using AI.
+-   **From Actor Sheet**: Open any actor sheet, click the "Configure" (or "Sheet Configuration") menu in the header, and select "Vibe Image" to create or update the actor's token image using AI.
+
+### Vibe Adjust
+-   **From Actor Sheet**: Open any actor sheet (NPC).
+-   **Header Button**: Click the "Vibe Adjust" button (wrench icon) in the window header.
+-   **Dialog**: Enter your adjustment request (e.g., "Make him a CR 5 undead", "Add a flaming sword").
+-   **Result**: The AI will modify the actor's stats, items, and features to match your request while preserving their identity and image.
+
+### Foundry V13 Compatibility
+The module supports Foundry VTT Version 13 and `ActorSheetV2`. The "Vibe Adjust" and "Vibe Image" buttons are injected into the window header using the `getHeaderControlsApplicationV2` hook. Header controls use the `onClick` property (not `handler`) per the V13 `ApplicationHeaderControlsEntry` API. Legacy support for V12 sheets is also maintained.
 
 ---
 

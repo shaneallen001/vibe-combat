@@ -6,6 +6,8 @@
 import { ArchitectAgent } from "../agents/architect-agent.js";
 import { QuartermasterAgent } from "../agents/quartermaster-agent.js";
 import { BlacksmithAgent } from "../agents/blacksmith-agent.js";
+import { AdjustmentAgent } from "../agents/adjustment-agent.js";
+import { BlueprintFactory } from "../factories/blueprint-factory.js";
 import * as CompendiumService from "./compendium-service.js";
 import { getSpellUuid } from "./compendium-service.js";
 import { SpellcastingBuilder } from "./spellcasting-builder.js";
@@ -44,12 +46,77 @@ export class GeminiPipeline {
     }
 
     /**
+     * Adjust an existing actor based on a prompt
+     * @param {Actor} actor - The actor to adjust
+     * @param {string} prompt - The adjustment prompt
+     */
+    async adjustActor(actor, prompt) {
+        console.log("Vibe Combat | Starting Actor Adjustment...");
+
+        // Step 0: Reverse Engineer (Actor -> Blueprint)
+        const currentBlueprint = await BlueprintFactory.createFromActor(actor);
+        console.log("Vibe Combat | Current Blueprint extracted:", currentBlueprint);
+
+        // Step 1: Architect (Adjustment)
+        const blueprint = await this.runAdjustment(currentBlueprint, prompt);
+        console.log("Vibe Combat | Adjusted Blueprint created:", blueprint);
+
+        // Step 2: Quartermaster (Selection)
+        const selection = await this.runQuartermaster(blueprint);
+        console.log("Vibe Combat | Components selected:", selection);
+
+        // Step 3: Blacksmith (Fabrication)
+        const customItems = await this.runBlacksmith(blueprint, selection.customRequests);
+        console.log("Vibe Combat | Custom items fabricated:", customItems);
+
+        // Step 4: Builder (Assembly)
+        const actorData = await this.runBuilder(blueprint, selection.selectedUuids, customItems);
+
+        // Update the Actor
+        console.log("Vibe Combat | Updating Actor document...");
+
+        // 1. Delete all existing items (fresh start based on blueprint)
+        // We do this to ensure no stale data remains (e.g. old spellcasting, old weapons)
+        await actor.deleteEmbeddedDocuments("Item", actor.items.map(i => i.id));
+
+        // 2. Update core data (preserve existing image and token texture)
+        const tokenUpdate = { ...actorData.prototypeToken };
+        // Preserve existing token texture
+        delete tokenUpdate.texture;
+
+        await actor.update({
+            name: blueprint.name,
+            system: actorData.system,
+            prototypeToken: tokenUpdate
+            // Note: img is intentionally NOT included to preserve existing actor image
+        });
+
+        // 3. Create new items
+        await actor.createEmbeddedDocuments("Item", actorData.items);
+
+        console.log("Vibe Combat | Actor adjusted successfully.");
+        return actor;
+    }
+
+    /**
      * Step 1: The Architect
      */
     async runArchitect(request) {
         const agent = new ArchitectAgent(this.apiKey);
         // Transform request to match expected context if needed, or pass directly
         return await agent.generate(request);
+    }
+
+    /**
+     * Step 1b: The Architect (Adjustment Mode)
+     */
+    async runAdjustment(originalBlueprint, userPrompt) {
+        const agent = new AdjustmentAgent(this.apiKey);
+        const context = {
+            originalBlueprint,
+            userPrompt
+        };
+        return await agent.generate(context);
     }
 
     /**
