@@ -71,6 +71,11 @@ export class VibeActorDialog {
     const notification = ui.notifications.info("Generating actor with Gemini Pipeline...", { permanent: true });
 
     try {
+      // Check permissions first
+      if (!game.user.can("ACTOR_CREATE")) {
+        throw new Error("You do not have permission to create actors. Please ask your GM to grant 'Create New Actors' permission.");
+      }
+
       const pipeline = new GeminiPipeline(apiKey);
       const actorData = await pipeline.generateActor({ cr, type, size, prompt });
 

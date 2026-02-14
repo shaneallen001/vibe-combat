@@ -170,7 +170,8 @@ export function addVibeActorButton(app, html, showVibeActorDialogFn) {
 
   // Add click handler
   button.addEventListener("click", () => {
-    if (!game.user.isGM) {
+    const allowPlayers = game.settings.get("vibe-combat", "allowPlayerActorGeneration");
+    if (!game.user.isGM && !allowPlayers) {
       ui.notifications.warn("Only the GM can use Vibe Actor.");
       return;
     }

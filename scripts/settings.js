@@ -20,6 +20,16 @@ export function registerModuleSettings() {
     requiresReload: false
   });
 
+  game.settings.register("vibe-combat", "allowPlayerActorGeneration", {
+    name: "Allow Players to Generate Actors",
+    hint: "If enabled, players can use the Vibe Actor features using the GM's API keys (Gemini & OpenAI). Players must also have the 'Create New Actors' permission in Foundry.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: false,
+    requiresReload: true
+  });
+
   game.settings.register("vibe-combat", "openaiApiKey", {
     name: "OpenAI API Key",
     hint: "Your OpenAI API key for generating actor images",
