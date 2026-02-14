@@ -8,6 +8,7 @@ Vibe Combat is a Foundry VTT module for the dnd5e system that helps Game Masters
 -   **Encounter Difficulty Calculation**: Real-time feedback on encounter difficulty as you add monsters.
 -   **AI Actor Generation**: Generate complete dnd5e NPC stat blocks from text descriptions using Google Gemini.
 -   **AI Image Generation**: Generate token images for actors using OpenAI (DALL-E 3).
+-   **Player Access**: Optionally allow players to access the Vibe Actor generator using the GM's API keys.
 
 ## Installation
 
@@ -23,6 +24,7 @@ To use the AI features, you must configure your API keys:
 2.  Find **Vibe Combat**.
 3.  Enter your **Gemini API Key** (for actor generation).
 4.  Enter your **OpenAI API Key** (for image generation).
+5.  (Optional) Check **Allow Players to Generate Actors** to let players usage the Vibe Actor tools.
 
 ## Usage
 
@@ -32,7 +34,7 @@ Access the Vibe Combat interface via the "Vibe Combat" button in the Combat Trac
 -   **Encounter**: Add monsters to the encounter to see the difficulty rating.
 
 ### Vibe Actor (AI Generator)
-Access the Vibe Actor interface via the "Vibe Actor" button in the Actor Directory.
+Access the Vibe Actor interface via the "Vibe Actor" button in the Actor Directory. (Note: Only available to GM unless "Allow Players to Generate Actors" is enabled).
 -   **Generate Creature**: Select CR, Type, Size, and provide a description. Click "Generate" to create a new NPC.
 -   **Auto-Image**: Check "Generate Image after creation?" to automatically prompt for an image after the actor is created.
 
