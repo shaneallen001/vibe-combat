@@ -1,12 +1,14 @@
 # Vibe Combat
 
-Vibe Combat is a Foundry VTT module for the dnd5e system that helps Game Masters manage party XP budgets, encounter difficulties, and generate NPC actors using Google's Gemini AI.
+Vibe Combat is a Foundry VTT module for the dnd5e system that helps Game Masters manage party XP budgets, encounter difficulties, generate NPC actors with Gemini AI, and adjust existing NPCs while preserving system automation.
 
 ## Features
 
 -   **Party XP Budget Management**: Calculate and track party XP thresholds (Easy, Medium, Hard, Deadly) based on party size and level.
 -   **Encounter Difficulty Calculation**: Real-time feedback on encounter difficulty as you add monsters.
--   **AI Actor Generation**: Generate complete dnd5e NPC stat blocks from text descriptions using Google Gemini.
+-   **AI Actor Generation**: Generate complete D&D 5e NPC stat blocks from text descriptions using Google Gemini.
+-   **AI Actor Adjustment**: Modify an existing NPC from natural-language requests while preserving identity and image.
+-   **Automation-Aware Feature Generation**: Custom generated features are validated and repaired for save/effect/uses wiring so activity data better matches mechanical prose.
 -   **AI Image Generation**: Generate token images for actors using OpenAI (DALL-E 3).
 -   **Player Access**: Optionally allow players to access the Vibe Actor generator using the GM's API keys.
 
@@ -24,7 +26,7 @@ To use the AI features, you must configure your API keys:
 2.  Find **Vibe Combat**.
 3.  Enter your **Gemini API Key** (for actor generation).
 4.  Enter your **OpenAI API Key** (for image generation).
-5.  (Optional) Check **Allow Players to Generate Actors** to let players usage the Vibe Actor tools.
+5.  (Optional) Check **Allow Players to Generate Actors** to let players use the Vibe Actor tools.
 
 ## Usage
 
@@ -62,20 +64,23 @@ This section is intended for developers (human or AI) working on this module.
 > **Model Usage Rule**: This module is strictly configured to use `gemini-2.5-flash-lite` for all text generation tasks to ensure speed and cost-efficiency. Do not change this to other models without explicit approval.
 
 
-You can run the actor generation logic without launching Foundry VTT using the standalone test script. This is useful for testing the AI prompts and pipeline logic quickly.
+You can run generation and adjustment logic without launching Foundry VTT using standalone scripts. This is useful for quickly validating prompts, schemas, and automation wiring.
 
 1.  **Prerequisites**:
     *   Node.js installed.
     *   `GEMINI_API_KEY` set in a `.env` file in the module root (see `.env.example`).
 
-2.  **Running the Test**:
+2.  **Running the Tests**:
     ```bash
     node scripts/utils/test-generation.js
+    node scripts/utils/test-adjustment.js
+    node scripts/tests/activity-automation-regression.mjs
     ```
 
 3.  **Output**:
-    *   **Success**: Generated Blueprint JSONs are saved to `Example JSON's/Test Generated/`.
-    *   **Failure**: Errors are logged to `Error Logs/Test Errors.md`.
+    *   **Success**: Generated test JSONs are saved to `Example JSON's/Test Generated/`.
+    *   **Automation Regression**: Fixture check should pass with 0 issues on good fixture and >0 issues on bad fixture.
+    *   **Failure**: Errors are logged to `Error Logs/Test Errors.md` (or printed by the regression script).
 
 ### Architecture & Vision: "The Vibe Architect"
 
@@ -93,8 +98,10 @@ The module follows a standard Foundry VTT module structure with a focus on modul
 ```
 vibe-combat/
 ├── module.json              # Manifest: Entry point, dependencies, and metadata
+├── README.md                # Project and developer documentation
 ├── package.json             # Node.js manifest (for standalone testing)
 ├── .env.example             # Example environment variables
+├── feature-tips.md          # Activity automation guidance and QA checklist
 ├── scripts/                 # Core logic
 │   ├── main.js              # Entry point: Hooks, settings, and UI injection
 │   ├── constants.js         # Shared constants (e.g., XP tables)
@@ -103,10 +110,12 @@ vibe-combat/
 │   │   ├── generative-agent.js       # Base class for all agents
 │   │   ├── architect-agent.js        # Step 1: Concept generation
 │   │   ├── quartermaster-agent.js    # Step 2: Item selection/requests
-│   │   └── blacksmith-agent.js       # Step 3: Custom item fabrication
+│   │   ├── blacksmith-agent.js       # Step 3: Custom item fabrication
+│   │   └── adjustment-agent.js       # Adjustment blueprint generation
 │   ├── factories/           # Object creation logic
-│   │   ├── actor-blueprint.js        # Actor Blueprint schema and validation
-│   │   └── actor-factory.js          # Actor data normalization and creation
+│   │   ├── actor-blueprint.js        # Blueprint helper model
+│   │   ├── actor-factory.js          # Actor data normalization and creation
+│   │   └── blueprint-factory.js      # Reverse engineer actor -> blueprint
 │   ├── handlers/            # UI interaction handlers
 │   │   ├── drag-drop-handler.js      # Drag-and-drop logic
 │   │   └── placement-handler.js      # Token placement logic
@@ -123,18 +132,22 @@ vibe-combat/
 │   │   ├── compendium-service.js     # Compendium lookup & fuzzy search
 │   │   ├── gemini-pipeline.js        # Orchestrates the AI actor generation pipeline
 │   │   ├── gemini-service.js         # Google Gemini API interaction (with retry)
-│   │   └── image-generation-service.js # OpenAI image generation
-
+│   │   ├── image-generation-service.js # OpenAI image generation
 │   │   ├── spellcasting-builder.js   # Builds Spellcasting feats and embedded spells
 │   │   └── encounter-suggestion-service.js # AI encounter suggestions
-│   ├── tests/               # Standalone testing utilities
-│   │   └── test_zod_schema.mjs       # Schema validation tests
+│   ├── tests/               # Deterministic regression and schema tests
+│   │   ├── test_zod_schema.mjs       # Zod conversion smoke tests
+│   │   ├── activity-automation-regression.mjs # Fixture-based automation checks
+│   │   └── fixtures/
+│   │       ├── good-automation-item.json
+│   │       └── bad-automation-item.json
 │   ├── ui/                  # UI Components
 │   │   ├── dialogs/                  # Dialog classes
 │   │   │   ├── encounter-dialogs.js
 │   │   │   ├── image-generation-dialog.js
 │   │   │   ├── party-dialogs.js
-│   │   │   └── vibe-actor-dialog.js
+│   │   │   ├── vibe-actor-dialog.js
+│   │   │   └── vibe-adjustment-dialog.js
 │   │   ├── button-injector.js        # Logic for injecting buttons into Foundry UI
 │   │   ├── image-generator.js        # Image generation UI coordinator
 │   │   ├── suggestion-sources-config.js    # Config for suggestion sources
@@ -143,7 +156,8 @@ vibe-combat/
 │       ├── actor-helpers.js          # Actor data extraction helpers
 │       ├── drag-drop.js              # Drag-and-drop utilities
 │       ├── file-utils.js             # File system utilities (for testing)
-│       ├── item-utils.js             # Item validation and normalization utilities
+│       ├── item-utils.js             # Item validation, repair, and normalization utilities
+│       ├── test-adjustment.js        # Standalone actor adjustment test runner
 │       ├── test-generation.js        # Standalone actor generation test runner
 │       ├── text-utils.js             # Text processing helpers
 │       ├── xp-calculator.js          # XP and difficulty math
@@ -160,6 +174,7 @@ vibe-combat/
 
 │   ├── suggestion-sources.html       # Suggestion sources config template
 │   ├── vibe-actor-dialog.html        # Actor generation dialog template
+│   ├── vibe-adjustment-dialog.html   # Actor adjustment dialog template
 │   └── vibe-combat.html              # Main VibeCombatApp template
 ├── Example JSON's/          # Sample generated actor JSON files
 └── Error Logs/              # Test error logs directory
@@ -176,17 +191,18 @@ vibe-combat/
 The module uses a **structured output** approach with Zod schemas for type-safe AI generation.
 
 *   **`GenerativeAgent`** (base class): Wraps `GeminiService`, auto-converts Zod schemas to JSON Schema for the API's `responseSchema` parameter.
-*   **`ArchitectAgent`**: Step 1 - Generates the high-level "Blueprint" from user prompts.
-*   **`QuartermasterAgent`**: Step 2 - Analyzes blueprint features and decides UUIDs vs. custom requests.
-*   **`BlacksmithAgent`**: Step 3 - Fabricates valid Foundry V5+ Item Data for custom items.
+*   **`ArchitectAgent`**: Step 1 - Generates the high-level "Blueprint" from user prompts, including optional automation intent hints.
+*   **`QuartermasterAgent`**: Step 2 - Analyzes blueprint features and decides UUIDs vs. custom requests while preserving automation hints.
+*   **`BlacksmithAgent`**: Step 3 - Fabricates Foundry/dnd5e item data for custom requests using structured activities.
+*   **`AdjustmentAgent`**: Adjustment flow agent for modifying an existing blueprint from a natural-language request.
 
 #### 3. The Gemini Pipeline (`scripts/services/gemini-pipeline.js`)
 This is the orchestrator of the actor generation system. It coordinates the agents in a 4-step process:
 
 *   **Step 1: The Architect (Concept)**: Uses `ArchitectAgent` to generate a high-level "Blueprint" (JSON) from the user's prompt. Decides on stats, flavor, "Twists", and desired features.
 *   **Step 2: The Quartermaster (Selection)**: Uses `QuartermasterAgent` to search `CompendiumService` for matching items. Decides whether to use existing Item UUIDs or request custom items.
-*   **Step 3: The Blacksmith (Fabrication)**: Uses `BlacksmithAgent` to generate valid Foundry V5+ Item Data for custom items. Ensures rigorous adherence to the `dnd5e` data model (activities, damage parts).
-*   **Step 4: The Builder (Assembly)**: Combines UUIDs and custom items into the final Actor document. Calculates final data (CR, HP, AC) and creates the document.
+*   **Step 3: The Blacksmith (Fabrication)**: Uses `BlacksmithAgent` to generate custom items with activities/effects/uses wiring.
+*   **Step 4: The Builder (Assembly)**: Combines UUIDs and custom items into the final Actor document. Calculates final data (CR, HP, AC), runs semantic automation validation/repair on custom items, and creates the document.
     *   **Spellcasting**: For spellcasters, builds a "Spellcasting" feat with `cast`-type activities referencing spell UUIDs. Spell items are fetched from compendium and embedded with `flags.dnd5e.cachedFor` linking them to their cast activities (matching official 2024 5e data model).
 
 #### 4. Encounter Builder (`scripts/ui/vibe-combat-app.js`)
@@ -206,15 +222,24 @@ This is the orchestrator of the actor generation system. It coordinates the agen
 -   **Responsibility**: Collects user input and coordinates actor generation.
 -   **Flow**: Uses `GeminiPipeline` to execute the generation workflow and create the actor document.
 
-#### 7. AI Image Generator (`scripts/ui/image-generator.js`)
+#### 7. AI Actor Adjustment (`scripts/ui/dialogs/vibe-adjustment-dialog.js`)
+-   **Class**: `VibeAdjustmentDialog`.
+-   **Responsibility**: Collects adjustment prompts for an existing NPC and runs `GeminiPipeline.adjustActor()`.
+-   **Flow**: Reverse-engineers existing actor -> adjusted blueprint -> selection/fabrication/assembly pipeline.
+
+#### 8. AI Image Generator (`scripts/ui/image-generator.js`)
 -   **Responsibility**: Coordinates the image generation workflow.
 -   **Integration**: Uses `ImageGenerationDialog` for prompts and `ImageGenerationService` for the backend work.
 
-#### 8. Zod Schemas (`scripts/schemas/`)
+#### 9. Zod Schemas (`scripts/schemas/`)
 Defines type-safe schemas for structured AI output:
 *   **`blueprint-schema.js`**: Schema for actor blueprints (stats, abilities, features).
 *   **`foundry-item-schema.js`**: Schema for custom Foundry item data.
 *   **`analysis-schema.js`**: Schema for item analysis responses.
+
+#### 10. Automation Validation (`scripts/utils/item-utils.js`, `scripts/tests/activity-automation-regression.mjs`)
+-   **Runtime repair**: Pipeline calls utility helpers to detect common mismatches (save prose without save object, condition prose without effects, missing uses wiring) and performs conservative repairs.
+-   **Regression harness**: Fixture-based deterministic checks ensure good wiring passes and intentionally bad wiring fails.
 
 ### Development Notes
 
@@ -241,6 +266,19 @@ The AI generation system uses a modular agent-based architecture:
 #### Customizing the UI
 *   `VibeActorDialog` handles the prompt input.
 *   `VibeCombatApp` handles the encounter tracker.
+
+## Lessons Learned
+
+1. **Foundry V13 header controls use `onClick`, not `handler`**  
+   For `getHeaderControlsApplicationV2`, use `onClick` in control entries or buttons may silently fail.
+2. **Schema-valid JSON is not always automation-complete**  
+   Even valid item JSON can miss mechanical wiring (save/effects/uses), so semantic checks are required in addition to Zod validation.
+3. **Preserve mechanic intent across pipeline stages**  
+   Blueprint/selection layers need automation hints so Blacksmith can map prose to activity data reliably.
+4. **dnd5e 2024 spellcasting needs activity linkage**  
+   Cast activities should map to embedded spells via `flags.dnd5e.cachedFor` to align with modern official data.
+5. **Rate limits are pipeline-amplified**  
+   Multi-step generation (Architect -> Quartermaster -> Blacksmith -> Builder) increases API call count and quickly hits free-tier limits.
 
 ## Known Issues & Error Handling
 
@@ -270,8 +308,8 @@ This section documents common errors and their solutions.
 
 ## Development Guidelines
 
-All FoundryVTT code must be compatible with the following version information:
+All Foundry VTT code must be compatible with the following version information:
 
--   **Core Version**: 13.351
+-   **Core Version**: 13.348
 -   **System ID**: dnd5e
 -   **System Version**: 5.1.8

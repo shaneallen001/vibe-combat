@@ -21,6 +21,12 @@ export class ArchitectAgent extends GenerativeAgent {
     - Provide rich, evocative descriptions.
     - Include appropriate equipment (weapons, armor, shields, gear) for the creature.
     - Use common D&D 5e item names (e.g., "Longsword", "Chain Mail", "Light Crossbow").
+    - For each feature, include "automation" hints whenever mechanics are explicit in prose.
+      - If text implies a saving throw, include save ability/DC style and expected on-save behavior.
+      - If text implies a condition, include condition statuses and expected duration.
+      - If text implies limited uses, include max uses and recovery period.
+      - If text is triggered (e.g., "when hit", "start of turn"), include trigger type/text.
+      - Keep hints concise and only include fields you are confident about.
     
     SPELLCASTING (if applicable):
     - Set the spellcasting ability based on creature type:

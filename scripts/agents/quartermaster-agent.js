@@ -19,6 +19,9 @@ export class QuartermasterAgent extends GenerativeAgent {
     - If no Candidate fits, add the feature to "customRequests".
     - You can also add standard items (like "Longsword") to "customRequests" if they weren't in the candidates but are needed.
     - NEVER request a "Spellcasting" feature - the pipeline handles spellcasting separately.
+    - If a blueprint feature has "automation" hints and you choose custom generation, copy the automation object into customRequests.automation unchanged.
+    - Do not drop automation hints when converting blueprint features into customRequests.
+    - If a feature is fulfilled by selectedUuids, do not duplicate it in customRequests.
     `;
     }
 }

@@ -1,5 +1,59 @@
 import { z } from "../libs/zod.js";
 
+const DurationHintSchema = z.object({
+    value: z.number().int().min(0).optional(),
+    units: z.enum(["inst", "turn", "round", "minute", "hour", "day"]).optional(),
+    concentration: z.boolean().optional(),
+});
+
+const UsesHintSchema = z.object({
+    max: z.string().optional().describe("Limited uses expression like '1' or '@prof'."),
+    recovery: z.array(z.object({
+        period: z.string(),
+        type: z.string(),
+        formula: z.string().optional(),
+    })).optional(),
+    spend: z.number().int().min(1).optional().describe("How many uses are consumed per activation."),
+});
+
+const SaveHintSchema = z.object({
+    ability: z.array(z.enum(["str", "dex", "con", "int", "wis", "cha"])).optional(),
+    dc: z.object({
+        calculation: z.string().default("flat"),
+        formula: z.string().optional(),
+    }).optional(),
+    onSave: z.enum(["none", "half", "full"]).optional().describe("Damage behavior on successful save."),
+});
+
+const ConditionHintSchema = z.object({
+    statuses: z.array(z.string()).default([]).describe("dnd5e status ids such as 'charmed' or 'poisoned'."),
+    onSave: z.boolean().optional().describe("If true, condition only applies when target fails save."),
+});
+
+const FeatureAutomationSchema = z.object({
+    resolution: z.enum(["attack", "save", "damage", "utility"]).optional(),
+    activationType: z.enum(["action", "bonus", "reaction", "special", "passive"]).optional(),
+    save: SaveHintSchema.optional(),
+    condition: ConditionHintSchema.optional(),
+    duration: DurationHintSchema.optional(),
+    range: z.object({
+        value: z.number().min(0).optional(),
+        units: z.string().optional(),
+    }).optional(),
+    target: z.object({
+        type: z.string().optional(),
+        count: z.string().optional(),
+        templateType: z.string().optional(),
+        templateSize: z.string().optional(),
+        units: z.string().optional(),
+    }).optional(),
+    uses: UsesHintSchema.optional(),
+    trigger: z.object({
+        type: z.enum(["manual", "when-hit", "start-turn", "end-turn", "other"]).optional(),
+        text: z.string().optional(),
+    }).optional(),
+}).optional().describe("Optional structured hints used to preserve feature automation intent across pipeline stages.");
+
 export const BlueprintSchema = z.object({
     name: z.string().describe("The name of the creature."),
     cr: z.number().describe("The Challenge Rating (CR) of the creature."),
@@ -49,6 +103,7 @@ export const BlueprintSchema = z.object({
         name: z.string(),
         description: z.string(),
         type: z.enum(["action", "bonus", "reaction", "passive", "legendary", "mythic"]),
+        automation: FeatureAutomationSchema,
     })).describe("Special abilities and actions."),
     spellcasting: z.object({
         ability: z.enum(["int", "wis", "cha"]).describe("Spellcasting ability: 'int' for wizards, 'wis' for clerics/druids, 'cha' for sorcerers/warlocks."),

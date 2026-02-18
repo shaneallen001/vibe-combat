@@ -11,7 +11,7 @@ import { BlueprintFactory } from "../factories/blueprint-factory.js";
 import * as CompendiumService from "./compendium-service.js";
 import { getSpellUuid } from "./compendium-service.js";
 import { SpellcastingBuilder } from "./spellcasting-builder.js";
-import { sanitizeCustomItem, ensureActivityIds, ensureItemHasImage } from "../utils/item-utils.js";
+import { sanitizeCustomItem, ensureActivityIds, ensureItemHasImage, validateAndRepairItemAutomation } from "../utils/item-utils.js";
 import { mapSkillsToKeys } from "../utils/actor-helpers.js";
 
 export class GeminiPipeline {
@@ -203,9 +203,13 @@ export class GeminiPipeline {
         // 2. Process Custom Items
         const processedCustomItems = await Promise.all(customItems.map(async item => {
             const sanitized = await sanitizeCustomItem(item);
-            ensureActivityIds(sanitized);
-            await ensureItemHasImage(sanitized);
-            return sanitized;
+            const { item: repaired, warnings } = validateAndRepairItemAutomation(sanitized);
+            if (warnings.length > 0) {
+                console.warn(`Vibe Combat | Automation repair warnings for "${repaired.name}":`, warnings);
+            }
+            ensureActivityIds(repaired);
+            await ensureItemHasImage(repaired);
+            return repaired;
         }));
 
         // 3. Build Spellcasting Feat and embedded spells (if applicable)

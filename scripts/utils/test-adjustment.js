@@ -60,7 +60,7 @@ class MockActor {
 // --- 2. Imports ---
 // Using relative paths from 'scripts/utils' to 'scripts/services/gemini-pipeline.js'
 import { GeminiPipeline } from "../services/gemini-pipeline.js";
-import { BlueprintFactory } from "../factories/blueprint-factory.js";
+import { collectItemAutomationIssues } from "./item-utils.js";
 
 // --- 3. Setup ---
 const __filename = fileURLToPath(import.meta.url);
@@ -154,6 +154,18 @@ async function runTest() {
         console.log("New HP:", mockGoblin.system.attributes.hp.max);
         console.log("New Type:", mockGoblin.system.details.type.value);
         console.log("New Items:", mockGoblin.items.map(i => i.name));
+
+        const automationIssues = [];
+        for (const item of mockGoblin.items || []) {
+            if (!item?.system?.activities) continue;
+            automationIssues.push(...collectItemAutomationIssues(item));
+        }
+        if (automationIssues.length > 0) {
+            console.warn(`⚠️ Found ${automationIssues.length} automation completeness issue(s):`);
+            automationIssues.forEach((issue) => console.warn(`   - ${issue}`));
+        } else {
+            console.log("✅ No automation completeness issues detected.");
+        }
 
         if (mockGoblin.system.details.cr !== 8) {
             console.warn("⚠️ CR did not update to 8 (might be fine if AI chose differently, but check logs)");

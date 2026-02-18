@@ -1,0 +1,60 @@
+{
+  "name": "Hypnotic Gaze",
+  "type": "feat",
+  "_id": "gooditem00000001",
+  "img": "icons/svg/dice-target.svg",
+  "effects": [
+    {
+      "_id": "goodffect0000001",
+      "name": "Charmed",
+      "transfer": false,
+      "statuses": [
+        "charmed"
+      ]
+    }
+  ],
+  "system": {
+    "description": {
+      "value": "As a bonus action, one creature you can see within 60 feet must succeed on a DC 13 Wisdom saving throw or be charmed for 1 minute."
+    },
+    "activities": {
+      "goodact000000001": {
+        "_id": "goodact000000001",
+        "type": "save",
+        "activation": {
+          "type": "bonus",
+          "value": 1
+        },
+        "range": {
+          "value": "60",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1"
+          }
+        },
+        "save": {
+          "ability": [
+            "wis"
+          ],
+          "dc": {
+            "calculation": "flat",
+            "formula": "13"
+          }
+        },
+        "effects": [
+          {
+            "_id": "goodffect0000001",
+            "onSave": false
+          }
+        ],
+        "duration": {
+          "value": "1",
+          "units": "minute"
+        }
+      }
+    }
+  }
+}

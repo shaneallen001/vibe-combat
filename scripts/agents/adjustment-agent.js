@@ -24,6 +24,9 @@ export class AdjustmentAgent extends GenerativeAgent {
        - If asked to "Add an item", add it to equipment/features.
     3. **Balance Math**: If the request changes the CR or key stats, ensure AC, HP, and Save DCs are re-balanced for the new CR.
     4. **Clean up**: If a feature makes no sense after the change, remove or replace it.
+    5. **Automation metadata**: Preserve existing feature "automation" hints where still valid.
+       - If mechanics change, update automation hints so they match the new feature text.
+       - Include save/condition/uses/trigger hints when the adjusted feature text specifies them.
     
     Schema Requirements:
     - Adhere strictly to the Blueprint Schema.

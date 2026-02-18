@@ -49,6 +49,89 @@ export class BlueprintFactory {
             return html.replace(/<[^>]*>?/gm, '');
         };
 
+        // Build optional automation hints from item activities/effects.
+        const getAutomationHint = (item) => {
+            const activities = Object.values(item.system?.activities || {});
+            if (!activities.length) return undefined;
+            const primary = activities[0];
+            const hint = {};
+
+            if (["attack", "save", "damage", "utility"].includes(primary.type)) {
+                hint.resolution = primary.type;
+            }
+            if (["action", "bonus", "reaction", "special", "passive"].includes(primary.activation?.type)) {
+                hint.activationType = primary.activation.type;
+            } else if (["legendary", "mythic"].includes(primary.activation?.type)) {
+                hint.activationType = "special";
+            }
+
+            if (primary.save) {
+                hint.save = {
+                    ability: primary.save.ability,
+                    dc: primary.save.dc,
+                    onSave: primary.damage?.onSave,
+                };
+            }
+
+            if (primary.duration) {
+                hint.duration = {
+                    value: Number(primary.duration.value) || undefined,
+                    units: primary.duration.units,
+                    concentration: primary.duration.concentration,
+                };
+            }
+
+            if (primary.range) {
+                hint.range = {
+                    value: Number(primary.range.value) || undefined,
+                    units: primary.range.units,
+                };
+            }
+
+            if (primary.target) {
+                hint.target = {
+                    type: primary.target.affects?.type,
+                    count: primary.target.affects?.count,
+                    templateType: primary.target.template?.type,
+                    templateSize: primary.target.template?.size,
+                    units: primary.target.template?.units || primary.range?.units,
+                };
+            }
+
+            if (primary.uses) {
+                hint.uses = {
+                    max: primary.uses.max,
+                    recovery: primary.uses.recovery,
+                    spend: Number(primary.consumption?.targets?.[0]?.value) || undefined,
+                };
+            }
+
+            const referencedStatuses = [];
+            for (const effectRef of primary.effects || []) {
+                const effect = (item.effects || []).find((e) => e._id === effectRef._id);
+                for (const status of effect?.statuses || []) referencedStatuses.push(status);
+            }
+            if (referencedStatuses.length > 0) {
+                hint.condition = {
+                    statuses: [...new Set(referencedStatuses)],
+                };
+            }
+
+            const triggerText = stripHtml(item.system?.description?.value || "");
+            if (/when hit|when .* hits|start of turn|end of turn/i.test(triggerText)) {
+                hint.trigger = {
+                    type: /start of turn/i.test(triggerText)
+                        ? "start-turn"
+                        : /end of turn/i.test(triggerText)
+                            ? "end-turn"
+                            : "when-hit",
+                    text: triggerText,
+                };
+            }
+
+            return Object.keys(hint).length > 0 ? hint : undefined;
+        };
+
         // Features & Equipment & Spells
         const features = [];
         const equipment = [];
@@ -72,7 +155,8 @@ export class BlueprintFactory {
                     });
                 } else if (item.type === "feat") {
                     let type = "action";
-                    const activation = item.system.activation?.type;
+                    const firstActivity = Object.values(item.system?.activities || {})[0];
+                    const activation = item.system.activation?.type || firstActivity?.activation?.type;
                     if (activation === "bonus") type = "bonus";
                     if (activation === "reaction") type = "reaction";
                     if (activation === "legendary") type = "legendary";
@@ -82,7 +166,8 @@ export class BlueprintFactory {
                     features.push({
                         name: item.name,
                         description: stripHtml(item.system.description?.value || ""),
-                        type: type
+                        type: type,
+                        automation: getAutomationHint(item),
                     });
                 }
             }

@@ -68,6 +68,7 @@ global.Actor = {
 // Using relative paths from 'scripts/utils' to 'scripts/agents'
 import { ArchitectAgent } from "../agents/architect-agent.js";
 import { GeminiPipeline } from "../services/gemini-pipeline.js"; // Optional: Test full pipeline if possible
+import { collectItemAutomationIssues } from "./item-utils.js";
 
 // --- 3. Setup & Configuration ---
 
@@ -166,6 +167,19 @@ async function runTest() {
         console.log("✅ Pipeline Generation Successful!");
         console.log(`   Name: ${actor.name}`);
         console.log(`   Items: ${actor.items.length}`);
+
+        const automationIssues = [];
+        for (const item of actor.items || []) {
+            if (!item?.system?.activities) continue;
+            automationIssues.push(...collectItemAutomationIssues(item));
+        }
+
+        if (automationIssues.length > 0) {
+            console.warn(`⚠️ Found ${automationIssues.length} automation completeness issue(s):`);
+            automationIssues.forEach((issue) => console.warn(`   - ${issue}`));
+        } else {
+            console.log("✅ No automation completeness issues detected.");
+        }
 
         // Save Actor
         const filenameActor = `actor_${timestamp}.json`;

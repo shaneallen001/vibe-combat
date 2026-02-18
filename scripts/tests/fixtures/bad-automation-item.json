@@ -1,0 +1,29 @@
+{
+  "name": "Corrupting Gaze",
+  "type": "feat",
+  "_id": "baditem000000001",
+  "img": "icons/svg/dice-target.svg",
+  "effects": [],
+  "system": {
+    "description": {
+      "value": "One creature within 60 feet must succeed on a DC 14 Wisdom saving throw or be charmed for 1 minute. The feature can be used 1/day."
+    },
+    "activities": {
+      "badact0000000001": {
+        "_id": "badact0000000001",
+        "type": "utility",
+        "activation": {
+          "type": "action",
+          "value": 1
+        },
+        "range": {
+          "value": "60",
+          "units": "ft"
+        },
+        "description": {
+          "value": "Target must make a Wisdom save or become charmed."
+        }
+      }
+    }
+  }
+}
