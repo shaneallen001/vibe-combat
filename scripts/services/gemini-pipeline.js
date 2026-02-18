@@ -11,7 +11,13 @@ import { BlueprintFactory } from "../factories/blueprint-factory.js";
 import * as CompendiumService from "./compendium-service.js";
 import { getSpellUuid } from "./compendium-service.js";
 import { SpellcastingBuilder } from "./spellcasting-builder.js";
-import { sanitizeCustomItem, ensureActivityIds, ensureItemHasImage, validateAndRepairItemAutomation } from "../utils/item-utils.js";
+import {
+    sanitizeCustomItem,
+    ensureActivityIds,
+    ensureItemHasImage,
+    validateAndRepairItemAutomation,
+    normalizeMutuallyExclusiveOptionItems
+} from "../utils/item-utils.js";
 import { mapSkillsToKeys } from "../utils/actor-helpers.js";
 
 export class GeminiPipeline {
@@ -207,6 +213,15 @@ export class GeminiPipeline {
             if (warnings.length > 0) {
                 console.warn(`Vibe Combat | Automation repair warnings for "${repaired.name}":`, warnings);
             }
+            const criticalWarnings = warnings.filter((warning) =>
+                /activity\.save|damage\.onSave|template size|activity\.type|one-of choice|multiple effects|companion save rider|save rider/i.test(warning)
+            );
+            if (criticalWarnings.length > 0) {
+                repaired.flags = repaired.flags || {};
+                repaired.flags["vibe-combat"] = repaired.flags["vibe-combat"] || {};
+                repaired.flags["vibe-combat"].criticalAutomationWarnings = criticalWarnings;
+                console.warn(`Vibe Combat | Critical automation warnings for "${repaired.name}":`, criticalWarnings);
+            }
             ensureActivityIds(repaired);
             await ensureItemHasImage(repaired);
             return repaired;
@@ -286,7 +301,8 @@ export class GeminiPipeline {
         }
 
         // 5. Filter out any Spellcasting feats from custom items (pipeline builds its own)
-        const filteredCustomItems = processedCustomItems.filter(
+        const normalizedCustomItems = normalizeMutuallyExclusiveOptionItems(processedCustomItems);
+        const filteredCustomItems = normalizedCustomItems.filter(
             item => item.name?.toLowerCase() !== "spellcasting"
         );
 

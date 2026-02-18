@@ -32,6 +32,8 @@ const ConditionHintSchema = z.object({
 
 const FeatureAutomationSchema = z.object({
     resolution: z.enum(["attack", "save", "damage", "utility"]).optional(),
+    secondaryResolution: z.enum(["attack", "save", "damage", "utility"]).optional().describe("Companion resolution when the feature should be represented by multiple activities."),
+    splitActivities: z.boolean().optional().describe("If true, implement as multiple linked activities instead of a single all-in-one activity."),
     activationType: z.enum(["action", "bonus", "reaction", "special", "passive"]).optional(),
     save: SaveHintSchema.optional(),
     condition: ConditionHintSchema.optional(),
@@ -52,6 +54,13 @@ const FeatureAutomationSchema = z.object({
         type: z.enum(["manual", "when-hit", "start-turn", "end-turn", "other"]).optional(),
         text: z.string().optional(),
     }).optional(),
+    rider: z.object({
+        trigger: z.enum(["on-hit", "manual", "passive", "other"]).optional(),
+        save: SaveHintSchema.optional(),
+        condition: ConditionHintSchema.optional(),
+        duration: DurationHintSchema.optional(),
+        notes: z.string().optional(),
+    }).optional().describe("Optional companion rider mechanic for split features, such as attack hit plus save-gated condition."),
 }).optional().describe("Optional structured hints used to preserve feature automation intent across pipeline stages.");
 
 export const BlueprintSchema = z.object({

@@ -21,6 +21,7 @@ export class QuartermasterAgent extends GenerativeAgent {
     - NEVER request a "Spellcasting" feature - the pipeline handles spellcasting separately.
     - If a blueprint feature has "automation" hints and you choose custom generation, copy the automation object into customRequests.automation unchanged.
     - Do not drop automation hints when converting blueprint features into customRequests.
+    - Preserve split intent metadata exactly when present (e.g., splitActivities, secondaryResolution, rider).
     - If a feature is fulfilled by selectedUuids, do not duplicate it in customRequests.
     `;
     }

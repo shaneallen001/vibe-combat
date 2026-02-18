@@ -1,12 +1,18 @@
 export function zodToJsonSchema(zodSchema) {
     if (!zodSchema) return {};
 
-    // Unwrap optional and default wrapper
-    // Unwrap optional, nullable and default wrapper
-    if (zodSchema._def.typeName === "ZodOptional" || zodSchema._def.typeName === "ZodDefault" || zodSchema._def.typeName === "ZodNullable") {
+    // Unwrap wrappers/effects to underlying schema for JSON schema conversion.
+    if (
+        zodSchema._def.typeName === "ZodOptional"
+        || zodSchema._def.typeName === "ZodDefault"
+        || zodSchema._def.typeName === "ZodNullable"
+    ) {
         // If it's a default, technically it is "optional" in input, but in output we expect the value.
         // Yet for schema definition, we just want the inner type structure.
         return zodToJsonSchema(zodSchema._def.innerType);
+    }
+    if (zodSchema._def.typeName === "ZodEffects") {
+        return zodToJsonSchema(zodSchema._def.schema);
     }
 
     const result = {};

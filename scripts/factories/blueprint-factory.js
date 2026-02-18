@@ -51,9 +51,18 @@ export class BlueprintFactory {
 
         // Build optional automation hints from item activities/effects.
         const getAutomationHint = (item) => {
-            const activities = Object.values(item.system?.activities || {});
+            const activities = Object.values(item.system?.activities || {}).filter((activity) => activity && typeof activity === "object");
             if (!activities.length) return undefined;
-            const primary = activities[0];
+            const attackActivity = activities.find((activity) => activity.type === "attack");
+            const saveActivities = activities.filter((activity) => activity.type === "save" && activity.save);
+            const companionSaveActivity = attackActivity ? (
+                saveActivities.find((activity) =>
+                    activity.activation?.type === "passive"
+                    || /when hit|after .*hit|on hit/i.test(String(activity.activation?.condition || ""))
+                ) || saveActivities[0]
+            ) : undefined;
+            const hasSplitAttackSaveIntent = Boolean(attackActivity && companionSaveActivity);
+            const primary = attackActivity || activities[0];
             const hint = {};
 
             if (["attack", "save", "damage", "utility"].includes(primary.type)) {
@@ -71,6 +80,28 @@ export class BlueprintFactory {
                     dc: primary.save.dc,
                     onSave: primary.damage?.onSave,
                 };
+            }
+
+            if (hasSplitAttackSaveIntent) {
+                hint.resolution = "attack";
+                hint.splitActivities = true;
+                hint.secondaryResolution = "save";
+                hint.rider = {};
+
+                const riderTriggerText = String(companionSaveActivity.activation?.condition || "");
+                hint.rider.trigger = /when hit|after .*hit|on hit/i.test(riderTriggerText)
+                    ? "on-hit"
+                    : companionSaveActivity.activation?.type === "passive"
+                        ? "passive"
+                        : "manual";
+
+                if (companionSaveActivity.save) {
+                    hint.rider.save = {
+                        ability: companionSaveActivity.save.ability,
+                        dc: companionSaveActivity.save.dc,
+                        onSave: companionSaveActivity.damage?.onSave,
+                    };
+                }
             }
 
             if (primary.duration) {
@@ -106,15 +137,30 @@ export class BlueprintFactory {
                 };
             }
 
+            const conditionSourceActivity = hasSplitAttackSaveIntent ? companionSaveActivity : primary;
             const referencedStatuses = [];
-            for (const effectRef of primary.effects || []) {
+            for (const effectRef of conditionSourceActivity?.effects || []) {
                 const effect = (item.effects || []).find((e) => e._id === effectRef._id);
                 for (const status of effect?.statuses || []) referencedStatuses.push(status);
             }
             if (referencedStatuses.length > 0) {
-                hint.condition = {
-                    statuses: [...new Set(referencedStatuses)],
+                const conditionHint = { statuses: [...new Set(referencedStatuses)] };
+                if (hasSplitAttackSaveIntent) {
+                    hint.rider = hint.rider || {};
+                    hint.rider.condition = conditionHint;
+                } else {
+                    hint.condition = conditionHint;
+                }
+            }
+
+            if (hasSplitAttackSaveIntent && companionSaveActivity?.duration) {
+                const durationHint = {
+                    value: Number(companionSaveActivity.duration.value) || undefined,
+                    units: companionSaveActivity.duration.units,
+                    concentration: companionSaveActivity.duration.concentration,
                 };
+                hint.rider = hint.rider || {};
+                hint.rider.duration = durationHint;
             }
 
             const triggerText = stripHtml(item.system?.description?.value || "");

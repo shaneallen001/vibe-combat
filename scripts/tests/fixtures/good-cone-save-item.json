@@ -1,0 +1,75 @@
+{
+  "name": "Mustard Spray",
+  "type": "feat",
+  "_id": "goodconesave0001",
+  "img": "icons/svg/dice-target.svg",
+  "effects": [
+    {
+      "_id": "blindconeffect001",
+      "name": "Blinded",
+      "transfer": false,
+      "statuses": [
+        "blinded"
+      ],
+      "duration": {
+        "rounds": 1
+      }
+    }
+  ],
+  "system": {
+    "description": {
+      "value": "Each creature in a 60-foot cone must make a DC 16 Dexterity saving throw. On a failed save, the creature takes 4d6 acid damage and is blinded until the end of its next turn. On a successful save, the creature takes half as much damage and isn't blinded."
+    },
+    "activities": {
+      "goodconesact0001": {
+        "_id": "goodconesact0001",
+        "type": "save",
+        "activation": {
+          "type": "action",
+          "value": 1
+        },
+        "range": {
+          "units": "self"
+        },
+        "target": {
+          "affects": {
+            "type": "creature"
+          },
+          "template": {
+            "type": "cone",
+            "size": "60",
+            "units": "ft",
+            "contiguous": true
+          }
+        },
+        "save": {
+          "ability": [
+            "dex"
+          ],
+          "dc": {
+            "calculation": "flat",
+            "formula": "16"
+          }
+        },
+        "damage": {
+          "parts": [
+            {
+              "number": 4,
+              "denomination": 6,
+              "types": [
+                "acid"
+              ]
+            }
+          ],
+          "onSave": "half"
+        },
+        "effects": [
+          {
+            "_id": "blindconeffect001",
+            "onSave": false
+          }
+        ]
+      }
+    }
+  }
+}

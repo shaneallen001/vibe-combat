@@ -2,6 +2,8 @@ import { z } from "../libs/zod.js";
 
 const AutomationHintSchema = z.object({
     resolution: z.enum(["attack", "save", "damage", "utility"]).optional(),
+    secondaryResolution: z.enum(["attack", "save", "damage", "utility"]).optional(),
+    splitActivities: z.boolean().optional(),
     activationType: z.enum(["action", "bonus", "reaction", "special", "passive"]).optional(),
     save: z.object({
         ability: z.array(z.enum(["str", "dex", "con", "int", "wis", "cha"])).optional(),
@@ -43,6 +45,27 @@ const AutomationHintSchema = z.object({
     trigger: z.object({
         type: z.enum(["manual", "when-hit", "start-turn", "end-turn", "other"]).optional(),
         text: z.string().optional(),
+    }).optional(),
+    rider: z.object({
+        trigger: z.enum(["on-hit", "manual", "passive", "other"]).optional(),
+        save: z.object({
+            ability: z.array(z.enum(["str", "dex", "con", "int", "wis", "cha"])).optional(),
+            dc: z.object({
+                calculation: z.string().default("flat"),
+                formula: z.string().optional(),
+            }).optional(),
+            onSave: z.enum(["none", "half", "full"]).optional(),
+        }).optional(),
+        condition: z.object({
+            statuses: z.array(z.string()).default([]),
+            onSave: z.boolean().optional(),
+        }).optional(),
+        duration: z.object({
+            value: z.number().int().min(0).optional(),
+            units: z.enum(["inst", "turn", "round", "minute", "hour", "day"]).optional(),
+            concentration: z.boolean().optional(),
+        }).optional(),
+        notes: z.string().optional(),
     }).optional(),
 }).optional();
 

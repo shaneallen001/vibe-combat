@@ -1,170 +1,391 @@
+# Feature Activity Type Guide (Foundry dnd5e)
+
+This guide explains how to choose the correct dnd5e `system.activities[*].type` for generated features so mechanics execute correctly in Foundry, not just in prose.
+
+Compatibility target for this repository:
+- Foundry VTT core `13.348`
+- dnd5e system `5.1.8`
+- Data conventions aligned to 2024 model where applicable
+
+---
+
+## Why this matters (Venomous Harrier example)
+
+Generated file:
+- `Example JSON's/Generated/fvtt-Actor-venomous-harrier-Xaw146vLtlyDcnWs.json`
+
+Observed issue:
+- `Blinding Arrow`, `Poison Arrow`, and `Trip Arrow` are modeled as `attack` activities with linked effects.
+- Their descriptions include save-gated outcomes ("must succeed on a DC 14 save or ..."), but the activities do not encode save data.
+- Result: the activity can hit and apply effect links without a machine-readable save gate for conditional application.
+
+Related issue in same actor:
+- `Poisoner's Guile` is `save`, but combines multiple mutually-exclusive outcomes in one activity, which produces ambiguity and warnings.
+
+Core rule:
+- If the save/effect/damage branch is only in description text, automation is incomplete.
+
+---
+
+## Activity types and when to use them
+
+### `attack`
+Use when the primary gate is an attack roll.
+
+Good for:
+- Weapon/spell attacks resolved by hit or miss.
+- Features where "on hit" is the main branching logic.
+
+Do not use alone when:
+- The main mechanic is "target makes a save or suffers X."
+- A condition or extra damage should apply only on failed save unless that save is explicitly encoded.
+
+### `save`
+Use when the primary gate is a saving throw.
+
+Good for:
+- "Each creature must make a Dex/Con/etc. save..."
+- Save-for-half, save-for-none, or save-for-condition mechanics.
+
+Required fields for save-driven damage/effects:
+- `save.ability`
+- `save.dc`
+- `damage.onSave` when damage exists
+- `effects` links with `onSave` behavior when conditions are save-gated
+
+### `damage`
+Use for deterministic damage with no attack roll and no save gate.
+
+Good for:
+- Automatic damage ticks
+- Guaranteed damage riders that do not branch on save
+
+Do not use for save text:
+- If prose says "must save," this should be `save` (or a separate save rider activity).
+
+### `utility`
+Use for helpers, selectors, triggers, and non-resolution actions.
+
+Good for:
+- Parent option selectors ("choose one ray")
+- Manual trigger helpers ("when hit, trigger rider")
+- Setup/support actions that do not directly resolve attack/save/damage
+
+### `heal`, `enchant`, `summon`
+Use when the feature's primary resolution is healing, enchanting, or summoning.
+
+Notes:
+- These are valid schema activity types.
+- For custom combat feature generation in this module, most mechanics are still modeled with `attack` / `save` / `damage` / `utility`.
+
+---
+
+## Decision workflow for choosing type
+
+For each feature, parse prose into atomic mechanics, then choose the activity model.
+
+1. Primary gate check
+   - Attack roll gate -> start with `attack`
+   - Saving throw gate -> start with `save`
+   - No gate, direct output -> `damage`/`heal`/`summon`/`enchant`
+   - No direct resolution -> `utility`
+
+2. Save branch check
+   - If damage/effect depends on save success/failure, encode `save` and `damage.onSave`.
+   - Do not leave save branch in text only.
+
+3. Area check
+   - Area features require `target.template.type` plus `target.template.size`.
+   - Shape without size is incomplete.
+
+4. Effect check
+   - Condition prose requires item-level `effects[]` and `activity.effects[]` references.
+   - If condition is fail-only, represent that in effect `onSave` logic.
+
+5. Resource check
+   - Limited uses/recharge must be encoded in `activity.uses` and `activity.consumption.targets`.
+
+6. Choice check
+   - "Choose one" mechanics should not attach multiple option effects to one resolution activity.
+   - Use a parent `utility` selector and one child resolution activity per option.
+
+---
+
+## Attack + save riders: recommended patterns
+
+Special arrows and similar riders often have two gates:
+1) Attack must hit, and
+2) Target then makes a save for rider outcome.
+
+Two robust patterns:
+
+### Pattern A: split resolution (recommended for clarity)
+- Activity 1: `attack` for the weapon hit/damage.
+- Activity 2: `save` rider for the conditional effect/damage branch.
+- Optional parent `utility` text/helper to guide sequencing.
+
+Benefits:
+- Clear gate separation.
+- Save branch is explicit and auditable.
+- Works better with warning/repair logic in this repo.
+
+### Pattern B: single save-first feature
+- Use one `save` activity when the intended mechanic is fundamentally save-driven and attack flavor is secondary.
+- Encode all branching mechanically in `save`, `damage.onSave`, and `effects`.
+
+Avoid:
+- Single `attack` activity with save-only prose and no save object.
+
+---
+
+## Worked mapping: Venomous Harrier arrows
+
+### Existing problematic shape
+- `Blinding Arrow` / `Poison Arrow` / `Trip Arrow`:
+  - `type: "attack"`
+  - linked status effects present
+  - save prose present
+  - missing explicit save gate for conditional rider logic
+
+### Better model
+
+Option 1 (split):
+- Keep arrow to-hit as `attack`.
+- Add rider as `save` activity:
+  - `save.ability` and flat `save.dc`
+  - `damage.onSave` if rider damage exists
+  - linked effect with `onSave: false` when fail-only
+
+Option 2 (save-centric arrow ability):
+- Convert each special arrow to `save` if the intent is save-resolved feature behavior.
+- Keep to-hit language out of automation path unless separately encoded.
+
+---
+
+## Anti-patterns to avoid
+
+- Save language in description, but activity type is only `attack`, `damage`, or `utility`.
+- Area template has a type but no size.
+- Save + damage exists, but `damage.onSave` is missing.
+- Condition language exists, but no linked activity effect references.
+- One-of choices encoded as one activity with multiple outcome effects.
+- Uses/recharge mentioned in prose only.
+
+---
+
+## Quick QA checklist before accepting generated features
+
+For each combat activity:
+
+1. Does every mechanical sentence appear in structured fields?
+2. If prose includes a save, does activity include `save` data?
+3. If save and damage coexist, is `damage.onSave` set correctly?
+4. If area is described, are `template.type` and `template.size` both present?
+5. If condition is described, are item `effects` and `activity.effects` properly linked?
+6. If uses/recharge is described, are `uses` and `consumption.targets` wired?
+7. If feature has mutually-exclusive outcomes, is each outcome in its own resolution activity?
+
+If any answer is no, treat the feature as partially automated.
+
+---
+
+## Repository-specific guidance
+
+- The schema and repair pipeline already enforce or warn on key issues:
+  - save activity missing `save`
+  - save+damage missing `damage.onSave`
+  - area template without `size`
+  - one-of effects bundled in a single activity
+- Use those warnings as blockers for generated custom features, especially monster feats/weapons with custom activities.
 # Feature Automation Tips (dnd5e Activities)
 
-This guide describes how to build NPC features that actually automate in Foundry VTT dnd5e.
+This guide explains how to build actor features that actually execute correctly in Foundry dnd5e, not just look right in description text.
 
-Target stack for this project:
-- Foundry VTT v13.x
-- dnd5e v5.1.8
-- 2024 rules data model (`system.source.rules: "2024"` where appropriate)
-
----
-
-## Why this exists
-
-The generated actor `Example JSON's/Generated/fvtt-Actor-the-gourmand-1N1StchQpLX0RcbY.json` has valid item records, but several features are only partially automated:
-
-- `Gourmand's Gaze` says "target makes WIS save or is charmed for 1 minute", but the activity is `utility` and does not encode the save/effect.
-- `Mustard Stream`, `Ketchup Spray`, and `Relish Mist` descriptions imply rider conditions, but activities only apply hit + damage.
-- `Juicy Core` describes a trigger ("when hit" / "start of turn within 5 feet"), but is represented as a normal action activity.
-
-Result: these features roll something, but do not enforce the mechanical text.
+Compatibility target for this repo:
+- Foundry VTT core `13.348`
+- dnd5e system `5.1.8`
+- 2024 data model where appropriate (`system.source.rules: "2024"`)
 
 ---
 
-## What "good automation" looks like (from official-style data)
+## Case study: Condiment Drake vs. official Beholder
 
-Official monster/spell data in `Example JSON's/Official/` consistently does these things:
+This generated actor has partially wired automation:
+- `Example JSON's/Generated/fvtt-Actor-the-condiment-drake-DlqJhpOlXl9ZD5bh.json`
 
-1. Uses the correct activity type for resolution
-   - `attack` for to-hit attacks.
-   - `save` for "target must succeed on a save..." features.
-   - `damage` for pure damage applications.
-   - `utility` for toggles, roll tables/selectors, or non-resolution helpers.
+Official reference with strong activity wiring:
+- `Example JSON's/Official/fvtt-Actor-beholder-8FwUiRcmJD6eQ2aR.json`
 
-2. Encodes save mechanics in the activity
-   - `save.ability` and `save.dc` are present when text calls for a save.
-   - `damage.onSave` is set (`none`, `half`, etc.) for save-based damage.
+### What is wrong in the drake
 
-3. Wires conditions via `activity.effects` + item `effects`
-   - Activity references effect IDs.
-   - Item defines concrete Active Effects with statuses and duration.
+1. `Condiment Breath (Recharge 5-6)` description says "must make a saving throw", but its activity is `utility` with no `save`.
+2. `Mustard Spray` is `type: "damage"` even though the text is save-based.
+3. `Mustard Spray` has a cone template without `target.template.size` (no cone length encoded).
+4. `Mustard Spray` has no `save` object and no `damage.onSave` behavior for half damage.
 
-4. Encodes targeting/range/duration explicitly
-   - `target.affects.type/count`, template shape/size, and `range.value/units`.
-   - Duration in the activity when the effect is time-bound.
+### What the beholder does correctly (Eye Rays / Slowing Ray pattern)
 
-5. Encodes resource usage at activity level
-   - `uses.max/recovery` on activity when per-ability limits exist.
-   - `consumption.targets` when spending activity uses.
+Official `Eye Rays` activities consistently include:
+- `type: "save"` when the text says saving throw.
+- `save.ability` and `save.dc`.
+- `damage.onSave` (`"half"` when the text says half on success).
+- linked effect references in `activity.effects` that point to item-level `effects`.
+- explicit range and target data.
 
-6. For spellcasting, cast activities are linked to embedded spells
-   - `Spellcasting` feat activities of type `cast`.
-   - Embedded spells use `flags.dnd5e.cachedFor` to map spell item -> cast activity.
+The result is that the chat card and targeting flow enforce mechanics instead of relying on manual adjudication.
 
 ---
 
-## Authoring rules for custom monster features
+## Rule: prose is not automation
 
-Use this checklist for each generated feature:
+If a mechanic appears only in description text, it is not automated.
 
-1. Parse the sentence mechanically
-   - Activation: action, bonus, reaction, passive/triggered.
-   - Resolution: attack roll, save, automatic damage, or utility.
-   - Targeting: creature/object/area, range, count.
-   - Outcome: damage types, condition, duration, repeat saves, recharge/uses.
-
-2. Choose item + activity structure
-   - Keep feature as `type: "feat"` unless it is truly a weapon or spell item.
-   - Add one or more activities when one text block has multiple steps.
-
-3. Put the mechanic in activity data, not only prose
-   - Description text can summarize, but automation-critical fields must be structured.
-
-4. Add effects when conditions exist
-   - Create item-level effect entries (status + duration).
-   - Reference them in `activity.effects`.
-
-5. Encode save DC correctly
-   - If fixed in the stat block, use flat formula/value pattern.
-   - If derived, use ability/proficiency formula pattern.
-
-6. Encode limited-use features
-   - `activity.uses.max`, `activity.uses.recovery`.
-   - `consumption.targets` to spend 1 use on execution.
-
-7. Mark trigger-based features honestly
-   - For "when hit" / "start turn" clauses, include a `utility` helper activity and clear text.
-   - If fully automatic trigger execution is not supported, keep a manual trigger button rather than pretending it is a standard action.
+Every mechanical clause must be represented in a structured field:
+- Save clause -> `activity.save`
+- Half/none/full on success -> `activity.damage.onSave`
+- Condition application -> `activity.effects[]` + item `effects[]`
+- Area size -> `activity.target.template.size`
+- Uses/recharge -> `activity.uses` + `activity.consumption.targets`
 
 ---
 
-## Practical patterns
+## How to build functional features
 
-### A) Save-or-condition feature (example: charm gaze)
+Follow this sequence for each feature.
 
-Use a `save` activity with an attached condition effect:
+1. Parse the text into atomic mechanics
+   - Activation (`action`, `bonus`, `reaction`, passive/trigger)
+   - Resolution (attack roll, save, pure damage, utility helper)
+   - Targeting (single target vs. area)
+   - Outcomes (damage, condition, duration, repeat save, uses/recharge)
+
+2. Choose the correct activity type
+   - `attack`: to-hit gate is primary
+   - `save`: saving throw gate is primary
+   - `damage`: no attack and no save gate
+   - `utility`: selector, trigger helper, roll table, non-resolution helper
+
+3. Encode area/range explicitly
+   - Cone/line/sphere/cylinder/cube need `target.template.type` plus `target.template.size`.
+   - Single-target features should use `target.affects.type` and `target.affects.count`.
+
+4. Encode save + damage interaction
+   - If text has a save, include `save.ability` and `save.dc`.
+   - If text says half/none/full on success, set `damage.onSave` accordingly.
+
+5. Encode conditions with linked effects
+   - Create item-level effect with correct `statuses` and duration.
+   - Reference that effect in `activity.effects` and set `onSave` behavior.
+
+6. Encode uses/recharge where relevant
+   - Set `activity.uses.max` and `activity.uses.recovery`.
+   - Add `activity.consumption.targets` so a use is actually spent.
+
+7. Model triggered mechanics honestly
+   - For "when hit", "start of turn", "end of turn", prefer manual-trigger `utility` or helper flow.
+   - Do not disguise triggers as ordinary action attacks.
+
+---
+
+## Worked example: Mustard Spray (correct wiring)
+
+Mechanics from prose:
+- 60-ft cone
+- Dex save DC 16
+- Fail: `4d6 acid` + blinded until end of next turn
+- Success: half damage, no blinded
+
+Minimal activity structure:
 
 ```json
 {
   "type": "save",
-  "activation": { "type": "bonus", "value": 1, "override": false },
+  "activation": { "type": "action", "value": 1, "override": false },
+  "range": { "units": "self", "override": false },
   "target": {
-    "affects": { "type": "creature", "count": "1", "choice": false },
-    "template": { "contiguous": false, "units": "ft", "type": "" },
+    "affects": { "type": "creature", "choice": false },
+    "template": {
+      "type": "cone",
+      "size": "60",
+      "units": "ft",
+      "contiguous": true
+    },
     "override": false,
     "prompt": true
   },
-  "range": { "units": "ft", "value": "60", "override": false },
   "save": {
-    "ability": ["wis"],
-    "dc": { "calculation": "flat", "formula": "13" }
+    "ability": ["dex"],
+    "dc": { "calculation": "flat", "formula": "16" }
   },
-  "effects": [{ "_id": "charmedEffectId", "onSave": false }],
-  "duration": { "units": "minute", "value": "1", "concentration": false, "override": false }
+  "damage": {
+    "parts": [
+      { "number": 4, "denomination": 6, "types": ["acid"] }
+    ],
+    "onSave": "half"
+  },
+  "effects": [
+    { "_id": "blindEffectId", "onSave": false }
+  ],
+  "duration": { "units": "inst", "concentration": false, "override": false }
 }
 ```
 
-And on the item:
+Linked item effect:
 
 ```json
 {
-  "_id": "charmedEffectId",
-  "name": "Charmed",
+  "_id": "blindEffectId",
+  "name": "Blinded",
   "transfer": false,
-  "statuses": ["charmed"],
-  "duration": { "seconds": 60 }
+  "statuses": ["blinded"],
+  "duration": { "rounds": 1 },
+  "changes": []
 }
 ```
 
-### B) Attack with rider condition (example: paralyzing touch style)
-
-Use `attack` activity + linked `effects`. Do not rely on plain text alone.
-
-### C) Triggered aura/start-turn damage
-
-If feature text is "creatures that start turn within 5 ft take X damage":
-- Represent with a `damage` activity pre-targeted to close range (manual trigger by GM each turn), or
-- Split into helper `utility` activity + `damage` activity if your UX needs a separate reminder step.
+Key point: if this is modeled as `damage` without `save`, Foundry cannot automate the fail/success branch correctly.
 
 ---
 
-## Common anti-patterns to avoid
+## Multi-option features (like Eye Rays or breath variants)
 
-- A `utility` activity used for a save-or-condition feature.
-- Damage encoded but missing `onSave` behavior.
-- Description says "blinded/paralyzed/charmed" but no `effects` are linked.
-- Daily-use text in description, but no `activity.uses` or consumption target.
-- Triggered/passive text modeled as plain action with no trigger cue.
+Use a parent helper plus child resolution activities:
+- Parent `utility` activity for selecting or rolling the variant.
+- Each variant should be its own fully wired `save`/`attack`/`damage` activity.
+- Put limited-use/recharge on the activity that is actually clicked to execute (or ensure child activities consume shared uses correctly).
 
----
-
-## QA pass before shipping generated actors
-
-For every `feat`/`weapon` item with combat text:
-
-1. Does each mechanical sentence map to at least one structured field?
-2. If there is a save in prose, is there a `save` object in activity?
-3. If there is a condition in prose, is there linked `activity.effects` + item effect definition?
-4. If there is duration/area/range in prose, is it encoded in activity fields?
-5. If there is "X/day", are uses + recovery + consumption targets present?
-6. If it is spellcasting, do cast activities link to embedded spells (`cachedFor`)?
-
-If any answer is "no", automation is incomplete.
+Do not put all mechanics in one parent prose block and leave variants under-specified.
 
 ---
 
-## Notes specific to this repo
+## Common anti-patterns
 
-- `SpellcastingBuilder` already follows strong automation patterns for cast activities and spell linking.
-- The biggest gap is custom non-spell features from the Blacksmith stage: they need richer mechanic extraction and a schema that allows `effects`, save behavior, and resource wiring.
+- Save language in prose but activity is `damage` or `utility`.
+- Area template has shape but no size (for example, cone with no length).
+- Damage + save present but `damage.onSave` missing.
+- Condition in prose but no linked `activity.effects` and item `effects`.
+- Recharge/day language only in description with no uses/consumption data.
+
+---
+
+## QA checklist before shipping generated actors
+
+For each combat-relevant `feat`/`weapon`:
+
+1. Does each mechanical sentence map to structured fields?
+2. Save in prose -> `activity.save` present?
+3. Save + damage -> `damage.onSave` present and correct?
+4. Area text -> `target.template.type` and `target.template.size` present?
+5. Condition text -> item `effects` + `activity.effects` linked?
+6. Limited-use/recharge text -> `uses` + `consumption.targets` wired?
+7. Trigger text -> represented as trigger/manual helper pattern, not fake action?
+
+If any answer is no, automation is incomplete.
+
+---
+
+## Notes for this repository
+
+- `SpellcastingBuilder` already produces strong cast activity wiring and spell linking.
+- Custom non-spell features from the Blacksmith path are the highest-risk area and should be validated against this checklist every generation run.
 

@@ -52,5 +52,33 @@ function testZodObjectNullable() {
     }
 }
 
+function testZodEffects() {
+    console.log("\nTesting ZodEffects (superRefine) support...");
+
+    try {
+        const schema = z.object({
+            type: z.string(),
+            save: z.object({ ability: z.array(z.string()) }).optional(),
+        }).superRefine(() => { });
+        const jsonSchema = zodToJsonSchema(schema);
+
+        console.log("Input Schema: z.object(...).superRefine(...)");
+        console.log("Output JSON Schema:", JSON.stringify(jsonSchema, null, 2));
+
+        if (jsonSchema.type === "object" && jsonSchema.properties?.type?.type === "string") {
+            console.log("SUCCESS: ZodEffects correctly unwrapped to inner object.");
+        } else {
+            console.error("FAILURE: ZodEffects did not unwrap correctly.");
+            process.exit(1);
+        }
+
+    } catch (error) {
+        console.error("CRASHED: zodToJsonSchema threw an error on ZodEffects.");
+        console.error(error);
+        process.exit(1);
+    }
+}
+
 testZodNullable();
 testZodObjectNullable();
+testZodEffects();

@@ -1,5 +1,7 @@
 import { z } from "../libs/zod.js";
 
+const AREA_TEMPLATE_TYPES = new Set(["cone", "line", "cube", "cylinder", "sphere"]);
+
 const DamagePartSchema = z.object({
     number: z.number().int().min(0),
     denomination: z.number().int(),
@@ -128,6 +130,33 @@ const ActivitySchema = z.object({
         value: z.string().optional(),
         chat: z.string().optional(),
     }).optional(),
+}).superRefine((activity, ctx) => {
+    if (activity.type === "save" && !activity.save) {
+        ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            path: ["save"],
+            message: "Save activities must include save data.",
+        });
+    }
+
+    if (activity.save && activity.damage && !activity.damage.onSave) {
+        ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            path: ["damage", "onSave"],
+            message: "Activities with both save and damage must define damage.onSave.",
+        });
+    }
+
+    const templateType = String(activity?.target?.template?.type || "").toLowerCase();
+    const templateSize = String(activity?.target?.template?.size || "").trim();
+    const templateWidth = String(activity?.target?.template?.width || "").trim();
+    if (AREA_TEMPLATE_TYPES.has(templateType) && !templateSize && !templateWidth) {
+        ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            path: ["target", "template", "size"],
+            message: `Area template type "${templateType}" requires target.template.size.`,
+        });
+    }
 });
 
 export const FoundryItemSchema = z.object({

@@ -114,7 +114,10 @@ async function runTest() {
     console.log("🚀 Starting Standalone Actor Generation Test...");
     console.log(`📂 Output Directory: ${EXAMPLE_DIR}`);
 
-    const prompt = "A CR 8 lich-like undead wizard spellcaster. Uses intelligence for spellcasting. Has Fireball and Animate Dead at will, and Power Word Kill 1/day.";
+    const prompt = process.env.TEST_PROMPT || "A CR 8 lich-like undead wizard spellcaster. Uses intelligence for spellcasting. Has Fireball and Animate Dead at will, and Power Word Kill 1/day.";
+    const requestedCr = Number(process.env.TEST_CR || 1);
+    console.log(`📝 Prompt: ${prompt}`);
+    console.log(`🎯 Requested CR: ${requestedCr}`);
 
     try {
         // Test 1: Architect Agent (Blueprint only)
@@ -161,7 +164,7 @@ async function runTest() {
         console.log("\n🧪 Testing Full Gemini Pipeline...");
         const pipeline = new GeminiPipeline(API_KEY);
         console.time("Pipeline Generation");
-        const actor = await pipeline.generateActor({ prompt, cr: 1 });
+        const actor = await pipeline.generateActor({ prompt, cr: requestedCr });
         console.timeEnd("Pipeline Generation");
 
         console.log("✅ Pipeline Generation Successful!");

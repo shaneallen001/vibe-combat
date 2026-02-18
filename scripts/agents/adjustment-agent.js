@@ -27,6 +27,15 @@ export class AdjustmentAgent extends GenerativeAgent {
     5. **Automation metadata**: Preserve existing feature "automation" hints where still valid.
        - If mechanics change, update automation hints so they match the new feature text.
        - Include save/condition/uses/trigger hints when the adjusted feature text specifies them.
+       - Include area template hints ('target.templateType' and 'target.templateSize') for cone/line/sphere/cylinder/cube features.
+       - If text says "must make a saving throw", set automation.resolution to "save" and include save on-success behavior when stated.
+       - If adjusted text implies "attack hit" plus save-gated rider, set:
+         - automation.resolution = "attack"
+         - automation.splitActivities = true
+         - automation.secondaryResolution = "save"
+         - automation.rider.trigger = "on-hit"
+         - automation.rider.save / automation.rider.condition for rider details.
+       - Keep rider metadata in automation.rider so downstream generation preserves split activity intent.
     
     Schema Requirements:
     - Adhere strictly to the Blueprint Schema.

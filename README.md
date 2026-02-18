@@ -1,6 +1,6 @@
 # Vibe Combat
 
-Vibe Combat is a Foundry VTT module for the dnd5e system that helps Game Masters manage party XP budgets, encounter difficulties, generate NPC actors with Gemini AI, and adjust existing NPCs while preserving system automation.
+Vibe Combat is a Foundry VTT module for the dnd5e system that helps Game Masters manage party XP budgets, encounter difficulties, generate NPC actors with Gemini AI, and adjust existing NPCs while preserving dnd5e activity automation fidelity.
 
 ## Features
 
@@ -8,7 +8,8 @@ Vibe Combat is a Foundry VTT module for the dnd5e system that helps Game Masters
 -   **Encounter Difficulty Calculation**: Real-time feedback on encounter difficulty as you add monsters.
 -   **AI Actor Generation**: Generate complete D&D 5e NPC stat blocks from text descriptions using Google Gemini.
 -   **AI Actor Adjustment**: Modify an existing NPC from natural-language requests while preserving identity and image.
--   **Automation-Aware Feature Generation**: Custom generated features are validated and repaired for save/effect/uses wiring so activity data better matches mechanical prose.
+-   **Automation-Aware Feature Generation**: Custom generated features are validated and repaired for save/effect/uses/template wiring so activity data better matches mechanical prose.
+-   **Choice-Aware Activity Structuring**: Mutually exclusive feature options are normalized conditionally (only when output is redundant), while single-item multi-activity official-style patterns remain valid.
 -   **AI Image Generation**: Generate token images for actors using OpenAI (DALL-E 3).
 -   **Player Access**: Optionally allow players to access the Vibe Actor generator using the GM's API keys.
 
@@ -74,12 +75,13 @@ You can run generation and adjustment logic without launching Foundry VTT using 
     ```bash
     node scripts/utils/test-generation.js
     node scripts/utils/test-adjustment.js
+    node scripts/tests/test_zod_schema.mjs
     node scripts/tests/activity-automation-regression.mjs
     ```
 
 3.  **Output**:
     *   **Success**: Generated test JSONs are saved to `Example JSON's/Test Generated/`.
-    *   **Automation Regression**: Fixture check should pass with 0 issues on good fixture and >0 issues on bad fixture.
+    *   **Automation Regression**: Fixture checks should pass for good save/condition/cone wiring and fail for intentionally bad fixtures.
     *   **Failure**: Errors are logged to `Error Logs/Test Errors.md` (or printed by the regression script).
 
 ### Architecture & Vision: "The Vibe Architect"
@@ -140,7 +142,9 @@ vibe-combat/
 │   │   ├── activity-automation-regression.mjs # Fixture-based automation checks
 │   │   └── fixtures/
 │   │       ├── good-automation-item.json
-│   │       └── bad-automation-item.json
+│   │       ├── bad-automation-item.json
+│   │       ├── good-cone-save-item.json
+│   │       └── bad-cone-save-item.json
 │   ├── ui/                  # UI Components
 │   │   ├── dialogs/                  # Dialog classes
 │   │   │   ├── encounter-dialogs.js
@@ -171,7 +175,6 @@ vibe-combat/
 │       ├── suggestion.css
 │       └── xp-meter.css
 ├── templates/               # HTML (Handlebars)
-
 │   ├── suggestion-sources.html       # Suggestion sources config template
 │   ├── vibe-actor-dialog.html        # Actor generation dialog template
 │   ├── vibe-adjustment-dialog.html   # Actor adjustment dialog template
@@ -202,7 +205,8 @@ This is the orchestrator of the actor generation system. It coordinates the agen
 *   **Step 1: The Architect (Concept)**: Uses `ArchitectAgent` to generate a high-level "Blueprint" (JSON) from the user's prompt. Decides on stats, flavor, "Twists", and desired features.
 *   **Step 2: The Quartermaster (Selection)**: Uses `QuartermasterAgent` to search `CompendiumService` for matching items. Decides whether to use existing Item UUIDs or request custom items.
 *   **Step 3: The Blacksmith (Fabrication)**: Uses `BlacksmithAgent` to generate custom items with activities/effects/uses wiring.
-*   **Step 4: The Builder (Assembly)**: Combines UUIDs and custom items into the final Actor document. Calculates final data (CR, HP, AC), runs semantic automation validation/repair on custom items, and creates the document.
+*   **Step 4: The Builder (Assembly)**: Combines UUIDs and custom items into the final Actor document. Calculates final data (CR, HP, AC), runs semantic automation validation/repair on custom items, conditionally normalizes redundant mutually-exclusive option structures, and creates the document.
+    *   **Automation warnings**: Critical unresolved wiring issues (save/onSave/template/choice mismatches) are surfaced via item flags for easier review.
     *   **Spellcasting**: For spellcasters, builds a "Spellcasting" feat with `cast`-type activities referencing spell UUIDs. Spell items are fetched from compendium and embedded with `flags.dnd5e.cachedFor` linking them to their cast activities (matching official 2024 5e data model).
 
 #### 4. Encounter Builder (`scripts/ui/vibe-combat-app.js`)
@@ -238,8 +242,9 @@ Defines type-safe schemas for structured AI output:
 *   **`analysis-schema.js`**: Schema for item analysis responses.
 
 #### 10. Automation Validation (`scripts/utils/item-utils.js`, `scripts/tests/activity-automation-regression.mjs`)
--   **Runtime repair**: Pipeline calls utility helpers to detect common mismatches (save prose without save object, condition prose without effects, missing uses wiring) and performs conservative repairs.
--   **Regression harness**: Fixture-based deterministic checks ensure good wiring passes and intentionally bad wiring fails.
+-   **Runtime repair**: Pipeline calls utility helpers to detect common mismatches (save prose without save object, missing `damage.onSave`, missing area template size, condition prose without effects, missing uses wiring) and performs conservative repairs.
+-   **Choice normalization**: When output includes redundant parent + option structures for one-of mechanics, helper/option activities are normalized; official single-item multi-activity structures are not forcibly rewritten.
+-   **Regression harness**: Fixture-based deterministic checks ensure good wiring passes and intentionally bad wiring fails (including cone/save cases).
 
 ### Development Notes
 
@@ -279,6 +284,8 @@ The AI generation system uses a modular agent-based architecture:
    Cast activities should map to embedded spells via `flags.dnd5e.cachedFor` to align with modern official data.
 5. **Rate limits are pipeline-amplified**  
    Multi-step generation (Architect -> Quartermaster -> Blacksmith -> Builder) increases API call count and quickly hits free-tier limits.
+6. **Mutually exclusive mechanics need conditional structure handling**  
+   Some creatures are best represented as one feature with many activities (official Eye Rays style), while others are cleaner as helper + option activities/items; normalization must be conditional, not global.
 
 ## Known Issues & Error Handling
 

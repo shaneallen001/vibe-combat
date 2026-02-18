@@ -24,8 +24,17 @@ export class ArchitectAgent extends GenerativeAgent {
     - For each feature, include "automation" hints whenever mechanics are explicit in prose.
       - If text implies a saving throw, include save ability/DC style and expected on-save behavior.
       - If text implies a condition, include condition statuses and expected duration.
+      - If text implies an area (cone/line/sphere/cylinder/cube), include 'target.templateType' and 'target.templateSize'.
+      - Do not label save-gated mechanics as pure damage; use automation.resolution "save" for "must make a saving throw" text.
+      - If a feature is "attack roll to hit" plus a save-gated rider, set:
+        - automation.resolution = "attack"
+        - automation.splitActivities = true
+        - automation.secondaryResolution = "save"
+        - automation.rider.trigger = "on-hit"
+        - automation.rider.save / automation.rider.condition for the rider branch
       - If text implies limited uses, include max uses and recovery period.
       - If text is triggered (e.g., "when hit", "start of turn"), include trigger type/text.
+      - Keep rider-specific save/effect hints in automation.rider to preserve intent for downstream generation.
       - Keep hints concise and only include fields you are confident about.
     
     SPELLCASTING (if applicable):
