@@ -12,27 +12,7 @@ import { SuggestionSourcesConfig } from "./ui/suggestion-sources-config.js";
 export function registerModuleSettings() {
   game.settings.register("vibe-combat", "geminiApiKey", {
     name: "Gemini API Key",
-    hint: "Your Google Gemini API key for generating actors",
-    scope: "world",
-    config: true,
-    type: String,
-    default: "",
-    requiresReload: false
-  });
-
-  game.settings.register("vibe-combat", "allowPlayerActorGeneration", {
-    name: "Allow Players to Generate Actors",
-    hint: "If enabled, players can use the Vibe Actor features using the GM's API keys (Gemini & OpenAI). Players must also have the 'Create New Actors' permission in Foundry.",
-    scope: "world",
-    config: true,
-    type: Boolean,
-    default: false,
-    requiresReload: true
-  });
-
-  game.settings.register("vibe-combat", "openaiApiKey", {
-    name: "OpenAI API Key",
-    hint: "Your OpenAI API key for generating actor images",
+    hint: "Your Google Gemini API key for AI encounter suggestions.",
     scope: "world",
     config: true,
     type: String,

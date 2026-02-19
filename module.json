@@ -1,7 +1,7 @@
 {
   "id": "vibe-combat",
   "title": "Vibe Combat",
-  "description": "Adds a button to the Actor selector tab for managing party XP budgets and encounter difficulties.",
+  "description": "Encounter builder tools for party XP budgets, encounter management, and AI encounter suggestions.",
   "version": "1.0.0",
   "compatibility": {
     "minimum": "13",
@@ -17,6 +17,12 @@
           "minimum": "5.0.0",
           "verified": "5.1.8"
         }
+      }
+    ],
+    "requires": [
+      {
+        "id": "vibe-common",
+        "type": "module"
       }
     ]
   },
