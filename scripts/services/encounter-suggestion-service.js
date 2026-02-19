@@ -245,13 +245,17 @@ export class EncounterSuggestionService {
     const parsed = extractJson(generated);
     const normalizedEntries = this._normalizeSuggestions(parsed.entries || []);
 
+    // Filter to keep only valid UUIDs
     const allowedUuids = new Set(
       catalogForPrompt.map((entry) => String(entry.uuid))
     );
-    const invalid = normalizedEntries.find((entry) => !allowedUuids.has(String(entry.uuid)));
-    if (invalid) {
+    const validEntries = normalizedEntries.filter((entry) =>
+      allowedUuids.has(String(entry.uuid))
+    );
+
+    if (validEntries.length === 0) {
       throw new Error(
-        "Gemini returned entries not in the allowed creature catalog. Please try again."
+        "Gemini did not return any valid suggestions from the provided catalog. Please try again."
       );
     }
 
@@ -259,7 +263,7 @@ export class EncounterSuggestionService {
       summary: parsed.summary || "",
       dangerRating: parsed.dangerRating || "Variable",
       recommendedBudgetXp: Number(parsed.recommendedBudgetXp) || null,
-      entries: normalizedEntries,
+      entries: validEntries,
       rawResponse: parsed
     };
   }
