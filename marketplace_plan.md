@@ -1,12 +1,12 @@
 # 🚀 Vibe Suite: Foundry VTT Marketplace Release Plan
 
 ## The Modules
-| Module | Purpose | Free or Paid? |
-|---|---|---|
-| **vibe-common** | Shared library, required by all others | Free (required dependency) |
-| **vibe-actor** | AI NPC generation & image generation | Paid or free with Pro tier |
-| **vibe-combat** | AI encounter building, XP budgeting | Paid or free with Pro tier |
-| **vibe-scenes** | Procedural dungeon generation, AI assets | Paid flagship |
+| Module          | Purpose                                  | Free or Paid?              |
+| --------------- | ---------------------------------------- | -------------------------- |
+| **vibe-common** | Shared library, required by all others   | Free (required dependency) |
+| **vibe-actor**  | AI NPC generation & image generation     | Paid or free with Pro tier |
+| **vibe-combat** | AI encounter building, XP budgeting      | Paid or free with Pro tier |
+| **vibe-scenes** | Procedural dungeon generation, AI assets | Paid flagship              |
 
 ---
 
@@ -48,11 +48,11 @@ Every [module.json](file:///c:/Users/allen/AppData/Local/FoundryVTT/Data/modules
 Each module needs its own **public** GitHub repository. Foundry hosts nothing — GitHub is your distribution layer.
 
 **Checklist per module:**
-- [ ] Create public repo: `vibe-common`, `vibe-actor`, `vibe-combat`, `vibe-scenes`
-- [ ] Add a `.gitignore` (exclude `node_modules`, [tests/config.json](file:///c:/Users/allen/AppData/Local/FoundryVTT/Data/modules/vibe-scenes/tests/config.json) with API keys)
-- [ ] Add a `LICENSE` file (`MIT` is the standard for Foundry modules)
-- [ ] Add a `CHANGELOG.md` (even just `## v1.0.0 - Initial Release`)
-- [ ] Tag the initial commit: `git tag v1.0.0 && git push --tags`
+- [x] Create public repo: `vibe-common`, `vibe-actor`, `vibe-combat`, `vibe-scenes`
+- [x] Add a `.gitignore` (exclude `node_modules`, [tests/config.json](file:///c:/Users/allen/AppData/Local/FoundryVTT/Data/modules/vibe-scenes/tests/config.json) with API keys)
+- [x] Add a `LICENSE` file (`MIT` is the standard for Foundry modules)
+- [x] Add a `CHANGELOG.md` (even just `## v1.0.0 - Initial Release`)
+- [x] Tag the initial commit: `git tag v1.0.0 && git push --tags`
 
 ### Step 1.3 — GitHub Release Automation
 
@@ -212,13 +212,13 @@ Month 3+: Apply to foundryvtt.store premium program (long-term legitimacy)
 
 These items will affect reviews and user satisfaction — fix before or shortly after launch:
 
-| Issue | Module | Priority |
-|---|---|---|
-| V1 Dialog/Application framework still in use | vibe-scenes | HIGH — removed in v16 |
-| V1 Dialog still used in some combat dialogs | vibe-combat | MEDIUM |
-| Duplicated agent code between vibe-combat and vibe-actor | both | MEDIUM |
-| No user-facing error UI when Gemini key is missing/invalid | all | HIGH |
-| `url`, `manifest`, `download` fields empty | all | CRITICAL (blocks submission) |
+| Issue                                                      | Module      | Priority              |
+| ---------------------------------------------------------- | ----------- | --------------------- |
+| V1 Dialog/Application framework still in use               | vibe-scenes | HIGH — removed in v16 |
+| V1 Dialog still used in some combat dialogs                | vibe-combat | MEDIUM                |
+| Duplicated agent code between vibe-combat and vibe-actor   | both        | MEDIUM                |
+| No user-facing error UI when Gemini key is missing/invalid | all         | HIGH                  |
+| `url`, `manifest`, `download` fields empty                 | all         | DONE                  |
 
 ### Pricing Guidance
 
@@ -243,13 +243,13 @@ Based on comparable AI-enhanced Foundry modules:
 
 ```
 PRE-RELEASE
-[ ] Set up 4 public GitHub repos
-[ ] Fix all module.json: url, manifest, download, authors, license
-[ ] Add module icons (512x512 PNG per module)
-[ ] Set up GitHub Actions release automation
+[x] Set up 4 public GitHub repos
+[x] Fix all module.json: url, manifest, download, authors, license
+[ ] Add module icons (512x512 PNG per module) - vibe-common generated, pending others
+[x] Set up GitHub Actions release automation
 [ ] Take screenshots and create banner images
-[ ] Write CHANGELOG.md for each module
-[ ] Tag v1.0.0 on all repos
+[x] Write CHANGELOG.md for each module
+[x] Tag v1.0.0 on all repos
 
 FREE LISTING
 [ ] Submit vibe-common to Foundry (first)
