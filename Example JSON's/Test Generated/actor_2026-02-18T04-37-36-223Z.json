@@ -1,0 +1,380 @@
+{
+  "name": "Condiment Drake",
+  "type": "npc",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "abilities": {
+      "str": {
+        "value": 18,
+        "proficient": 0
+      },
+      "dex": {
+        "value": 14,
+        "proficient": 1
+      },
+      "con": {
+        "value": 17,
+        "proficient": 1
+      },
+      "int": {
+        "value": 6,
+        "proficient": 0
+      },
+      "wis": {
+        "value": 12,
+        "proficient": 0
+      },
+      "cha": {
+        "value": 9,
+        "proficient": 0
+      }
+    },
+    "attributes": {
+      "ac": {
+        "value": 17,
+        "calc": "natural"
+      },
+      "hp": {
+        "value": 136,
+        "max": 136,
+        "formula": ""
+      },
+      "movement": {
+        "walk": 30,
+        "fly": 60,
+        "swim": 0,
+        "burrow": 0,
+        "climb": 0,
+        "hover": true,
+        "units": "ft"
+      },
+      "senses": {
+        "darkvision": 60,
+        "blindsight": 0,
+        "tremorsense": 0,
+        "truesight": 0,
+        "units": "ft",
+        "special": ""
+      },
+      "spellcasting": ""
+    },
+    "details": {
+      "cr": 10,
+      "type": {
+        "value": "dragon"
+      },
+      "alignment": "unaligned",
+      "biography": {
+        "value": "\n                        Legends speak of ancient alchemists who attempted to imbue mundane sauces with elemental power, inadvertently creating the first condiment drakes. These creatures are now found in pockets where the veil between the Material Plane and elemental planes of 'Flavor' is thin, often drawn to culinary hotspots.\n                        <hr>\n                        <p><strong>Behavior:</strong> The condiment drake aggressively defends its territory, often found near food stalls or kitchens, using its breath weapon to deter intruders or coat perceived threats in its signature sauces.</p>\n                        <p><strong>Appearance:</strong> A medium-sized dragon, roughly the size of a large dog, with scales in vibrant shades of red, yellow, and green. Its wings are translucent and resemble thin wrappers, and its breath often carries a faint, savory aroma.</p>\n                        <p><strong>Twist:</strong> Despite its fiery appearance and potent breath weapon, the condiment drake is surprisingly docile if offered a steady supply of high-quality ingredients, sometimes even acting as a bizarre, if messy, guardian.</p>\n                        <p><strong>Habitat:</strong> Culinary districts, food markets, abandoned kitchens, and anywhere with a strong smell of cooking.</p>\n                        <p><strong>Treasure:</strong> The drake may hoard rare spices or exotic ingredients, mistaking them for treasure.</p>\n                    "
+      },
+      "race": "Condiment Drake"
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": []
+      },
+      "di": {
+        "value": []
+      },
+      "dr": {
+        "value": []
+      },
+      "ci": {
+        "value": []
+      }
+    },
+    "skills": {
+      "prc": {
+        "value": 5,
+        "ability": ""
+      },
+      "ste": {
+        "value": 6,
+        "ability": ""
+      }
+    }
+  },
+  "items": [
+    {
+      "name": "Condiment Breath (Recharge 5-6)",
+      "type": "feat",
+      "_id": "8awbh8g7q9cvdk4p",
+      "img": "systems/dnd5e/icons/spells/wind-wall-wind.jpg",
+      "system": {
+        "description": {
+          "value": "The drake exhales a 60-foot cone of condiments. Each creature in that area must make a DC 16 saving throw. On a failed save, a creature takes 18 (4d8) damage and is subjected to one of the following effects based on the drake's choice.\nMustard Spray: The creature is blinded until the end of its next turn.\nKetchup Blast: The creature is restrained until the end of its next turn.\nRelish Mist: The creature is poisoned until the end of its next turn.\nOn a successful save, a creature takes half as much damage and suffers no other effect."
+        },
+        "activities": {
+          "c2q76pcbmbfxpzck": {
+            "_id": "c2q76pcbmbfxpzck",
+            "type": "save",
+            "activation": {
+              "type": "reaction",
+              "value": 1
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 4,
+                  "denomination": 8,
+                  "types": [
+                    "acid"
+                  ]
+                }
+              ],
+              "onSave": "half"
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "flat",
+                "formula": "16"
+              }
+            },
+            "range": {
+              "value": "60",
+              "units": "ft"
+            },
+            "target": {
+              "template": {
+                "contiguous": true,
+                "type": "cone",
+                "size": "60",
+                "units": "ft"
+              }
+            },
+            "effects": [
+              {
+                "_id": "abcdef0123456789",
+                "onSave": false
+              },
+              {
+                "_id": "fedcba9876543210",
+                "onSave": false
+              },
+              {
+                "_id": "1234567890abcdef",
+                "onSave": false
+              }
+            ],
+            "uses": {
+              "spent": 0,
+              "max": "1",
+              "recovery": [
+                {
+                  "period": "short rest",
+                  "type": "automatic"
+                }
+              ]
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      },
+      "effects": [
+        {
+          "_id": "abcdef0123456789",
+          "name": "Blinded (Condiment Breath)",
+          "transfer": false,
+          "statuses": [
+            "blinded"
+          ],
+          "duration": {
+            "turns": 1,
+            "startRound": 1,
+            "startTurn": 1
+          },
+          "changes": [
+            {
+              "key": "system.statusEffects.blinded",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "_id": "fedcba9876543210",
+          "name": "Restrained (Condiment Breath)",
+          "transfer": false,
+          "statuses": [
+            "restrained"
+          ],
+          "duration": {
+            "turns": 1,
+            "startRound": 1,
+            "startTurn": 1
+          },
+          "changes": [
+            {
+              "key": "system.statusEffects.restrained",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "_id": "1234567890abcdef",
+          "name": "Poisoned (Condiment Breath)",
+          "transfer": false,
+          "statuses": [
+            "poisoned"
+          ],
+          "duration": {
+            "turns": 1,
+            "startRound": 1,
+            "startTurn": 1
+          },
+          "changes": [
+            {
+              "key": "system.statusEffects.poisoned",
+              "value": "1"
+            }
+          ]
+        }
+      ],
+      "flags": {
+        "vibe-combat": {
+          "automationWarnings": []
+        }
+      }
+    },
+    {
+      "name": "Claws",
+      "type": "weapon",
+      "_id": "es8gf4jdhxi5sgpz",
+      "img": "icons/weapons/claws.jpg",
+      "system": {
+        "description": {
+          "value": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) slashing damage."
+        },
+        "activities": {
+          "ostqe0q7zhmjipfw": {
+            "_id": "ostqe0q7zhmjipfw",
+            "type": "attack",
+            "activation": {
+              "type": "attack",
+              "value": 1
+            },
+            "attack": {
+              "flat": true,
+              "bonus": "+7"
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 2,
+                  "denomination": 6,
+                  "types": [
+                    "slashing"
+                  ],
+                  "bonus": "+3"
+                }
+              ]
+            },
+            "range": {
+              "value": "5",
+              "units": "ft"
+            },
+            "target": {
+              "template": {
+                "contiguous": true,
+                "type": "melee",
+                "size": "5",
+                "units": "ft"
+              },
+              "override": true,
+              "prompt": true
+            },
+            "effects": []
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      },
+      "effects": [],
+      "flags": {
+        "vibe-combat": {
+          "automationWarnings": []
+        }
+      }
+    },
+    {
+      "name": "Tail",
+      "type": "weapon",
+      "_id": "musagnfkd6y4daid",
+      "img": "icons/weapons/tail.jpg",
+      "system": {
+        "description": {
+          "value": "Melee Weapon Attack: +7 to hit, reach 10 ft., one target. Hit: 12 (2d8 + 3) bludgeoning damage."
+        },
+        "activities": {
+          "1ue45xdsivbbcliy": {
+            "_id": "1ue45xdsivbbcliy",
+            "type": "attack",
+            "activation": {
+              "type": "attack",
+              "value": 1
+            },
+            "attack": {
+              "flat": true,
+              "bonus": "+7"
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 2,
+                  "denomination": 8,
+                  "types": [
+                    "bludgeoning"
+                  ],
+                  "bonus": "+3"
+                }
+              ]
+            },
+            "range": {
+              "value": "10",
+              "units": "ft"
+            },
+            "target": {
+              "template": {
+                "contiguous": true,
+                "type": "melee",
+                "size": "10",
+                "units": "ft"
+              },
+              "override": true,
+              "prompt": true
+            },
+            "effects": []
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      },
+      "effects": [],
+      "flags": {
+        "vibe-combat": {
+          "automationWarnings": []
+        }
+      }
+    }
+  ],
+  "prototypeToken": {
+    "name": "Condiment Drake",
+    "displayName": 20,
+    "actorLink": false,
+    "disposition": -1,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/svg/mystery-man.svg",
+      "scaleX": 1,
+      "scaleY": 1
+    }
+  }
+}

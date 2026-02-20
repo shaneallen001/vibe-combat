@@ -1,0 +1,310 @@
+{
+  "name": "Condiment Drake",
+  "type": "npc",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "abilities": {
+      "str": {
+        "value": 17,
+        "proficient": 0
+      },
+      "dex": {
+        "value": 14,
+        "proficient": 1
+      },
+      "con": {
+        "value": 16,
+        "proficient": 1
+      },
+      "int": {
+        "value": 6,
+        "proficient": 0
+      },
+      "wis": {
+        "value": 12,
+        "proficient": 0
+      },
+      "cha": {
+        "value": 10,
+        "proficient": 0
+      }
+    },
+    "attributes": {
+      "ac": {
+        "value": 17,
+        "calc": "natural"
+      },
+      "hp": {
+        "value": 136,
+        "max": 136,
+        "formula": ""
+      },
+      "movement": {
+        "walk": 30,
+        "fly": 60,
+        "swim": 0,
+        "burrow": 0,
+        "climb": 0,
+        "hover": true,
+        "units": "ft"
+      },
+      "senses": {
+        "darkvision": 60,
+        "blindsight": 0,
+        "tremorsense": 0,
+        "truesight": 0,
+        "units": "ft",
+        "special": ""
+      },
+      "spellcasting": ""
+    },
+    "details": {
+      "cr": 10,
+      "type": {
+        "value": "dragon"
+      },
+      "alignment": "unaligned",
+      "biography": {
+        "value": "\n                        Legends speak of a peculiar breed of dragon that evolved in the kitchens of ancient, decadent feasts. These condiment drakes developed a unique digestive and respiratory system, allowing them to metabolize and expel various sauces and condiments. They are often found near abandoned pantries, spice markets, or regions known for their culinary traditions, guarding their territory with a flavorful, if dangerous, spray.\n                        <hr>\n                        <p><strong>Behavior:</strong> The condiment drake is an instinct-driven creature that seeks out areas with abundant food sources. It uses its breath weapon to incapacitate prey or deter threats, often coating the area in a sticky, pungent mess.</p>\n                        <p><strong>Appearance:</strong> A medium-sized dragon with scales that shimmer in shades of yellow, red, and green, resembling mustard, ketchup, and relish. Its wings are translucent and somewhat sticky, and its breath often carries a faint, vinegary aroma.</p>\n                        <p><strong>Twist:</strong> Despite its noxious breath, the drake's body is surprisingly clean and emits a faint, pleasant scent of herbs.</p>\n                        <p><strong>Habitat:</strong> Kitchens, pantries, abandoned taverns, and areas with strong culinary traditions.</p>\n                        <p><strong>Treasure:</strong> None</p>\n                    "
+      },
+      "race": "Condiment Drake"
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": []
+      },
+      "di": {
+        "value": []
+      },
+      "dr": {
+        "value": [
+          "acid",
+          "poison"
+        ]
+      },
+      "ci": {
+        "value": []
+      }
+    },
+    "skills": {
+      "prc": {
+        "value": 5,
+        "ability": ""
+      },
+      "ste": {
+        "value": 6,
+        "ability": ""
+      }
+    }
+  },
+  "items": [
+    {
+      "name": "Condiment Breath",
+      "type": "weapon",
+      "_id": "lryslw594jrpyvhi",
+      "img": "systems/dnd5e/icons/spells/fireball-fire.jpg",
+      "system": {
+        "description": {
+          "value": "The drake can exhale one of three condiments in a 60-foot cone. Each creature in that area must make a DC 16 saving throw. On a failed save, a creature takes 14 (4d6) damage and suffers the effect of the chosen condiment. On a successful save, a creature takes half as much damage and suffers no condition. The drake chooses one of the following options each time it uses this action:\n\nMustard Spray: On a failed save, the target is blinded until the end of its next turn.\nKetchup Blast: On a failed save, the target is restrained until the end of its next turn.\nRelish Mist: On a failed save, the target is poisoned until the end of its next turn."
+        },
+        "activities": {
+          "wlparjribjddwoje": {
+            "_id": "wlparjribjddwoje",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": 1
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 4,
+                  "denomination": 6,
+                  "types": [
+                    "acid"
+                  ]
+                }
+              ],
+              "onSave": "half"
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "flat",
+                "formula": "16"
+              }
+            },
+            "range": {
+              "value": "60",
+              "units": "ft"
+            },
+            "target": {
+              "template": {
+                "contiguous": true,
+                "type": "cone",
+                "width": "60",
+                "units": "ft",
+                "size": "60"
+              }
+            },
+            "effects": [
+              {
+                "_id": "ydyllkpg6ojynz10",
+                "onSave": false
+              },
+              {
+                "_id": "8azdcnndml3u9v7y",
+                "onSave": false
+              },
+              {
+                "_id": "xaiy2mpcbhbqys90",
+                "onSave": false
+              }
+            ],
+            "uses": {
+              "spent": 0,
+              "max": "1",
+              "recovery": [
+                {
+                  "period": "recharge",
+                  "type": "action",
+                  "formula": "5-6"
+                }
+              ]
+            },
+            "consumption": {
+              "spellSlot": false,
+              "targets": [
+                {
+                  "type": "uses",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      },
+      "effects": [
+        {
+          "_id": "ydyllkpg6ojynz10",
+          "name": "Blinded",
+          "transfer": false,
+          "statuses": [
+            "blinded"
+          ],
+          "changes": [],
+          "disabled": false
+        },
+        {
+          "_id": "xaiy2mpcbhbqys90",
+          "name": "Restrained",
+          "transfer": false,
+          "statuses": [
+            "restrained"
+          ],
+          "changes": [],
+          "disabled": false
+        },
+        {
+          "_id": "8azdcnndml3u9v7y",
+          "name": "Poisoned",
+          "transfer": false,
+          "statuses": [
+            "poisoned"
+          ],
+          "changes": [],
+          "disabled": false
+        }
+      ],
+      "flags": {
+        "vibe-combat": {
+          "automationWarnings": [
+            "Condiment Breath [wlparjribjddwoje]: Description implies a one-of choice, but a single activity links multiple effects."
+          ],
+          "criticalAutomationWarnings": [
+            "Condiment Breath [wlparjribjddwoje]: Description implies a one-of choice, but a single activity links multiple effects."
+          ]
+        }
+      }
+    },
+    {
+      "name": "Claws",
+      "type": "weapon",
+      "_id": "yy5pouok4rcptxa0",
+      "img": "systems/dnd5e/icons/weapons/claws.jpg",
+      "system": {
+        "description": {
+          "value": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) slashing damage."
+        },
+        "activities": {
+          "hzudnodmond4t9qa": {
+            "_id": "hzudnodmond4t9qa",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1
+            },
+            "attack": {
+              "flat": false,
+              "bonus": "+6",
+              "ability": "str"
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 2,
+                  "denomination": 6,
+                  "types": [
+                    "slashing"
+                  ],
+                  "bonus": "+3"
+                }
+              ]
+            },
+            "range": {
+              "value": "5",
+              "units": "ft"
+            },
+            "target": {
+              "template": {
+                "contiguous": true,
+                "type": "creature",
+                "units": "ft"
+              },
+              "prompt": true
+            },
+            "effects": []
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      },
+      "effects": [],
+      "flags": {
+        "vibe-combat": {
+          "automationWarnings": []
+        }
+      }
+    }
+  ],
+  "prototypeToken": {
+    "name": "Condiment Drake",
+    "displayName": 20,
+    "actorLink": false,
+    "disposition": -1,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/svg/mystery-man.svg",
+      "scaleX": 1,
+      "scaleY": 1
+    }
+  }
+}

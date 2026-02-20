@@ -1,0 +1,587 @@
+{
+  "name": "Condiment Drake",
+  "type": "npc",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "abilities": {
+      "str": {
+        "value": 19,
+        "proficient": 0
+      },
+      "dex": {
+        "value": 12,
+        "proficient": 0
+      },
+      "con": {
+        "value": 18,
+        "proficient": 1
+      },
+      "int": {
+        "value": 7,
+        "proficient": 0
+      },
+      "wis": {
+        "value": 12,
+        "proficient": 1
+      },
+      "cha": {
+        "value": 9,
+        "proficient": 0
+      }
+    },
+    "attributes": {
+      "ac": {
+        "value": 17,
+        "calc": "natural"
+      },
+      "hp": {
+        "value": 153,
+        "max": 153,
+        "formula": ""
+      },
+      "movement": {
+        "walk": 30,
+        "fly": 60,
+        "swim": 30,
+        "burrow": 0,
+        "climb": 0,
+        "hover": false,
+        "units": "ft"
+      },
+      "senses": {
+        "darkvision": 60,
+        "blindsight": 0,
+        "tremorsense": 0,
+        "truesight": 0,
+        "units": "ft",
+        "special": ""
+      },
+      "spellcasting": ""
+    },
+    "details": {
+      "cr": 10,
+      "type": {
+        "value": "dragon"
+      },
+      "alignment": "unaligned",
+      "biography": {
+        "value": "\n                        Legends speak of elemental plains where condiments flow like rivers and dragons feast on pure flavor. The Condiment Drake is believed to be a rare offspring of these planes, driven to the material world by an insatiable hunger for the ultimate taste. They hoard not gold, but rare spices, aged vinegars, and artisanal salts, viewing them as treasures of immense value.\n                        <hr>\n                        <p><strong>Behavior:</strong> The Condiment Drake is territorial and aggressive, fiercely defending its hoard of rare spices and exotic sauces. It often uses its breath weapon to incapacitate intruders before finishing them off with its claws and tail.</p>\n                        <p><strong>Appearance:</strong> This medium-sized dragon resembles a terrestrial dragon but with a leathery hide in shades of deep red, vibrant yellow, and mottled green. Its scales glisten as if perpetually coated in sauce, and its eyes are small, black, and beady like peppercorns. A faint, tangy aroma surrounds it.</p>\n                        <p><strong>Twist:</strong> Despite its aggressive nature, the Condiment Drake possesses an uncanny ability to perfectly season any food it encounters, making it a bizarrely sought-after culinary ingredient by those brave or foolish enough to hunt one.</p>\n                        <p><strong>Habitat:</strong> Found near ancient spice routes, forgotten pantries, or areas with unusually rich soil that grows potent herbs.</p>\n                        <p><strong>Treasure:</strong> None</p>\n                    "
+      },
+      "race": "Condiment Drake"
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": [
+          "draconic"
+        ]
+      },
+      "di": {
+        "value": []
+      },
+      "dr": {
+        "value": [
+          "acid"
+        ]
+      },
+      "ci": {
+        "value": []
+      }
+    },
+    "skills": {
+      "prc": {
+        "value": 5,
+        "ability": ""
+      },
+      "ste": {
+        "value": 5,
+        "ability": ""
+      }
+    }
+  },
+  "items": [
+    {
+      "name": "Condiment Breath",
+      "type": "weapon",
+      "_id": "ruy55vk2mik5bzmw",
+      "img": "icons/magic/air/wind-gust-cone.webp",
+      "system": {
+        "description": {
+          "value": "The drake can exhale a 60-foot cone of one of the following condiments. Each creature in that area must make a DC 16 saving throw. On a failed save, a creature takes 14 (4d6) damage and suffers the effect corresponding to the condiment. On a successful save, the creature takes half damage and suffers no condition. The drake can't use another condiment option until the next recharge."
+        },
+        "activities": {
+          "qncqb04e5bgtdl26": {
+            "_id": "qncqb04e5bgtdl26",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "Recharge 5-6"
+            },
+            "effects": [],
+            "uses": {
+              "spent": 0,
+              "max": "recharge 5-6",
+              "recovery": [
+                {
+                  "period": "short or long rest",
+                  "type": "dice",
+                  "formula": "1d6"
+                }
+              ]
+            },
+            "description": {
+              "value": "Choose one of the following condiment options to exhale:"
+            },
+            "target": {
+              "template": {
+                "type": "cone",
+                "size": "60",
+                "units": "ft"
+              }
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "common"
+      },
+      "effects": [],
+      "flags": {
+        "vibe-combat": {
+          "automationWarnings": []
+        }
+      }
+    },
+    {
+      "name": "Mustard Spray",
+      "type": "weapon",
+      "_id": "zlr0skjbrzdboike",
+      "img": "icons/magic/acid/acid-splash-cloud.webp",
+      "system": {
+        "description": {
+          "value": "The drake exhales a 60-foot cone of stinging mustard. On a failed save, creatures take 14 (4d6) acid damage and are blinded for 1 minute."
+        },
+        "activities": {
+          "pvalvvb71gmlgb2z": {
+            "_id": "pvalvvb71gmlgb2z",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": 1
+            },
+            "save": {
+              "ability": [
+                "con"
+              ],
+              "dc": {
+                "calculation": "fixed",
+                "formula": "16"
+              }
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "type": "cone",
+                "width": "60",
+                "units": "ft",
+                "size": "60"
+              }
+            },
+            "effects": [
+              {
+                "_id": "0000000000000001",
+                "onSave": false
+              }
+            ],
+            "uses": {
+              "spent": 0,
+              "max": "recharge 5-6",
+              "recovery": [
+                {
+                  "period": "short or long rest",
+                  "type": "dice",
+                  "formula": "1d6"
+                }
+              ]
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "common"
+      },
+      "effects": [
+        {
+          "_id": "0000000000000001",
+          "name": "Blinded",
+          "transfer": false,
+          "statuses": [
+            "blinded"
+          ],
+          "duration": {
+            "rounds": 10,
+            "startRound": 0
+          },
+          "changes": [],
+          "disabled": false
+        }
+      ],
+      "flags": {
+        "vibe-combat": {
+          "automationWarnings": []
+        }
+      }
+    },
+    {
+      "name": "Ketchup Blast",
+      "type": "weapon",
+      "_id": "4kkxoyk4zkbvwccr",
+      "img": "icons/magic/fire/projectiles-smoke-bomb.webp",
+      "system": {
+        "description": {
+          "value": "The drake exhales a 60-foot cone of thick ketchup. On a failed save, creatures take 14 (4d6) bludgeoning damage and their speed is halved until the end of their next turn."
+        },
+        "activities": {
+          "5enpilhjgxpdxdtm": {
+            "_id": "5enpilhjgxpdxdtm",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": 1
+            },
+            "save": {
+              "ability": [
+                "con"
+              ],
+              "dc": {
+                "calculation": "fixed",
+                "formula": "16"
+              }
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "type": "cone",
+                "width": "60",
+                "units": "ft",
+                "size": "60"
+              }
+            },
+            "effects": [
+              {
+                "_id": "0000000000000002",
+                "onSave": false
+              }
+            ],
+            "uses": {
+              "spent": 0,
+              "max": "recharge 5-6",
+              "recovery": [
+                {
+                  "period": "short or long rest",
+                  "type": "dice",
+                  "formula": "1d6"
+                }
+              ]
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "common"
+      },
+      "effects": [
+        {
+          "_id": "0000000000000002",
+          "name": "Speed Halved",
+          "transfer": false,
+          "statuses": [],
+          "duration": {
+            "turns": 1
+          },
+          "changes": [
+            {
+              "key": "system.attributes.movement.walk",
+              "mode": 0,
+              "value": "0.5"
+            },
+            {
+              "key": "system.attributes.movement.fly",
+              "mode": 0,
+              "value": "0.5"
+            },
+            {
+              "key": "system.attributes.movement.swim",
+              "mode": 0,
+              "value": "0.5"
+            },
+            {
+              "key": "system.attributes.movement.burrow",
+              "mode": 0,
+              "value": "0.5"
+            },
+            {
+              "key": "system.attributes.movement.climb",
+              "mode": 0,
+              "value": "0.5"
+            }
+          ],
+          "disabled": false
+        }
+      ],
+      "flags": {
+        "vibe-combat": {
+          "automationWarnings": []
+        }
+      }
+    },
+    {
+      "name": "Relish Mist",
+      "type": "weapon",
+      "_id": "22iisnc45ocmlgkw",
+      "img": "icons/magic/poison/cloud-gas-green.webp",
+      "system": {
+        "description": {
+          "value": "The drake exhales a 60-foot cone of briny relish mist. On a failed save, creatures take 14 (4d6) poison damage and are poisoned for 1 minute."
+        },
+        "activities": {
+          "rmc6dwcyv3razkbo": {
+            "_id": "rmc6dwcyv3razkbo",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": 1
+            },
+            "save": {
+              "ability": [
+                "con"
+              ],
+              "dc": {
+                "calculation": "fixed",
+                "formula": "16"
+              }
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "type": "cone",
+                "width": "60",
+                "units": "ft",
+                "size": "60"
+              }
+            },
+            "effects": [
+              {
+                "_id": "0000000000000003",
+                "onSave": false
+              }
+            ],
+            "uses": {
+              "spent": 0,
+              "max": "recharge 5-6",
+              "recovery": [
+                {
+                  "period": "short or long rest",
+                  "type": "dice",
+                  "formula": "1d6"
+                }
+              ]
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "common"
+      },
+      "effects": [
+        {
+          "_id": "0000000000000003",
+          "name": "Poisoned",
+          "transfer": false,
+          "statuses": [
+            "poisoned"
+          ],
+          "duration": {
+            "rounds": 10,
+            "startRound": 0
+          },
+          "changes": [],
+          "disabled": false
+        }
+      ],
+      "flags": {
+        "vibe-combat": {
+          "automationWarnings": []
+        }
+      }
+    },
+    {
+      "name": "Claws",
+      "type": "weapon",
+      "_id": "fwf3yq0wp4hmsjkh",
+      "img": "systems/dnd5e/icons/weapons/claws.webp",
+      "system": {
+        "description": {
+          "value": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 12 (2d6 + 5) slashing damage."
+        },
+        "activities": {
+          "o5x9jcysfjkzqpbr": {
+            "_id": "o5x9jcysfjkzqpbr",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1
+            },
+            "attack": {
+              "flat": false,
+              "bonus": "+7",
+              "ability": "str"
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 2,
+                  "denomination": 6,
+                  "types": [
+                    "slashing"
+                  ],
+                  "bonus": "+5"
+                }
+              ],
+              "onSave": "none"
+            },
+            "target": {
+              "affects": {
+                "type": "creature"
+              },
+              "template": {
+                "contiguous": true,
+                "size": "5",
+                "units": "ft"
+              },
+              "prompt": true
+            },
+            "effects": [],
+            "uses": {
+              "spent": 0,
+              "max": "unlimited",
+              "recovery": []
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "common"
+      },
+      "effects": [],
+      "flags": {
+        "vibe-combat": {
+          "automationWarnings": []
+        }
+      }
+    },
+    {
+      "name": "Tail",
+      "type": "weapon",
+      "_id": "m4c1b2txxaihduct",
+      "img": "systems/dnd5e/icons/weapons/tail.webp",
+      "system": {
+        "description": {
+          "value": "Melee Weapon Attack: +7 to hit, reach 10 ft., one target. Hit: 10 (1d10 + 5) bludgeoning damage."
+        },
+        "activities": {
+          "axt8epywgvgviz1i": {
+            "_id": "axt8epywgvgviz1i",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1
+            },
+            "attack": {
+              "flat": false,
+              "bonus": "+7",
+              "ability": "str"
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 1,
+                  "denomination": 10,
+                  "types": [
+                    "bludgeoning"
+                  ],
+                  "bonus": "+5"
+                }
+              ],
+              "onSave": "none"
+            },
+            "target": {
+              "affects": {
+                "type": "creature"
+              },
+              "template": {
+                "contiguous": true,
+                "size": "10",
+                "units": "ft"
+              },
+              "prompt": true
+            },
+            "effects": [],
+            "uses": {
+              "spent": 0,
+              "max": "unlimited",
+              "recovery": []
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "common"
+      },
+      "effects": [],
+      "flags": {
+        "vibe-combat": {
+          "automationWarnings": []
+        }
+      }
+    }
+  ],
+  "prototypeToken": {
+    "name": "Condiment Drake",
+    "displayName": 20,
+    "actorLink": false,
+    "disposition": -1,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/svg/mystery-man.svg",
+      "scaleX": 1,
+      "scaleY": 1
+    }
+  }
+}

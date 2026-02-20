@@ -132,6 +132,23 @@ export class PlacementHandler {
         }
 
         if (actor) {
+            // If the actor is from a compendium, import it into the world first
+            if (actor.pack) {
+                const pack = game.packs.get(actor.pack);
+                if (pack) {
+                    try {
+                        // Check if we already imported this actor to the world
+                        let worldActor = game.actors.find(a => a.flags?.core?.sourceId === actor.uuid);
+                        if (!worldActor) {
+                            worldActor = await game.actors.importFromCompendium(pack, actor.id);
+                        }
+                        if (worldActor) actor = worldActor;
+                    } catch (e) {
+                        console.warn("Vibe Combat: Failed to import actor from compendium", e);
+                    }
+                }
+            }
+
             const tokenData = await actor.getTokenDocument({
                 x: targetX,
                 y: targetY,

@@ -1,8 +1,4 @@
-node_modules
-.DS_Store
-err.log
-Error Logs/
+node_modules/
+tests/config.json
+.vscode/
 .env
-Example JSON's/Test Generated/
-
-test_output.txt

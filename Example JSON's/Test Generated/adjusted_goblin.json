@@ -1,0 +1,285 @@
+{
+  "name": "Goblin Warlord",
+  "type": "npc",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "abilities": {
+      "str": {
+        "value": 14,
+        "proficient": 1
+      },
+      "dex": {
+        "value": 16,
+        "proficient": 0
+      },
+      "con": {
+        "value": 16,
+        "proficient": 1
+      },
+      "int": {
+        "value": 12,
+        "proficient": 0
+      },
+      "wis": {
+        "value": 10,
+        "proficient": 0
+      },
+      "cha": {
+        "value": 14,
+        "proficient": 1
+      }
+    },
+    "attributes": {
+      "ac": {
+        "value": 17,
+        "calc": "natural"
+      },
+      "hp": {
+        "value": 102,
+        "max": 102,
+        "formula": ""
+      },
+      "movement": {
+        "walk": 30,
+        "fly": 0,
+        "swim": 0,
+        "burrow": 0,
+        "climb": 0,
+        "hover": false,
+        "units": "ft"
+      },
+      "senses": {
+        "darkvision": 60,
+        "blindsight": 0,
+        "tremorsense": 0,
+        "truesight": 0,
+        "units": "ft",
+        "special": ""
+      },
+      "spellcasting": ""
+    },
+    "details": {
+      "cr": 5,
+      "type": {
+        "value": "humanoid"
+      },
+      "alignment": "NE",
+      "biography": {
+        "value": "\n                        Forged in the crucible of countless battles, this goblin rose through the ranks through sheer brutality and cunning. It commands a fearsome warband, leaving a trail of destruction in its wake.\n                        <hr>\n                        <p><strong>Behavior:</strong> This goblin is a brutal leader, inspiring fear and loyalty in equal measure. It commands its minions with harsh words and a terrifying presence, always seeking to crush its enemies with overwhelming force.</p>\n                        <p><strong>Appearance:</strong> A hulking goblin, larger and more scarred than its kin, clad in gleaming plate armor. Its eyes burn with a malevolent intelligence, and it wields a scimitar wreathed in flames.</p>\n                        <p><strong>Twist:</strong> Despite its cruelty, the Warlord harbors a secret fear of true magic, often targeting spellcasters first.</p>\n                        <p><strong>Habitat:</strong> Dark caves, ruined fortresses, or anywhere it can establish a brutal domain.</p>\n                        <p><strong>Treasure:</strong> The Flaming Scimitar, 200 gp, assorted gems worth 500 gp.</p>\n                    "
+      },
+      "race": "Goblin Warlord"
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": [
+          "common",
+          "goblin"
+        ]
+      },
+      "di": {
+        "value": []
+      },
+      "dr": {
+        "value": [
+          "fire"
+        ]
+      },
+      "ci": {
+        "value": []
+      }
+    },
+    "skills": {
+      "ste": {
+        "value": 7,
+        "ability": ""
+      },
+      "itm": {
+        "value": 6,
+        "ability": ""
+      },
+      "ath": {
+        "value": 6,
+        "ability": ""
+      }
+    }
+  },
+  "items": [
+    {
+      "name": "Warlord's Command",
+      "type": "feat",
+      "_id": "mock-id-6gx4xa44g",
+      "img": "icons/magic/air/wind-gust-swirl-blue.webp",
+      "system": {
+        "description": {
+          "value": "As a bonus action, the Warlord can command one allied creature within 30 feet that can hear it. The target can use its reaction to make one weapon attack."
+        },
+        "activities": {
+          "mock-id-ywwbuomzn": {
+            "_id": "mock-id-ywwbuomzn",
+            "type": "utility",
+            "activation": {
+              "type": "bonus",
+              "value": 1,
+              "condition": "The Warlord can command one allied creature within 30 feet that can hear it."
+            },
+            "description": {
+              "value": "The target can use its reaction to make one weapon attack."
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      }
+    },
+    {
+      "name": "Aggressive",
+      "type": "feat",
+      "_id": "mock-id-xjc69t5n9",
+      "img": "icons/skills/movement/footwork-running-steps-worn.webp",
+      "system": {
+        "description": {
+          "value": "As a bonus action, the goblin can move up to its speed toward a hostile creature that it can see."
+        },
+        "activities": {
+          "mock-id-61hn0437r": {
+            "_id": "mock-id-61hn0437r",
+            "type": "utility",
+            "activation": {
+              "type": "bonus",
+              "value": 1,
+              "condition": "The goblin can move up to its speed toward a hostile creature that it can see."
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      }
+    },
+    {
+      "name": "Flaming Aura",
+      "type": "feat",
+      "_id": "mock-id-6sjynr9y6",
+      "img": "icons/magic/fire/aura-ring-red.webp",
+      "system": {
+        "description": {
+          "value": "A creature that starts its turn within 5 feet of the Warlord takes 5 (1d10) fire damage."
+        },
+        "activities": {
+          "mock-id-87qva6h1d": {
+            "_id": "mock-id-87qva6h1d",
+            "type": "damage",
+            "activation": {
+              "type": "start",
+              "value": 1,
+              "condition": "A creature starts its turn within 5 feet of the Warlord."
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 1,
+                  "denomination": 10,
+                  "types": [
+                    "fire"
+                  ]
+                }
+              ]
+            },
+            "description": {
+              "value": "A creature that starts its turn within 5 feet of the Warlord takes 5 (1d10) fire damage."
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      }
+    },
+    {
+      "name": "Flaming Scimitar",
+      "type": "weapon",
+      "_id": "mock-id-sl42p86lf",
+      "img": "icons/weapons/swords/scimitar-curved-glowing-red.webp",
+      "system": {
+        "description": {
+          "value": "A scimitar that burns with magical fire. Deals an extra 2d6 fire damage on a hit."
+        },
+        "activities": {
+          "mock-id-78k8hyt8w": {
+            "_id": "mock-id-78k8hyt8w",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1
+            },
+            "attack": {
+              "flat": false,
+              "bonus": "+7",
+              "ability": "dex"
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 1,
+                  "denomination": 6,
+                  "types": [
+                    "slashing"
+                  ],
+                  "bonus": "+4"
+                },
+                {
+                  "number": 2,
+                  "denomination": 6,
+                  "types": [
+                    "fire"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 3,
+        "price": {
+          "value": 25,
+          "denomination": "gp"
+        },
+        "rarity": "common"
+      }
+    },
+    {
+      "name": "Plate Armor",
+      "type": "equipment",
+      "_id": "mock-id-yfd20v12r",
+      "img": "icons/equipment/chest/breastplate-studded-steel.webp",
+      "system": {
+        "description": {
+          "value": "Provides significant protection."
+        },
+        "activities": {},
+        "quantity": 1,
+        "weight": 65,
+        "price": {
+          "value": 1500,
+          "denomination": "gp"
+        },
+        "rarity": "common"
+      }
+    }
+  ],
+  "prototypeToken": {
+    "name": "Goblin Warlord",
+    "displayName": 20,
+    "actorLink": false,
+    "disposition": -1,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/svg/mystery-man.svg",
+      "scaleX": 1,
+      "scaleY": 1
+    }
+  }
+}

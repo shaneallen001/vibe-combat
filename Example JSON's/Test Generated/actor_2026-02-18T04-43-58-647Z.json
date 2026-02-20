@@ -1,0 +1,611 @@
+{
+  "name": "Condiment Drake",
+  "type": "npc",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "abilities": {
+      "str": {
+        "value": 18,
+        "proficient": 0
+      },
+      "dex": {
+        "value": 14,
+        "proficient": 0
+      },
+      "con": {
+        "value": 18,
+        "proficient": 1
+      },
+      "int": {
+        "value": 6,
+        "proficient": 0
+      },
+      "wis": {
+        "value": 12,
+        "proficient": 1
+      },
+      "cha": {
+        "value": 9,
+        "proficient": 0
+      }
+    },
+    "attributes": {
+      "ac": {
+        "value": 17,
+        "calc": "natural"
+      },
+      "hp": {
+        "value": 147,
+        "max": 147,
+        "formula": ""
+      },
+      "movement": {
+        "walk": 30,
+        "fly": 60,
+        "swim": 0,
+        "burrow": 0,
+        "climb": 0,
+        "hover": false,
+        "units": "ft"
+      },
+      "senses": {
+        "darkvision": 60,
+        "blindsight": 0,
+        "tremorsense": 0,
+        "truesight": 0,
+        "units": "ft",
+        "special": ""
+      },
+      "spellcasting": ""
+    },
+    "details": {
+      "cr": 10,
+      "type": {
+        "value": "dragon"
+      },
+      "alignment": "unaligned",
+      "biography": {
+        "value": "\n                        Legends speak of condiment drakes being created by a magically inept chef who attempted to imbue a dragon with the essence of his prized sauces. While the experiment was a culinary disaster, it resulted in a creature uniquely suited to its bizarre niche.\n                        <hr>\n                        <p><strong>Behavior:</strong> The condiment drake is a territorial scavenger, fiercely guarding its hoard of discarded food and condiments. It uses its breath weapon to deter intruders and incapacitate prey.</p>\n                        <p><strong>Appearance:</strong> This medium-sized dragon resembles a typical drake but with scales that shimmer in hues of red, yellow, and green, reminiscent of ketchup, mustard, and relish. Its breath often carries a faint, but distinct, odor of its namesake condiments.</p>\n                        <p><strong>Twist:</strong> Despite its grotesque appearance and abilities, the condiment drake's saliva has a surprisingly pleasant, albeit unusual, flavor and can be used as a potent, if exotic, seasoning.</p>\n                        <p><strong>Habitat:</strong> Often found in or near areas with abundant discarded food, such as the outskirts of taverns, refuse heaps, or abandoned kitchens.</p>\n                        <p><strong>Treasure:</strong> None</p>\n                    "
+      },
+      "race": "Condiment Drake"
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": []
+      },
+      "di": {
+        "value": []
+      },
+      "dr": {
+        "value": [
+          "acid"
+        ]
+      },
+      "ci": {
+        "value": []
+      }
+    },
+    "skills": {
+      "prc": {
+        "value": 5,
+        "ability": ""
+      },
+      "ste": {
+        "value": 6,
+        "ability": ""
+      }
+    }
+  },
+  "items": [
+    {
+      "name": "Bite",
+      "type": "weapon",
+      "_id": "ae2sz4q0h4uqmmt3",
+      "img": "systems/dnd5e/icons/weapons/greatsword.svg",
+      "system": {
+        "description": {
+          "value": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 15 (2d8 + 4) piercing damage."
+        },
+        "activities": {
+          "idi0nm7mqhy6s8iw": {
+            "_id": "idi0nm7mqhy6s8iw",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1
+            },
+            "attack": {
+              "flat": true,
+              "bonus": "+7",
+              "ability": "str"
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 2,
+                  "denomination": 8,
+                  "types": [
+                    "piercing"
+                  ],
+                  "bonus": "+4"
+                }
+              ],
+              "onSave": "half"
+            },
+            "range": {
+              "value": "5",
+              "units": "ft"
+            },
+            "target": {
+              "template": {
+                "contiguous": true,
+                "size": "5",
+                "units": "ft"
+              },
+              "prompt": true
+            },
+            "effects": [],
+            "uses": {
+              "spent": 0,
+              "max": "1",
+              "recovery": [
+                {
+                  "period": "long rest",
+                  "type": "automatic"
+                }
+              ]
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      },
+      "effects": [],
+      "flags": {
+        "vibe-combat": {
+          "automationWarnings": []
+        }
+      }
+    },
+    {
+      "name": "Condiment Breath",
+      "type": "weapon",
+      "_id": "4fyjp3yyj1ibzji5",
+      "img": "systems/dnd5e/icons/spells/acid-arrow.webp",
+      "system": {
+        "description": {
+          "value": "The drake exhales one of the following condiments in a 60-foot cone. Each creature in that area must make a DC 16 saving throw. On a failed save, the creature takes 14 (4d6) damage and suffers one of the following effects. On a successful save, the creature takes half as much damage and suffers no effect. The drake can't use more than one option per use of Condiment Breath, and it can't use the same option twice in a row."
+        },
+        "activities": {
+          "3kz1c5iajdt91fss": {
+            "_id": "3kz1c5iajdt91fss",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": 1
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 4,
+                  "denomination": 6,
+                  "types": [
+                    "acid"
+                  ],
+                  "bonus": ""
+                }
+              ],
+              "onSave": "half"
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "fixed",
+                "formula": "16"
+              }
+            },
+            "range": {
+              "value": "60",
+              "units": "ft"
+            },
+            "target": {
+              "template": {
+                "contiguous": true,
+                "type": "cone",
+                "size": "60",
+                "units": "ft"
+              },
+              "prompt": true
+            },
+            "effects": [],
+            "uses": {
+              "spent": 0,
+              "max": "1",
+              "recovery": [
+                {
+                  "period": "recharge 5-6",
+                  "type": "automatic"
+                }
+              ]
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      },
+      "effects": [],
+      "flags": {
+        "vibe-combat": {
+          "automationWarnings": []
+        }
+      }
+    },
+    {
+      "name": "Mustard Spray",
+      "type": "weapon",
+      "_id": "dqtsyoepng9xpkmm",
+      "img": "systems/dnd5e/icons/spells/blindness-deafness.webp",
+      "system": {
+        "description": {
+          "value": "The drake exhales a 60-foot cone of stinging mustard. Creatures failing the saving throw are blinded for 1 minute."
+        },
+        "activities": {
+          "nahcmvohxzjf6iox": {
+            "_id": "nahcmvohxzjf6iox",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": 1
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 4,
+                  "denomination": 6,
+                  "types": [
+                    "acid"
+                  ],
+                  "bonus": ""
+                }
+              ],
+              "onSave": "half"
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "fixed",
+                "formula": "16"
+              }
+            },
+            "range": {
+              "value": "60",
+              "units": "ft"
+            },
+            "target": {
+              "template": {
+                "contiguous": true,
+                "type": "cone",
+                "size": "60",
+                "units": "ft"
+              },
+              "prompt": true
+            },
+            "effects": [
+              {
+                "_id": "s7gerwhphii4gccu",
+                "onSave": false
+              }
+            ],
+            "uses": {
+              "spent": 0,
+              "max": "1",
+              "recovery": [
+                {
+                  "period": "recharge 5-6",
+                  "type": "automatic"
+                }
+              ]
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      },
+      "effects": [
+        {
+          "_id": "s7gerwhphii4gccu",
+          "name": "Blinded",
+          "transfer": false,
+          "statuses": [
+            "blinded"
+          ],
+          "duration": {
+            "rounds": 10,
+            "startRound": 0
+          },
+          "changes": [],
+          "disabled": false
+        }
+      ],
+      "flags": {
+        "vibe-combat": {
+          "automationWarnings": []
+        }
+      }
+    },
+    {
+      "name": "Ketchup Blast",
+      "type": "weapon",
+      "_id": "lecntze5w3agvrg2",
+      "img": "systems/dnd5e/icons/spells/hold-person.webp",
+      "system": {
+        "description": {
+          "value": "The drake exhales a 60-foot cone of thick ketchup. Creatures failing the saving throw are restrained for 1 minute."
+        },
+        "activities": {
+          "xmjaoclbe6b5zaeo": {
+            "_id": "xmjaoclbe6b5zaeo",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": 1
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 4,
+                  "denomination": 6,
+                  "types": [
+                    "acid"
+                  ],
+                  "bonus": ""
+                }
+              ],
+              "onSave": "half"
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "fixed",
+                "formula": "16"
+              }
+            },
+            "range": {
+              "value": "60",
+              "units": "ft"
+            },
+            "target": {
+              "template": {
+                "contiguous": true,
+                "type": "cone",
+                "size": "60",
+                "units": "ft"
+              },
+              "prompt": true
+            },
+            "effects": [
+              {
+                "_id": "7mdnbarmybkxck27",
+                "onSave": false
+              }
+            ],
+            "uses": {
+              "spent": 0,
+              "max": "1",
+              "recovery": [
+                {
+                  "period": "recharge 5-6",
+                  "type": "automatic"
+                }
+              ]
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      },
+      "effects": [
+        {
+          "_id": "7mdnbarmybkxck27",
+          "name": "Restrained",
+          "transfer": false,
+          "statuses": [
+            "restrained"
+          ],
+          "duration": {
+            "rounds": 10,
+            "startRound": 0
+          },
+          "changes": [],
+          "disabled": false
+        }
+      ],
+      "flags": {
+        "vibe-combat": {
+          "automationWarnings": []
+        }
+      }
+    },
+    {
+      "name": "Relish Mist",
+      "type": "weapon",
+      "_id": "4bmvpif09hsuoujc",
+      "img": "systems/dnd5e/icons/spells/ray-of-sickness.webp",
+      "system": {
+        "description": {
+          "value": "The drake exhales a 60-foot cone of pungent relish. Creatures failing the saving throw are poisoned for 1 minute."
+        },
+        "activities": {
+          "iekkpazbyqnlefck": {
+            "_id": "iekkpazbyqnlefck",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": 1
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 4,
+                  "denomination": 6,
+                  "types": [
+                    "acid"
+                  ],
+                  "bonus": ""
+                }
+              ],
+              "onSave": "half"
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "fixed",
+                "formula": "16"
+              }
+            },
+            "range": {
+              "value": "60",
+              "units": "ft"
+            },
+            "target": {
+              "template": {
+                "contiguous": true,
+                "type": "cone",
+                "size": "60",
+                "units": "ft"
+              },
+              "prompt": true
+            },
+            "effects": [
+              {
+                "_id": "8uisg8xfcfpbhmxy",
+                "onSave": false
+              }
+            ],
+            "uses": {
+              "spent": 0,
+              "max": "1",
+              "recovery": [
+                {
+                  "period": "recharge 5-6",
+                  "type": "automatic"
+                }
+              ]
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      },
+      "effects": [
+        {
+          "_id": "8uisg8xfcfpbhmxy",
+          "name": "Poisoned",
+          "transfer": false,
+          "statuses": [
+            "poisoned"
+          ],
+          "duration": {
+            "rounds": 10,
+            "startRound": 0
+          },
+          "changes": [],
+          "disabled": false
+        }
+      ],
+      "flags": {
+        "vibe-combat": {
+          "automationWarnings": []
+        }
+      }
+    },
+    {
+      "name": "Claws",
+      "type": "weapon",
+      "_id": "l2klpgfpdkjwtbzw",
+      "img": "systems/dnd5e/icons/weapons/scimitar.svg",
+      "system": {
+        "description": {
+          "value": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 11 (2d6 + 4) slashing damage."
+        },
+        "activities": {
+          "ru2fc0sqkasxqu8b": {
+            "_id": "ru2fc0sqkasxqu8b",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1
+            },
+            "attack": {
+              "flat": true,
+              "bonus": "+7",
+              "ability": "str"
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 2,
+                  "denomination": 6,
+                  "types": [
+                    "slashing"
+                  ],
+                  "bonus": "+4"
+                }
+              ],
+              "onSave": "half"
+            },
+            "range": {
+              "value": "5",
+              "units": "ft"
+            },
+            "target": {
+              "template": {
+                "contiguous": true,
+                "size": "5",
+                "units": "ft"
+              },
+              "prompt": true
+            },
+            "effects": []
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      },
+      "effects": [],
+      "flags": {
+        "vibe-combat": {
+          "automationWarnings": []
+        }
+      }
+    }
+  ],
+  "prototypeToken": {
+    "name": "Condiment Drake",
+    "displayName": 20,
+    "actorLink": false,
+    "disposition": -1,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/svg/mystery-man.svg",
+      "scaleX": 1,
+      "scaleY": 1
+    }
+  }
+}

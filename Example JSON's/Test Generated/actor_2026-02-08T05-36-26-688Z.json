@@ -1,0 +1,1131 @@
+{
+  "name": "Lich-like Undead Wizard",
+  "type": "npc",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "abilities": {
+      "str": {
+        "value": 11,
+        "proficient": 0
+      },
+      "dex": {
+        "value": 16,
+        "proficient": 0
+      },
+      "con": {
+        "value": 16,
+        "proficient": 0
+      },
+      "int": {
+        "value": 20,
+        "proficient": 1
+      },
+      "wis": {
+        "value": 14,
+        "proficient": 1
+      },
+      "cha": {
+        "value": 18,
+        "proficient": 0
+      }
+    },
+    "attributes": {
+      "ac": {
+        "value": 17,
+        "calc": "natural"
+      },
+      "hp": {
+        "value": 135,
+        "max": 135,
+        "formula": ""
+      },
+      "movement": {
+        "walk": 30,
+        "fly": 0,
+        "swim": 0,
+        "burrow": 0,
+        "climb": 0,
+        "hover": false,
+        "units": "ft"
+      },
+      "senses": {
+        "darkvision": 120,
+        "blindsight": 0,
+        "tremorsense": 0,
+        "truesight": 0,
+        "units": "ft",
+        "special": ""
+      },
+      "spellcasting": "int"
+    },
+    "details": {
+      "cr": 8,
+      "type": {
+        "value": "undead"
+      },
+      "alignment": "neutral evil",
+      "biography": {
+        "value": "\n                        Once a brilliant mortal wizard obsessed with cheating death, this individual delved too deep into necromantic arts. Through a forbidden ritual and a pact with dark entities, they achieved a form of undeath, becoming a lich-like entity. Their pursuit of ultimate arcane mastery continues, with the creation of an undead army and the acquisition of powerful artifacts being their primary goals. They are particularly interested in souls and the secrets they hold.\n                        <hr>\n                        <p><strong>Behavior:</strong> The lich-like wizard is a cold, calculating entity driven by an insatiable thirst for forbidden knowledge and power. It views living beings as mere tools or obstacles, to be manipulated, animated as undead servants, or destroyed if they stand in its way. It prefers to engage from a distance, using its potent spells to overwhelm and disintegrate foes, only resorting to direct confrontation when necessary or when its pride is sufficiently wounded.</p>\n                        <p><strong>Appearance:</strong> Gaunt and desiccated, this undead being is draped in tattered, yet once-fine, dark robes. Its eyes burn with an unnatural, malevolent green light within sunken sockets, and its skeletal fingers are adorned with ancient, dark rings. A faint aura of decay and cold emanates from its withered form.</p>\n                        <p><strong>Twist:</strong> The wizard is not truly dead, but bound to a powerful artifact (the Amulet of the Void) that sustains its undeath and amplifies its magical abilities. If the amulet is destroyed, the wizard will rapidly decay and cease to exist, unless it can transfer its consciousness to a new vessel.</p>\n                        <p><strong>Habitat:</strong> Unknown</p>\n                        <p><strong>Treasure:</strong> The lich-like wizard carries a Spellbook, an Amulet of the Void (which is its phylactery), and wears Robes of the Archmagi. It may also have a collection of rare spell components and arcane artifacts.</p>\n                    "
+      },
+      "race": "Lich-like Undead Wizard"
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": [
+          "common",
+          "draconic",
+          "elven",
+          "infernal"
+        ]
+      },
+      "di": {
+        "value": [
+          "poison",
+          "exhaustion"
+        ]
+      },
+      "dr": {
+        "value": [
+          "necrotic",
+          "cold"
+        ]
+      },
+      "ci": {
+        "value": [
+          "charmed",
+          "frightened",
+          "paralyzed",
+          "poisoned"
+        ]
+      }
+    },
+    "skills": {
+      "arc": {
+        "value": 12,
+        "ability": ""
+      },
+      "his": {
+        "value": 12,
+        "ability": ""
+      },
+      "ins": {
+        "value": 7,
+        "ability": ""
+      },
+      "prc": {
+        "value": 7,
+        "ability": ""
+      }
+    }
+  },
+  "items": [
+    {
+      "name": "Create Undead",
+      "type": "feat",
+      "_id": "qjarsyil8hdk8nzu",
+      "img": "icons/magic/control/demiplane-summon-portal.webp",
+      "system": {
+        "description": {
+          "value": "As an action, the wizard can raise up to two corpses or piles of bones within 60 feet of it to become zombies or skeletons."
+        },
+        "activities": {
+          "vmfghta7pxv0dsde": {
+            "_id": "vmfghta7pxv0dsde",
+            "type": "summon",
+            "activation": {
+              "type": "action",
+              "value": 1
+            },
+            "description": {
+              "value": "Raise up to two corpses or piles of bones within 60 feet of you to become zombies or skeletons."
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      }
+    },
+    {
+      "name": "Frightful Presence",
+      "type": "feat",
+      "_id": "vgciysiqlwkajcie",
+      "img": "icons/magic/fear/aura-fear-blood-red.webp",
+      "system": {
+        "description": {
+          "value": "Each creature of the wizard's choice that starts its turn within 60 feet of the wizard and is aware of it must succeed on a Wisdom saving throw (DC 16) or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        },
+        "activities": {
+          "roqjo1eps1cagr14": {
+            "_id": "roqjo1eps1cagr14",
+            "type": "utility",
+            "activation": {
+              "type": "reaction",
+              "value": 1,
+              "condition": "A creature starts its turn within 60 feet of you and is aware of you."
+            },
+            "save": {
+              "ability": [
+                "wis"
+              ],
+              "dc": {
+                "calculation": "fixed",
+                "formula": "16"
+              }
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "size": "60",
+                "units": "feet"
+              }
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common"
+      }
+    },
+    {
+      "name": "Legendary Resistance (3/Day)",
+      "type": "feat",
+      "_id": "o62zjpqj38z37a8m",
+      "img": "icons/magic/control/aura-energy-protection-divine.webp",
+      "system": {
+        "description": {
+          "value": "If the lich-like wizard fails a saving throw, it can choose to succeed instead."
+        },
+        "activities": {},
+        "quantity": 1,
+        "weight": 0,
+        "rarity": "common",
+        "uses": {
+          "spent": 0,
+          "max": "3",
+          "recovery": [
+            {
+              "period": "longRest",
+              "type": "charges"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Quarterstaff",
+      "type": "weapon",
+      "_id": "tbrivr0lsqbwvfp5",
+      "img": "icons/weapons/staves/staff-wood-simple.webp",
+      "system": {
+        "description": {
+          "value": "A gnarled staff pulsing with dark energy."
+        },
+        "activities": {
+          "ndgcgplq4cso5bll": {
+            "_id": "ndgcgplq4cso5bll",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1
+            },
+            "attack": {
+              "flat": false,
+              "bonus": "+9",
+              "ability": "str"
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 1,
+                  "denomination": 6,
+                  "types": [
+                    "bludgeoning"
+                  ],
+                  "bonus": "+4"
+                }
+              ]
+            }
+          }
+        },
+        "quantity": 1,
+        "weight": 4,
+        "rarity": "common"
+      }
+    },
+    {
+      "name": "Robes of the Archmagi",
+      "type": "equipment",
+      "_id": "fptqn9f9tlfk2vge",
+      "img": "icons/equipment/chest/robe-ornate-purple.webp",
+      "system": {
+        "description": {
+          "value": "Dark, ornate robes that shimmer with arcane power."
+        },
+        "activities": {},
+        "quantity": 1,
+        "weight": 3,
+        "price": {
+          "value": 500,
+          "denomination": "gp"
+        },
+        "rarity": "rare"
+      }
+    },
+    {
+      "name": "Spellbook",
+      "type": "equipment",
+      "_id": "cx30djkrz95hwqeb",
+      "img": "icons/containers/spellbook-closed-leather-brown.webp",
+      "system": {
+        "description": {
+          "value": "A tome bound in human skin, filled with forbidden knowledge."
+        },
+        "activities": {},
+        "quantity": 1,
+        "weight": 3,
+        "rarity": "common"
+      }
+    },
+    {
+      "name": "Amulet of the Void",
+      "type": "equipment",
+      "_id": "9tpim6sezpsjvhzx",
+      "img": "icons/magic/gems/amulet-round-obsidian-silver.webp",
+      "system": {
+        "description": {
+          "value": "A dark gem that absorbs ambient light."
+        },
+        "activities": {},
+        "quantity": 1,
+        "weight": 0.5,
+        "price": {
+          "value": 500,
+          "denomination": "gp"
+        },
+        "rarity": "rare"
+      }
+    },
+    {
+      "name": "Spellcasting",
+      "type": "feat",
+      "img": "icons/magic/symbols/circled-gem-pink.webp",
+      "system": {
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activities": {
+          "dfPUqecgj3k7fo5X": {
+            "type": "cast",
+            "_id": "dfPUqecgj3k7fo5X",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "spell": {
+              "uuid": null,
+              "level": null,
+              "properties": [],
+              "spellbook": true,
+              "ability": ""
+            },
+            "name": ""
+          },
+          "ePa5leKk1iZZvFcG": {
+            "type": "cast",
+            "_id": "ePa5leKk1iZZvFcG",
+            "sort": 1,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "spell": {
+              "uuid": null,
+              "level": null,
+              "properties": [],
+              "spellbook": true,
+              "ability": ""
+            },
+            "name": ""
+          },
+          "svmBgnWOffjSjUvd": {
+            "type": "cast",
+            "_id": "svmBgnWOffjSjUvd",
+            "sort": 2,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "spell": {
+              "uuid": null,
+              "level": null,
+              "properties": [],
+              "spellbook": true,
+              "ability": ""
+            },
+            "name": ""
+          },
+          "2avE79dyKVj8fD8P": {
+            "type": "cast",
+            "_id": "2avE79dyKVj8fD8P",
+            "sort": 3,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "spell": {
+              "uuid": null,
+              "level": null,
+              "properties": [],
+              "spellbook": true,
+              "ability": ""
+            },
+            "name": ""
+          },
+          "9k46QgEKp8dFBgRT": {
+            "type": "cast",
+            "_id": "9k46QgEKp8dFBgRT",
+            "sort": 4,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "spell": {
+              "uuid": null,
+              "level": null,
+              "properties": [],
+              "spellbook": true,
+              "ability": ""
+            },
+            "name": ""
+          },
+          "3Vqu4kCZdwSD0T1v": {
+            "type": "cast",
+            "_id": "3Vqu4kCZdwSD0T1v",
+            "sort": 5,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "spell": {
+              "uuid": null,
+              "level": null,
+              "properties": [],
+              "spellbook": true,
+              "ability": ""
+            },
+            "name": ""
+          },
+          "mBv82bo60IWnmPRD": {
+            "type": "cast",
+            "_id": "mBv82bo60IWnmPRD",
+            "sort": 6,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": [
+                {
+                  "type": "activityUses",
+                  "value": "1",
+                  "scaling": {}
+                }
+              ]
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "day",
+                  "type": "recoverAll"
+                }
+              ],
+              "max": "1"
+            },
+            "spell": {
+              "uuid": null,
+              "level": null,
+              "properties": [],
+              "spellbook": true,
+              "ability": ""
+            },
+            "name": ""
+          },
+          "yUm288MR8na1D9jh": {
+            "type": "cast",
+            "_id": "yUm288MR8na1D9jh",
+            "sort": 7,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": [
+                {
+                  "type": "activityUses",
+                  "value": "1",
+                  "scaling": {}
+                }
+              ]
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "day",
+                  "type": "recoverAll"
+                }
+              ],
+              "max": "1"
+            },
+            "spell": {
+              "uuid": null,
+              "level": null,
+              "properties": [],
+              "spellbook": true,
+              "ability": ""
+            },
+            "name": ""
+          },
+          "gq9YM7gUk6am37ql": {
+            "type": "cast",
+            "_id": "gq9YM7gUk6am37ql",
+            "sort": 8,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": [
+                {
+                  "type": "activityUses",
+                  "value": "1",
+                  "scaling": {}
+                }
+              ]
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "day",
+                  "type": "recoverAll"
+                }
+              ],
+              "max": "1"
+            },
+            "spell": {
+              "uuid": null,
+              "level": null,
+              "properties": [],
+              "spellbook": true,
+              "ability": ""
+            },
+            "name": ""
+          },
+          "zGRnw8Lzy7tYREhb": {
+            "type": "cast",
+            "_id": "zGRnw8Lzy7tYREhb",
+            "sort": 9,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": [
+                {
+                  "type": "activityUses",
+                  "value": "1",
+                  "scaling": {}
+                }
+              ]
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "day",
+                  "type": "recoverAll"
+                }
+              ],
+              "max": "2"
+            },
+            "spell": {
+              "uuid": null,
+              "level": null,
+              "properties": [],
+              "spellbook": true,
+              "ability": ""
+            },
+            "name": ""
+          },
+          "KcvkHt5KboRrAXDl": {
+            "type": "cast",
+            "_id": "KcvkHt5KboRrAXDl",
+            "sort": 10,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": [
+                {
+                  "type": "activityUses",
+                  "value": "1",
+                  "scaling": {}
+                }
+              ]
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "day",
+                  "type": "recoverAll"
+                }
+              ],
+              "max": "3"
+            },
+            "spell": {
+              "uuid": null,
+              "level": null,
+              "properties": [],
+              "spellbook": true,
+              "ability": ""
+            },
+            "name": ""
+          },
+          "NXAmLa0Kh0usZL49": {
+            "type": "cast",
+            "_id": "NXAmLa0Kh0usZL49",
+            "sort": 11,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": [
+                {
+                  "type": "activityUses",
+                  "value": "1",
+                  "scaling": {}
+                }
+              ]
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "day",
+                  "type": "recoverAll"
+                }
+              ],
+              "max": "3"
+            },
+            "spell": {
+              "uuid": null,
+              "level": null,
+              "properties": [],
+              "spellbook": true,
+              "ability": ""
+            },
+            "name": ""
+          },
+          "6yEgzPqCUGKwM4Gp": {
+            "type": "cast",
+            "_id": "6yEgzPqCUGKwM4Gp",
+            "sort": 12,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": [
+                {
+                  "type": "activityUses",
+                  "value": "1",
+                  "scaling": {}
+                }
+              ]
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "day",
+                  "type": "recoverAll"
+                }
+              ],
+              "max": "3"
+            },
+            "spell": {
+              "uuid": null,
+              "level": null,
+              "properties": [],
+              "spellbook": true,
+              "ability": ""
+            },
+            "name": ""
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "description": {
+          "value": "<p class=\"feature\">The [[lookup @name lowercase]] casts one of the following spells, using INT as the spellcasting ability:</p>\n<p class=\"feature-trait\"><strong>At Will:</strong> <em>Fireball, Animate Dead, Chill Touch, Mage Hand, Ray of Frost, Minor Illusion</em></p>\n<p class=\"feature-trait\"><strong>3/Day Each:</strong> <em>Counterspell, Blink, Magic Missile</em></p>\n<p class=\"feature-trait\"><strong>2/Day Each:</strong> <em>Cone of Cold</em></p>\n<p class=\"feature-trait\"><strong>1/Day Each:</strong> <em>Power Word Kill, Cloudkill, Dominate Monster</em></p>",
+          "chat": ""
+        },
+        "identifier": "spellcasting",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "properties": [],
+        "requirements": "",
+        "advancement": [],
+        "cover": null,
+        "crewed": false
+      },
+      "effects": [],
+      "flags": {},
+      "_id": "FLQe1ab6IULGiAH5"
+    }
+  ],
+  "prototypeToken": {
+    "name": "Lich-like Undead Wizard",
+    "displayName": 20,
+    "actorLink": false,
+    "disposition": -1,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/svg/mystery-man.svg",
+      "scaleX": 1,
+      "scaleY": 1
+    }
+  }
+}

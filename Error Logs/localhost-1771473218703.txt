@@ -1,0 +1,479 @@
+foundry.mjs:181072 _______________________________________________________________
+ _____ ___  _   _ _   _ ____  ______   __ __     _______ _____
+|  ___/ _ \| | | | \ | |  _ \|  _ \ \ / / \ \   / |_   _|_   _|
+| |_ | | | | | | |  \| | | | | |_) \ V /   \ \ / /  | |   | |
+|  _|| |_| | |_| | |\  | |_| |  _ < | |     \ V /   | |   | |
+|_|   \___/ \___/|_| \_|____/|_| \_\|_|      \_/    |_|   |_|
+===============================================================
+foundry.mjs:181073 Foundry VTT | Foundry Virtual Tabletop ESModule loaded
+foundry.mjs:6727 Error: The `ActorSheetMixin` application has been deprecated and integrated into `BaseActorSheet`.
+Deprecated since Version DnD5e 5.0
+Backwards-compatible support will be removed in Version DnD5e 5.2
+    at Object.logCompatibilityWarning (foundry.mjs:6715:17)
+    at ActorSheetMixin (sheet-mixin.mjs:11:17)
+    at base-sheet.mjs:45:43
+logCompatibilityWarning @ foundry.mjs:6727
+foundry.mjs:23720 Foundry VTT | Registered callback for updateRegionBehavior hook
+foundry.mjs:23720 Foundry VTT | Registered callback for init hook
+foundry.mjs:23720 Foundry VTT | Registered callback for setup hook
+foundry.mjs:23720 Foundry VTT | Registered callback for i18nInit hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderGamePause hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderSettings hook
+foundry.mjs:23720 Foundry VTT | Registered callback for applyCompendiumArt hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderChatPopout hook
+foundry.mjs:23720 Foundry VTT | Registered callback for getChatMessageContextOptions hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderChatLog hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderChatPopout hook
+foundry.mjs:23720 Foundry VTT | Registered callback for chatMessage hook
+foundry.mjs:23720 Foundry VTT | Registered callback for createChatMessage hook
+foundry.mjs:23720 Foundry VTT | Registered callback for updateChatMessage hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderActorDirectory hook
+foundry.mjs:23720 Foundry VTT | Registered callback for getActorContextOptions hook
+foundry.mjs:23720 Foundry VTT | Registered callback for getItemContextOptions hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderCompendiumDirectory hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderJournalEntryPageSheet hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderActiveEffectConfig hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderDocumentSheetConfig hook
+foundry.mjs:23720 Foundry VTT | Registered callback for targetToken hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderCombatTracker hook
+foundry.mjs:23720 Foundry VTT | Registered callback for preCreateScene hook
+foundry.mjs:23720 Foundry VTT | Registered callback for init hook
+foundry.mjs:23720 Foundry VTT | Registered callback for init hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for createScene hook
+foundry.mjs:23720 Foundry VTT | Registered callback for init hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for init hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for init hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderSceneControls hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderSidebarTab hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderActorDirectory hook
+foundry.mjs:23720 Foundry VTT | Registered callback for getHeaderControlsApplicationV2 hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderCombatTracker hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderSidebarTab hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for init hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderSceneDirectory hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderSidebarTab hook
+foundry.mjs:181085 Foundry VTT | Reestablishing existing session 26835a39913428ad3a16b74f
+foundry.mjs:168847 Foundry VTT | Connected to server socket using session 26835a39913428ad3a16b74f
+foundry.mjs:23720 Foundry VTT | Registered callback for renderChatMessageHTML hook
+foundry.mjs:169003 Foundry VTT | Initializing Foundry Virtual Tabletop Game
+foundry.mjs:23772 Foundry VTT | Unregistered callback for init hook
+utils.mjs:435 D&D 5e | Initializing the D&D Fifth Game System - Version 5.1.8_____________________________________      ______ _____ _____|  _  \___  |  _  \  ___|  ___|| | | ( _ ) | | | |___ \| |__| | | / _ \/\ | | |   \ \  __|| |/ / (_>  < |/ //\__/ / |___|___/ \___/\/___/ \____/\____/_______________________________
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for ready hook
+utils.mjs:435 D&D 5e | Registering Module Data
+foundry.mjs:23720 Foundry VTT | Registered callback for renderTokenHUD hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for init hook
+foundry.mjs:23720 Foundry VTT | Registered callback for setup hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for init hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for init hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for init hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for init hook
+foundry.mjs:6727 Error: You are accessing the global "KeyboardManager" which is now namespaced under foundry.helpers.interaction.KeyboardManager
+Deprecated since Version 13
+Backwards-compatible support will be removed in Version 15
+    at logCompatibilityWarning (foundry.mjs:6715:17)
+    at get (foundry.mjs:181053:9)
+    at Object.fn (quick-insert.ts:53:35)
+    at #call (foundry.mjs:23832:20)
+    at Hooks.callAll (foundry.mjs:23791:17)
+    at Game.initialize (foundry.mjs:169006:13)
+    at window.addEventListener.once (foundry.mjs:181096:25)
+logCompatibilityWarning @ foundry.mjs:6727
+foundry.mjs:23772 Foundry VTT | Unregistered callback for init hook
+main.js:11 Vibe Scenes | Registering module settings
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/active-effects.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/active-effects.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/active-effects2.hbs
+foundry.mjs:167817 Foundry VTT | Loaded localization file lang/en.json
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/active-effects2.hbs
+foundry.mjs:167817 Foundry VTT | Loaded localization file systems/dnd5e/lang/en.json
+foundry.mjs:167817 Foundry VTT | Loaded localization file modules/dnd-dungeon-masters-guide/lang/en.json
+foundry.mjs:167817 Foundry VTT | Loaded localization file modules/dnd-players-handbook/lang/en.json
+foundry.mjs:167817 Foundry VTT | Loaded localization file modules/dnd-monster-manual/lang/en.json
+foundry.mjs:167817 Foundry VTT | Loaded localization file modules/quick-insert/lang/en.json
+foundry.mjs:23772 Foundry VTT | Unregistered callback for i18nInit hook
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/inventory.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/inventory.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/apps/parts/trait-list.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/apps/parts/trait-list.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/apps/parts/traits-list.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/apps/parts/traits-list.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/parts/actor-classes.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/parts/actor-classes.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/parts/actor-trait-pills.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/parts/actor-trait-pills.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/parts/actor-traits.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/parts/actor-traits.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/parts/actor-features.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/parts/actor-features.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/parts/actor-inventory.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/parts/actor-inventory.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/parts/actor-spellbook.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/parts/actor-spellbook.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/parts/actor-warnings.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/parts/actor-warnings.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/parts/actor-warnings-dialog.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/parts/actor-warnings-dialog.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/parts/biography-textbox.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/parts/biography-textbox.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/tabs/character-bastion.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/tabs/character-bastion.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/tabs/character-biography.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/tabs/character-biography.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/tabs/character-details.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/tabs/character-details.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/tabs/creature-special-traits.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/tabs/creature-special-traits.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/tabs/group-members.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/tabs/group-members.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/tabs/npc-biography.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/actors/tabs/npc-biography.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/chat/parts/card-activities.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/chat/parts/card-activities.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/chat/parts/card-deltas.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/chat/parts/card-deltas.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-background.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-background.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-class.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-class.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-consumable.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-consumable.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-container.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-container.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-equipment.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-equipment.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-facility.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-facility.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-feat.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-feat.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-loot.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-loot.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-mountable.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-mountable.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-species.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-species.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-spell.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-spell.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-spellcasting.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-spellcasting.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-starting-equipment.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-starting-equipment.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-subclass.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-subclass.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-tool.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-tool.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-weapon.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/details/details-weapon.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/parts/item-summary.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/parts/item-summary.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/parts/item-tooltip.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/parts/item-tooltip.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/parts/spell-block.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/items/parts/spell-block.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/fields/field-activation.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/fields/field-activation.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/fields/field-damage.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/fields/field-damage.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/fields/field-duration.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/fields/field-duration.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/fields/field-range.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/fields/field-range.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/fields/field-targets.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/fields/field-targets.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/fields/field-uses.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/fields/field-uses.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/fields/fieldlist.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/fields/fieldlist.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/fields/formlist.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/shared/fields/formlist.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/journal/parts/journal-legacy-traits.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/journal/parts/journal-legacy-traits.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/journal/parts/journal-modern-traits.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/journal/parts/journal-modern-traits.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/journal/parts/journal-table.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/journal/parts/journal-table.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/activity/parts/activity-usage-notes.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/activity/parts/activity-usage-notes.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/advancement/parts/advancement-ability-score-control.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/advancement/parts/advancement-ability-score-control.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/advancement/parts/advancement-controls.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/advancement/parts/advancement-controls.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/advancement/parts/advancement-spell-config.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template systems/dnd5e/templates/advancement/parts/advancement-spell-config.hbs
+foundry.mjs:167466 Foundry VTT | Synchronized official game time in 163ms
+foundry.mjs:169270 Foundry VTT | Prepared World Documents in 546ms
+foundry.mjs:23772 Foundry VTT | Unregistered callback for setup hook
+utils.mjs:435 D&D 5e | Setting Up Compendium Packs
+foundry.mjs:23772 Foundry VTT | Unregistered callback for setup hook
+foundry.mjs:167111 Foundry VTT | Document indexing complete in 33.80000001192093ms.
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/ui/scene-navigation.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/tabs.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/tab.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/ui/players.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/ui/hotbar.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/ui/scene-controls-layers.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/ui/scene-controls-tools.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/tabs/chat/log.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/tabs/chat/notifications.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/tabs/chat/input.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/tabs/combat/header.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/tabs/combat/tracker.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/tabs/combat/footer.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/directory/header.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/directory/directory.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/partials/scene-partial.hbs
+combat-button-injector.js:64 Vibe Combat: Button added to footer
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/partials/folder-partial.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/directory/footer.hbs
+button-injector.js:118 Vibe Scenes: Vibe Scene button added successfully
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/partials/document-partial.hbs
+actor-button-injector.js:97 Vibe Actor: Button added successfully
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/tabs/playlist/controls.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/tabs/playlist/playlist-partial.hbs
+foundry.mjs:75114 Foundry VTT | Fonts loaded and ready.
+foundry.mjs:46163 Foundry VTT | Viewing Scene Generated Dungeon
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/tabs/playlist/playing.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/tabs/playlist/sound-partial.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/tabs/compendiums.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/partials/pack-partial.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/tabs/settings.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/sidebar/chat-message.hbs
+foundry.mjs:94310 Foundry VTT | Drawing game canvas for scene Generated Dungeon
+foundry.mjs:84197 Foundry VTT | Loading 90 Assets
+foundry.mjs:85137 Foundry VTT | Drawing the HiddenCanvasGroup canvas group
+foundry.mjs:85137 Foundry VTT | Drawing the RenderedCanvasGroup canvas group
+foundry.mjs:85137 Foundry VTT | Drawing the EnvironmentCanvasGroup canvas group
+foundry.mjs:85137 Foundry VTT | Drawing the PrimaryCanvasGroup canvas group
+foundry.mjs:90022 Foundry VTT | Drawing the WeatherEffects canvas layer
+foundry.mjs:85137 Foundry VTT | Drawing the EffectsCanvasGroup canvas group
+foundry.mjs:90022 Foundry VTT | Drawing the CanvasBackgroundAlterationEffects canvas layer
+foundry.mjs:90022 Foundry VTT | Drawing the CanvasIlluminationEffects canvas layer
+foundry.mjs:90022 Foundry VTT | Drawing the CanvasColorationEffects canvas layer
+foundry.mjs:90022 Foundry VTT | Drawing the CanvasDarknessEffects canvas layer
+foundry.mjs:85137 Foundry VTT | Drawing the CanvasVisibility canvas group
+worker.js:72 Worker TextureCompressor of FogExtractor | Initialized Worker
+foundry.mjs:85137 Foundry VTT | Drawing the InterfaceCanvasGroup canvas group
+foundry.mjs:90022 Foundry VTT | Drawing the GridLayer canvas layer
+foundry.mjs:90022 Foundry VTT | Drawing the RegionLayer canvas layer
+foundry.mjs:90022 Foundry VTT | Drawing the DrawingsLayer canvas layer
+foundry.mjs:90022 Foundry VTT | Drawing the TemplateLayer canvas layer
+foundry.mjs:90022 Foundry VTT | Drawing the TilesLayer canvas layer
+foundry.mjs:90022 Foundry VTT | Drawing the WallsLayer canvas layer
+foundry.mjs:90022 Foundry VTT | Drawing the TokenLayer5e canvas layer
+foundry.mjs:90022 Foundry VTT | Drawing the SoundsLayer canvas layer
+foundry.mjs:90022 Foundry VTT | Drawing the LightingLayer canvas layer
+foundry.mjs:90022 Foundry VTT | Drawing the NotesLayer canvas layer
+foundry.mjs:90022 Foundry VTT | Drawing the ControlsLayer canvas layer
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/hud/waypoint-label.hbs
+foundry.mjs:85137 Foundry VTT | Drawing the OverlayCanvasGroup canvas group
+foundry.mjs:168911 Applying buffered socket event: userActivity
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23720 Foundry VTT | Registered callback for hotbarDrop hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+quick-insert.ts:86 Quick Insert | Initializing...
+foundry.mjs:23720 Foundry VTT | Registered callback for createActor hook
+foundry.mjs:23720 Foundry VTT | Registered callback for updateActor hook
+foundry.mjs:23720 Foundry VTT | Registered callback for deleteActor hook
+foundry.mjs:23720 Foundry VTT | Registered callback for createItem hook
+foundry.mjs:23720 Foundry VTT | Registered callback for updateItem hook
+foundry.mjs:23720 Foundry VTT | Registered callback for deleteItem hook
+foundry.mjs:23720 Foundry VTT | Registered callback for createJournalEntry hook
+foundry.mjs:23720 Foundry VTT | Registered callback for updateJournalEntry hook
+foundry.mjs:23720 Foundry VTT | Registered callback for deleteJournalEntry hook
+foundry.mjs:23720 Foundry VTT | Registered callback for createMacro hook
+foundry.mjs:23720 Foundry VTT | Registered callback for updateMacro hook
+foundry.mjs:23720 Foundry VTT | Registered callback for deleteMacro hook
+foundry.mjs:23720 Foundry VTT | Registered callback for createRollTable hook
+foundry.mjs:23720 Foundry VTT | Registered callback for updateRollTable hook
+foundry.mjs:23720 Foundry VTT | Registered callback for deleteRollTable hook
+foundry.mjs:23720 Foundry VTT | Registered callback for createScene hook
+foundry.mjs:23720 Foundry VTT | Registered callback for updateScene hook
+foundry.mjs:23720 Foundry VTT | Registered callback for deleteScene hook
+quick-insert.ts:128 Quick Insert | Search Application ready
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+main.js:16 Vibe Scenes | Module initialized
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+foundry.mjs:23772 Foundry VTT | Unregistered callback for ready hook
+button-injector.js:118 Vibe Scenes: Vibe Scene button added successfully
+combat-button-injector.js:64 Vibe Combat: Button added to footer
+foundry.mjs:23720 Foundry VTT | Registered callback for renderActorSheet5eCharacter hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderCharacterActorSheet hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderNPCActorSheet hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderActorSheet5eNPC hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderActorSheet5eVehicle hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderTidy5eSheet hook
+foundry.mjs:23720 Foundry VTT | Registered callback for renderTidy5eNPC hook
+dnd5e.ts:245 Quick Insert | dnd5e system extensions initiated
+foundry.mjs:24937 Foundry VTT | Constructed index of dnd-players-handbook.classes Compendium containing 522 entries
+foundry.mjs:24937 Foundry VTT | Constructed index of dnd-players-handbook.classes Compendium containing 522 entries
+foundry.mjs:24937 Foundry VTT | Constructed index of dnd5e.spells24 Compendium containing 340 entries
+foundry.mjs:24937 Foundry VTT | Constructed index of dnd-players-handbook.spells Compendium containing 392 entries
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/apps/combat-tracker-config.hbs
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/generic/form-footer.hbs
+combat-button-injector.js:64 Vibe Combat: Button added to footer
+combat-button-injector.js:64 Vibe Combat: Button added to footer
+combat-button-injector.js:64 Vibe Combat: Button added to footer
+combat-button-injector.js:64 Vibe Combat: Button added to footer
+combat-button-injector.js:64 Vibe Combat: Button added to footer
+combat-button-injector.js:64 Vibe Combat: Button added to footer
+foundry.mjs:6727 Error: The V1 Application framework is deprecated, and will be removed in a later core software version. Please use the V2 version of the Application framework available under foundry.applications.api.ApplicationV2.
+Deprecated since Version 13
+Backwards-compatible support will be removed in Version 16
+    at Object.logCompatibilityWarning (foundry.mjs:6715:17)
+    at new Application (foundry.mjs:37008:21)
+    at new VibeCombatApp (vibe-combat-app.js:23:5)
+    at HTMLButtonElement.<anonymous> (combat-button-injector.js:55:5)
+logCompatibilityWarning @ foundry.mjs:6727
+foundry.mjs:37351 Foundry VTT | Rendering VibeCombatApp
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template modules/vibe-combat/templates/vibe-combat.html
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/app-window.html
+foundry.mjs:6727 Error: The V1 Application framework is deprecated, and will be removed in a later core software version. Please use the V2 version of the Application framework available under foundry.applications.api.ApplicationV2.
+Deprecated since Version 13
+Backwards-compatible support will be removed in Version 16
+    at Object.logCompatibilityWarning (foundry.mjs:6715:17)
+    at new Application (foundry.mjs:37008:21)
+    at new Dialog (foundry.mjs:117100:5)
+    at VibeCombatApp._openSuggestionDialog (vibe-combat-app.js:636:5)
+    at HTMLButtonElement.<anonymous> (vibe-combat-app.js:178:12)
+    at HTMLButtonElement.dispatch (jquery.min.js:2:40035)
+    at v.handle (jquery.min.js:2:38006)
+logCompatibilityWarning @ foundry.mjs:6727
+foundry.mjs:37351 Foundry VTT | Rendering Dialog
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/hud/dialog.html
+foundry.mjs:24937 Foundry VTT | Constructed index of dnd-dungeon-masters-guide.actors Compendium containing 72 entries
+foundry.mjs:24937 Foundry VTT | Constructed index of dnd-monster-manual.actors Compendium containing 504 entries
+foundry.mjs:24937 Foundry VTT | Constructed index of dnd-players-handbook.actors Compendium containing 146 entries
+gemini-service.js:38 Vibe Common | Gemini Request (gemini-2.5-flash-lite, try 1): {
+  "contents": [
+    {
+      "parts": [
+        {
+          "text": "You are an expert D&D 5e encounter designer for Foundry VTT.\n\nAnalyze the JSON context below and produce an encounter recommendation.\n\nEncounter Style: Mixed Encounter — A varied composition that covers multiple combat roles.\n\nStyle Hint: Blend melee threats, ranged pressure, and utility creatures.\n\nPrioritize balanced, narratively coherent D&D 5e encounters. Favor official Wizards of the Coast or SRD monsters when possible. Respect the requested encounter style while ensuring the overall threat stays within safe bounds for the supplied party. Assume modern dnd5e (v4+) stat blocks.\n\nYou MUST choose `uuid` values from the provided `creatureCatalog` list.\n\nDo not invent UUIDs. Do not return creatures not in the catalog.\n\nIf you cannot find a perfect fit, choose the closest appropriate creature from the catalog.\n\nRespond with concise JSON matching this schema:\n\n{\n  \"summary\": \"One to three sentences explaining the concept.\",\n  \"dangerRating\": \"Easy | Medium | Hard | Deadly | Variable\",\n  \"recommendedBudgetXp\": 0,\n  \"entries\": [\n    {\n      \"uuid\": \"Actor.<id> or Compendium.<packId>.<documentId> (must come from creatureCatalog)\",\n      \"quantity\": 1,\n      \"name\": \"Optional: display name (not authoritative)\",\n      \"cr\": \"Optional: display CR (not authoritative)\",\n      \"role\": \"Brute | Artillery | Controller | Support | Skirmisher\",\n      \"notes\": \"Tactical notes or how they interact with the party.\",\n      \"tags\": [\"tag1\", \"tag2\"]\n    }\n  ]\n}\n\nDo NOT include Markdown code fences or commentary outside the JSON.\n\nContext JSON:\n\n{\n  \"timestamp\": \"2026-02-20T03:15:15.748Z\",\n  \"suggestionType\": {\n    \"id\": \"mixed-encounter\",\n    \"label\": \"Mixed Encounter\",\n    \"description\": \"A varied composition that covers multiple combat roles.\",\n    \"promptHint\": \"Blend melee threats, ranged pressure, and utility creatures.\"\n  },\n  \"party\": {\n    \"size\": 1,\n    \"averageLevel\": 1,\n    \"highestLevel\": 1,\n    \"lowestLevel\": 1,\n    \"members\": [\n      {\n        \"id\": \"mdyLIfXHDrEQA4H2\",\n        \"name\": \"Dummy\",\n        \"level\": 1,\n        \"role\": \"Defender\",\n        \"classes\": [\n          {\n            \"name\": \"Fighter\",\n            \"level\": 1\n          }\n        ],\n        \"portrait\": \"Assets/Actor%20Images/dummy.jpg\"\n      }\n    ]\n  },\n  \"currentEncounter\": {\n    \"totalEntries\": 0,\n    \"totalXp\": 0,\n    \"difficulty\": {\n      \"label\": \"None\",\n      \"relativeLoad\": 0\n    },\n    \"entries\": []\n  },\n  \"xpBudgets\": {\n    \"low\": 50,\n    \"medium\": 75,\n    \"high\": 100\n  },\n  \"gmInstructions\": null,\n  \"creatureCatalog\": [\n    {\n      \"uuid\": \"Compendium.dnd-monster-manual.actors.mmAarakocraAerom\",\n      \"name\": \"Aarakocra Aeromancer\",\n      \"cr\": \"4\"\n    },\n    {\n      \"uuid\": \"Compendium.dnd-monster-manual.actors.mmAarakocraSkirm\",\n      \"name\": \"Aarakocra Skirmisher\",\n      \"cr\": \"0.25\"\n    },\n    {\n      \"uuid\": \"Compendium.dnd-monster-manual.actors.mmAberrantCultis\",\n      \"name\": \"Aberrant Cultist\",\n      \"cr\": \"8\"\n    },\n    {\n      \"uuid\": \"Compendium.dnd-players-handbook.actors.phbmobAberrantSp\",\n      \"name\": \"Aberrant Spirit\",\n      \"cr\": null\n    },\n    {\n      \"uuid\": \"Compendium.dnd-monster-manual.actors.mmAboleth0000000\",\n      \"name\": \"Aboleth\",\n      \"cr\": \"10\"\n    },\n    {\n      \"uuid\": \"Compendium.dnd-monster-manual.actors.mmAbominableYeti\",\n      \"name\": \"Abominable Yeti\",\n      \"cr\": \"9\"\n    },\n    {\n      \"uuid\": \"Compendium.dnd-monster-manual.actors.mmAdultBlackDrag\",\n      \"name\": \"Adult Black Dragon\",\n      \"cr\": \"14\"\n    },\n    {\n      \"uuid\": \"Compendium.dnd-monster-manual.actors.mmAdultBlueDrago\",\n      \"name\": \"Adult Blue Dragon\",\n      \"cr\": \"16\"\n    },\n    {\n      \"uuid\": \"Compendium.dnd-monster-manual.actors.mmAdultBrassDrag\",\n      \"name\": \"Adult Brass Dragon\",\n      \"cr\": \"13\"\n    },\n    {\n      \"uuid\": \"Compendium.dnd-monster-manual.actors.mmAdultBronzeDra\",\n      \"name\": \"Adult Bronze Dragon\",\n      \"cr\": \"15\"\n    },\n    {\n      \"uuid\": \"Compendium.dnd-monster-manual.actors.mmAdultCopperDra\",\n      \"name\": \"Adult Copper Dragon\",\n      \"cr\": \"14\"\n    },\n    {\n      \"uuid\": \"Compendium.dnd-monster-manual.actors.mmAdultGoldDrago\",\n      \"name\": \"Adult Gold Dragon\",\n      \"cr\": \"17\"\n    },\n    {\n      \"uuid\": \"Compendium.dnd-monster-manual.actors.mmAdultGreenDrag\",\n      \"name\": \"Adult Green Dragon\",\n      \"cr\": \"15\"\n    },\n    {\n      \"uuid\": \"Compendium.dnd-monster-manual.actors.mmAdultRedDragon\",\n      \"name\": \"Adult Red Dragon\",\n      \"cr\": \"17\"\n    },\n    {\n      \"uuid\": \"Compendium.dnd-monst
+foundry.mjs:115132 Loaded 2 suggestions into the encounter. 
+foundry.mjs:115132 Click on the scene to place: Goblin Warrior (3 remaining). Right-click to cancel. 
+foundry.mjs:6727 Error: BaseGrid#getTopLeft is deprecated. Use BaseGrid#getTopLeftPoint instead.
+Deprecated since Version 12
+Backwards-compatible support will be removed in Version 14
+    at logCompatibilityWarning (foundry.mjs:6715:17)
+    at SquareGrid.getTopLeft (foundry.mjs:17096:5)
+    at PlacementHandler._onPlacementClick (placement-handler.js:106:41)
+    at vh.notifyListeners (EventBoundary.ts:1454:26)
+    at vh.notifyTarget (EventBoundary.ts:658:14)
+    at vh.propagate (EventBoundary.ts:310:18)
+    at vh.dispatchEvent (EventBoundary.ts:210:14)
+    at vh.mapPointerDown (EventBoundary.ts:693:18)
+    at vh.mapEvent (EventBoundary.ts:231:28)
+    at ra.onPointerDown (EventSystem.ts:373:31)
+logCompatibilityWarning @ foundry.mjs:6727
+foundry.mjs:6727 Error: BaseGrid#getGridPositionFromPixels is deprecated. Use BaseGrid#getOffset instead.
+Deprecated since Version 12
+Backwards-compatible support will be removed in Version 14
+    at logCompatibilityWarning (foundry.mjs:6715:17)
+    at SquareGrid.getGridPositionFromPixels (foundry.mjs:18746:5)
+    at SquareGrid.getTopLeft (foundry.mjs:17097:29)
+    at PlacementHandler._onPlacementClick (placement-handler.js:106:41)
+    at vh.notifyListeners (EventBoundary.ts:1454:26)
+    at vh.notifyTarget (EventBoundary.ts:658:14)
+    at vh.propagate (EventBoundary.ts:310:18)
+    at vh.dispatchEvent (EventBoundary.ts:210:14)
+    at vh.mapPointerDown (EventBoundary.ts:693:18)
+    at vh.mapEvent (EventBoundary.ts:231:28)
+logCompatibilityWarning @ foundry.mjs:6727
+foundry.mjs:6727 Error: BaseGrid#getPixelsFromGridPosition is deprecated. Use BaseGrid#getTopLeftPoint instead.
+Deprecated since Version 12
+Backwards-compatible support will be removed in Version 14
+    at logCompatibilityWarning (foundry.mjs:6715:17)
+    at SquareGrid.getPixelsFromGridPosition (foundry.mjs:18758:5)
+    at SquareGrid.getTopLeft (foundry.mjs:17098:17)
+    at PlacementHandler._onPlacementClick (placement-handler.js:106:41)
+    at vh.notifyListeners (EventBoundary.ts:1454:26)
+    at vh.notifyTarget (EventBoundary.ts:658:14)
+    at vh.propagate (EventBoundary.ts:310:18)
+    at vh.dispatchEvent (EventBoundary.ts:210:14)
+    at vh.mapPointerDown (EventBoundary.ts:693:18)
+    at vh.mapEvent (EventBoundary.ts:231:28)
+logCompatibilityWarning @ foundry.mjs:6727
+foundry.mjs:115132 Click on the scene to place: Goblin Warrior (2 remaining). Right-click to cancel. 
+foundry.mjs:115132 Click on the scene to place: Goblin Boss (1 remaining). Right-click to cancel. 
+foundry.mjs:115132 All enemies placed. 
+foundry.mjs:65845 Foundry VTT | Retrieved and compiled template templates/hud/token-hud.hbs
+combat-button-injector.js:64 Vibe Combat: Button added to footer
+combat-button-injector.js:64 Vibe Combat: Button added to footer
+combat-button-injector.js:64 Vibe Combat: Button added to footer
+combat-button-injector.js:64 Vibe Combat: Button added to footer
+foundry.mjs:115132 This Token references an Actor which no longer exists within the World. 
+#fetch @ foundry.mjs:115132
