@@ -245,7 +245,7 @@ Based on comparable AI-enhanced Foundry modules:
 PRE-RELEASE
 [x] Set up 4 public GitHub repos
 [x] Fix all module.json: url, manifest, download, authors, license
-[ ] Add module icons (512x512 PNG per module) - vibe-common, vibe-actor, and vibe-combat generated, pending scenes
+[x] Add module icons (512x512 PNG per module) - generated for all four modules
 [x] Set up GitHub Actions release automation
 [ ] Take screenshots and create banner images
 [x] Write CHANGELOG.md for each module
