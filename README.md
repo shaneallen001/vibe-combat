@@ -61,26 +61,12 @@ scripts/
 ├── main.js                         # Entry point, hook registration
 ├── settings.js                     # All game.settings.register() calls
 ├── constants.js                    # SUGGESTION_TYPES array (re-exported from vibe-common)
-├── agents/                         # AI agent wrappers (for NPC generation, mirrored from vibe-actor)
-│   ├── generative-agent.js         # Base class: calls GeminiService, handles JSON schema
-│   ├── architect-agent.js          # Designs the NPC blueprint
-│   ├── blacksmith-agent.js         # Generates custom Foundry Item data
-│   ├── quartermaster-agent.js      # Selects compendium items for a blueprint
-│   └── adjustment-agent.js        # Modifies an existing blueprint via diff
-├── factories/
-│   ├── actor-factory.js            # Assembles final Actor document data
-│   ├── blueprint-factory.js        # Converts blueprints to/from actor documents
-│   └── actor-blueprint.js          # Blueprint data type definition
 ├── handlers/
 │   ├── drag-drop-handler.js        # Resolves drag data into Actor objects, calls EncounterManager
 │   └── placement-handler.js        # Handles placing generated NPCs into the scene/combat tracker
 ├── managers/
 │   ├── encounter-manager.js        # In-memory encounter state + save/load to game.settings
 │   └── party-manager.js            # In-memory party state (list of player actors)
-├── schemas/
-│   ├── analysis-schema.js          # Gemini response schema for actor analysis
-│   ├── blueprint-schema.js         # Gemini response schema for actor blueprints
-│   └── foundry-item-schema.js      # Gemini response schema for Item data
 ├── services/
 │   ├── gemini-service.js           # Re-exports callGemini/extractJson from vibe-common
 │   ├── encounter-suggestion-service.js # Builds prompts, calls Gemini, resolves catalog
@@ -91,8 +77,6 @@ scripts/
 ├── ui/
 │   ├── vibe-combat-app.js          # Main ApplicationV2 window (Combat Tracker overlay)
 │   ├── combat-button-injector.js   # DOM manipulation to add the button to Combat Tracker header
-│   ├── button-injector.js          # Generic button injector (shared pattern)
-│   ├── image-generator.js          # Actor portrait dialog
 │   ├── suggestion-sources-config.js# Dialog for selecting which compendium packs to use
 │   └── dialogs/                    # Sub-dialogs (save, load, adjustment, etc.)
 └── utils/
@@ -128,19 +112,6 @@ User clicks "Suggest Encounter"
 | `loadEncounterById(id)`           | Resolves actor UUIDs via `fromUuid()`; falls back to stand-in if actor not found |
 
 **Persistence**: Encounters are stored in `game.settings` under `"vibe-combat"` → `"savedEncounters"` as a flat object keyed by `randomID()`. The active default is stored in `"defaultEncounterId"`.
-
-#### NPC Generation Pipeline (mirrors vibe-actor)
-vibe-combat includes its own copy of the full NPC generation pipeline (Architect → Quartermaster → Blacksmith → Builder). This allows placing generated NPCs directly into an encounter without requiring vibe-actor to be installed.
-
-```
-GeminiPipeline.generateActor(request)
-  1. ArchitectAgent    → Generates a structured "blueprint" JSON (stats, features, spells, etc.)
-  2. QuartermasterAgent → Searches compendiums for existing items matching blueprint features
-  3. BlacksmithAgent   → Fabricates custom Foundry Item JSON for features not found in compendiums
-  4. runBuilder()      → Assembles final actor document: system data + all items
-```
-
-**Agent Pattern** (`agents/generative-agent.js`): Each agent calls `callGemini()` with a system prompt plus context, optionally using a JSON response schema for structured output. Results are parsed via `extractJson()`.
 
 ### Settings (`scripts/settings.js`)
 All settings registered via `game.settings.register("vibe-combat", ...)`:

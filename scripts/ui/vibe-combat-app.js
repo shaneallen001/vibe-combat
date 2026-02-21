@@ -6,7 +6,6 @@
 import { getCrOptions, SUGGESTION_TYPES } from "../constants.js";
 import { getActorLevel, getActorCr, getActorPortrait, getEncounterTokenImage } from "../utils/actor-helpers.js";
 import { getXpForCr, getXpThresholdsForLevel, calculateXpBudgets, calculateEncounterXp } from "../utils/xp-calculator.js";
-import { getDragEventData } from "../utils/drag-drop.js";
 import { EncounterSuggestionService } from "../services/encounter-suggestion-service.js";
 import { PartyManager } from "../managers/party-manager.js";
 import { EncounterManager } from "../managers/encounter-manager.js";
