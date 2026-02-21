@@ -1,3 +1,4 @@
+import { VibeToast } from "../../../vibe-common/scripts/ui/toast-manager.js";
 /**
  * Add the Vibe Combat button to the Combat Tracker.
  * Compatible with Foundry VTT v13 (ApplicationV2 - native HTMLElement)
@@ -49,7 +50,7 @@ export function addVibeCombatButton(app, html, VibeCombatAppClass) {
 
   button.addEventListener("click", () => {
     if (!game.user.isGM) {
-      ui.notifications.warn("Only the GM can use Vibe Combat.");
+      VibeToast.warn("Only the GM can use Vibe Combat.");
       return;
     }
     new VibeCombatAppClass().render(true);

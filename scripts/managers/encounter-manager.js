@@ -1,3 +1,4 @@
+import { VibeToast } from "../../../vibe-common/scripts/ui/toast-manager.js";
 /**
  * Encounter Manager
  * Manages the encounter entries state and persistence
@@ -162,7 +163,7 @@ export class EncounterManager {
             await game.settings.set("vibe-combat", "defaultEncounterId", encounterId);
         }
 
-        ui.notifications.info(`Encounter "${name}" saved successfully${setAsDefault ? " and set as default" : ""}.`);
+        VibeToast.info(`Encounter "${name}" saved successfully${setAsDefault ? " and set as default" : ""}.`);
         return encounterId;
     }
 
@@ -175,7 +176,7 @@ export class EncounterManager {
 
         if (!encounter) {
             if (showNotification) {
-                ui.notifications.warn("Encounter not found.");
+                VibeToast.warn("Encounter not found.");
             }
             return false;
         }
@@ -241,7 +242,7 @@ export class EncounterManager {
 
         if (showNotification) {
             const loadedCount = this.encounterEntries.length;
-            ui.notifications.info(`Loaded encounter "${encounter.name}" with ${loadedCount} entry/entries.`);
+            VibeToast.info(`Loaded encounter "${encounter.name}" with ${loadedCount} entry/entries.`);
         }
         return true;
     }
@@ -251,7 +252,7 @@ export class EncounterManager {
         const encounter = savedEncounters[encounterId];
 
         if (!encounter) {
-            ui.notifications.warn("Encounter not found.");
+            VibeToast.warn("Encounter not found.");
             return false;
         }
 
@@ -263,7 +264,7 @@ export class EncounterManager {
         delete savedEncounters[encounterId];
         await game.settings.set("vibe-combat", "savedEncounters", savedEncounters);
 
-        ui.notifications.info(`Encounter "${encounter.name}" deleted successfully.`);
+        VibeToast.info(`Encounter "${encounter.name}" deleted successfully.`);
         return true;
     }
 
@@ -271,7 +272,7 @@ export class EncounterManager {
         const savedEncounters = game.settings.get("vibe-combat", "savedEncounters");
         if (savedEncounters[encounterId]) {
             await game.settings.set("vibe-combat", "defaultEncounterId", encounterId);
-            ui.notifications.info(`Set "${savedEncounters[encounterId].name}" as default encounter.`);
+            VibeToast.info(`Set "${savedEncounters[encounterId].name}" as default encounter.`);
             return true;
         }
         return false;

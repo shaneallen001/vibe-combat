@@ -1,3 +1,4 @@
+import { VibeToast } from "../../../../vibe-common/scripts/ui/toast-manager.js";
 /**
  * Encounter Dialogs
  * Dialogs for saving and loading encounters, and adding stand-ins
@@ -8,7 +9,7 @@ import { getCrOptions } from "../../constants.js";
 export class EncounterDialogs {
     static showSaveEncounter(encounterManager) {
         if (encounterManager.entries.length === 0) {
-            ui.notifications.warn("Cannot save an empty encounter.");
+            VibeToast.warn("Cannot save an empty encounter.");
             return;
         }
 
@@ -45,7 +46,7 @@ export class EncounterDialogs {
                         const setAsDefault = html.find('[name="setAsDefault"]').is(':checked');
 
                         if (!encounterName) {
-                            ui.notifications.warn("Please enter an encounter name.");
+                            VibeToast.warn("Please enter an encounter name.");
                             return;
                         }
 
@@ -68,7 +69,7 @@ export class EncounterDialogs {
 
         const encounterEntries = Object.entries(savedEncounters);
         if (encounterEntries.length === 0) {
-            ui.notifications.warn("No saved encounters found.");
+            VibeToast.warn("No saved encounters found.");
             return;
         }
 

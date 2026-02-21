@@ -1,3 +1,4 @@
+import { VibeToast } from "../../../vibe-common/scripts/ui/toast-manager.js";
 /**
  * Party Manager
  * Manages the party members state and persistence
@@ -69,7 +70,7 @@ export class PartyManager {
         const partyData = savedParties[partyId];
 
         if (!partyData) {
-            if (notify) ui.notifications.warn(`Party not found: ${partyId}`);
+            if (notify) VibeToast.warn(`Party not found: ${partyId}`);
             return false;
         }
 
@@ -87,9 +88,9 @@ export class PartyManager {
 
         if (notify) {
             if (missingActors.length > 0) {
-                ui.notifications.warn(`Loaded party "${partyData.name}" with ${missingActors.length} missing actors.`);
+                VibeToast.warn(`Loaded party "${partyData.name}" with ${missingActors.length} missing actors.`);
             } else {
-                ui.notifications.info(`Loaded party: ${partyData.name}`);
+                VibeToast.info(`Loaded party: ${partyData.name}`);
             }
         }
         return true;
@@ -118,7 +119,7 @@ export class PartyManager {
             await game.settings.set("vibe-combat", "defaultPartyId", partyId);
         }
 
-        ui.notifications.info(`Saved party: ${name}`);
+        VibeToast.info(`Saved party: ${name}`);
         return partyId;
     }
 
@@ -139,7 +140,7 @@ export class PartyManager {
                 await game.settings.set("vibe-combat", "defaultPartyId", "");
             }
 
-            ui.notifications.info(`Deleted party: ${name}`);
+            VibeToast.info(`Deleted party: ${name}`);
             return true;
         }
         return false;
@@ -154,7 +155,7 @@ export class PartyManager {
         const savedParties = game.settings.get("vibe-combat", "savedParties");
         if (savedParties[partyId]) {
             await game.settings.set("vibe-combat", "defaultPartyId", partyId);
-            ui.notifications.info(`Set "${savedParties[partyId].name}" as default party.`);
+            VibeToast.info(`Set "${savedParties[partyId].name}" as default party.`);
             return true;
         }
         return false;

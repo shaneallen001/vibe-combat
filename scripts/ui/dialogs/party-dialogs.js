@@ -1,3 +1,4 @@
+import { VibeToast } from "../../../../vibe-common/scripts/ui/toast-manager.js";
 /**
  * Party Dialogs
  * Dialogs for saving and loading parties
@@ -6,7 +7,7 @@
 export class PartyDialogs {
     static showSaveParty(partyManager) {
         if (partyManager.members.length === 0) {
-            ui.notifications.warn("Cannot save an empty party.");
+            VibeToast.warn("Cannot save an empty party.");
             return;
         }
 
@@ -43,7 +44,7 @@ export class PartyDialogs {
                         const setAsDefault = html.find('[name="setAsDefault"]').is(':checked');
 
                         if (!partyName) {
-                            ui.notifications.warn("Please enter a party name.");
+                            VibeToast.warn("Please enter a party name.");
                             return;
                         }
 
@@ -66,7 +67,7 @@ export class PartyDialogs {
 
         const partyEntries = Object.entries(savedParties);
         if (partyEntries.length === 0) {
-            ui.notifications.warn("No saved parties found.");
+            VibeToast.warn("No saved parties found.");
             return;
         }
 

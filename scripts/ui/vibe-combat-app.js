@@ -1,3 +1,4 @@
+import { VibeToast } from "../../../vibe-common/scripts/ui/toast-manager.js";
 /**
  * Vibe Combat Application Window
  * Main application class for managing party XP budgets and encounters
@@ -14,11 +15,12 @@ import { EncounterDialogs } from "./dialogs/encounter-dialogs.js";
 import { DragDropHandler } from "../handlers/drag-drop-handler.js";
 import { PlacementHandler } from "../handlers/placement-handler.js";
 import { getGeminiApiKey } from "../../../vibe-common/scripts/settings.js";
+import { VibeApplication } from "../../../vibe-common/scripts/ui/vibe-application.js";
 
 const SUGGESTION_REQUEST_COOLDOWN = 8000;
 const DEFAULT_SUGGESTION_IMAGE = "icons/svg/mystery-man.svg";
 
-export class VibeCombatApp extends Application {
+export class VibeCombatApp extends VibeApplication {
   constructor(options = {}) {
     super(options);
     this.partyManager = new PartyManager();
@@ -401,7 +403,7 @@ export class VibeCombatApp extends Application {
   addEncounterEntry(cr, quantity, options = {}) {
     const safeQuantity = Math.max(Math.floor(quantity), 1);
     if (!cr || safeQuantity <= 0) {
-      ui.notifications.warn("Please provide a valid CR and quantity.");
+      VibeToast.warn("Please provide a valid CR and quantity.");
       return;
     }
     const tokenImg = options.tokenImg || "icons/svg/mystery-man.svg";
@@ -422,7 +424,7 @@ export class VibeCombatApp extends Application {
    */
   addActorEncounterEntry(actor, quantity = 1, source = {}) {
     if (!actor || actor.type !== "npc") {
-      ui.notifications.warn("Only NPC actors can be added to encounters.");
+      VibeToast.warn("Only NPC actors can be added to encounters.");
       return;
     }
 
@@ -451,7 +453,7 @@ export class VibeCombatApp extends Application {
       if (!existingEntry.tokenImg) {
         existingEntry.tokenImg = getEncounterTokenImage(actor);
       }
-      ui.notifications.info(`Increased quantity of ${actorName} to ${existingEntry.quantity}`);
+      VibeToast.info(`Increased quantity of ${actorName} to ${existingEntry.quantity}`);
     } else {
       // Add new actor entry
       this.encounterEntries.push({
@@ -599,7 +601,7 @@ export class VibeCombatApp extends Application {
 
   _openSuggestionDialog() {
     if (!game.user.isGM) {
-      ui.notifications.warn("Only the GM can request encounter suggestions.");
+      VibeToast.warn("Only the GM can request encounter suggestions.");
       return;
     }
 
@@ -611,7 +613,7 @@ export class VibeCombatApp extends Application {
     }
 
     if (this.partyManager.members.length === 0) {
-      ui.notifications.warn("Add at least one party member before requesting suggestions.");
+      VibeToast.warn("Add at least one party member before requesting suggestions.");
       return;
     }
 
@@ -661,7 +663,7 @@ export class VibeCombatApp extends Application {
 
   async _startSuggestionRequest(config = {}) {
     if (!game.user.isGM) {
-      ui.notifications.warn("Only the GM can request encounter suggestions.");
+      VibeToast.warn("Only the GM can request encounter suggestions.");
       return;
     }
 
@@ -673,12 +675,12 @@ export class VibeCombatApp extends Application {
     }
 
     if (this.partyManager.members.length === 0) {
-      ui.notifications.warn("Add at least one party member before requesting suggestions.");
+      VibeToast.warn("Add at least one party member before requesting suggestions.");
       return;
     }
 
     if (this._suggestionAbortController) {
-      ui.notifications.warn("A suggestion request is already in progress.");
+      VibeToast.warn("A suggestion request is already in progress.");
       return;
     }
 
@@ -687,7 +689,7 @@ export class VibeCombatApp extends Application {
       const seconds = Math.ceil(
         (SUGGESTION_REQUEST_COOLDOWN - (now - this._lastSuggestionRequestedAt)) / 1000
       );
-      ui.notifications.warn(`Please wait ${seconds}s before sending another request.`);
+      VibeToast.warn(`Please wait ${seconds}s before sending another request.`);
       return;
     }
     this._lastSuggestionRequestedAt = now;
@@ -792,7 +794,7 @@ export class VibeCombatApp extends Application {
 
   _retrySuggestionRequest() {
     if (this._suggestionAbortController) {
-      ui.notifications.warn("Suggestion request already running.");
+      VibeToast.warn("Suggestion request already running.");
       return;
     }
     if (this._lastSuggestionRequestConfig) {
@@ -822,12 +824,12 @@ export class VibeCombatApp extends Application {
 
   async _loadSuggestionResults({ clearEncounter = false } = {}) {
     if (this.suggestionState.status !== "ready") {
-      ui.notifications.warn("No AI suggestions are ready to load.");
+      VibeToast.warn("No AI suggestions are ready to load.");
       return;
     }
     const suggestions = this.suggestionState.suggestions || [];
     if (suggestions.length === 0) {
-      ui.notifications.warn("Gemini did not return any entries to load.");
+      VibeToast.warn("Gemini did not return any entries to load.");
       return;
     }
 
@@ -851,11 +853,11 @@ export class VibeCombatApp extends Application {
     }
 
     if (added === 0) {
-      ui.notifications.warn("No suggestions could be loaded. Try requesting again.");
+      VibeToast.warn("No suggestions could be loaded. Try requesting again.");
       return;
     }
 
-    ui.notifications.info(`Loaded ${added} suggestion${added === 1 ? "" : "s"} into the encounter.`);
+    VibeToast.info(`Loaded ${added} suggestion${added === 1 ? "" : "s"} into the encounter.`);
     await this.render(true);
     this._refreshAppHeight();
   }

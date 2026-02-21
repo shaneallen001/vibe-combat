@@ -8,6 +8,7 @@ import { addVibeCombatButton } from "./ui/combat-button-injector.js";
 import { VibeCombatApp } from "./ui/vibe-combat-app.js";
 import { clearCache as clearCompendiumCache } from "./services/compendium-service.js";
 import { EncounterSuggestionService } from "./services/encounter-suggestion-service.js";
+import { calculateXpBudgets } from "./utils/xp-calculator.js";
 
 Hooks.once("ready", () => {
   if (game.system.id !== "dnd5e") {
@@ -18,7 +19,9 @@ Hooks.once("ready", () => {
   const module = game.modules.get("vibe-combat");
   if (module) {
     module.api = {
-      VibeCombatApp
+      VibeCombatApp,
+      EncounterSuggestionService,
+      calculateXpBudgets
     };
   }
 

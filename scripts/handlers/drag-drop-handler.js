@@ -1,3 +1,4 @@
+import { VibeToast } from "../../../vibe-common/scripts/ui/toast-manager.js";
 /**
  * Drag and Drop Handler
  * Manages drag and drop interactions for Vibe Combat App
@@ -85,7 +86,7 @@ export class DragDropHandler {
         }
 
         if (!actor) {
-            ui.notifications.warn("Could not find the dragged actor.");
+            VibeToast.warn("Could not find the dragged actor.");
             return;
         }
 
@@ -99,7 +100,7 @@ export class DragDropHandler {
                     this.app.render();
                 }
             } else {
-                ui.notifications.warn("Only NPC actors can be added to encounters.");
+                VibeToast.warn("Only NPC actors can be added to encounters.");
             }
             return;
         }
@@ -114,7 +115,7 @@ export class DragDropHandler {
                     this.app.render();
                 }
             } else {
-                ui.notifications.warn("Only character actors can be added to the party.");
+                VibeToast.warn("Only character actors can be added to the party.");
             }
         } else if (isEncounterDropZone) {
             // Handle encounter entry drop
@@ -126,7 +127,7 @@ export class DragDropHandler {
                     this.app.render();
                 }
             } else {
-                ui.notifications.warn("Only NPC actors can be added to encounters.");
+                VibeToast.warn("Only NPC actors can be added to encounters.");
             }
         }
     }

@@ -1,3 +1,4 @@
+import { VibeToast } from "../../../vibe-common/scripts/ui/toast-manager.js";
 /**
  * Placement Handler
  * Manages token placement on the canvas
@@ -13,7 +14,7 @@ export class PlacementHandler {
 
     async onPlaceEnemies() {
         if (this.app.encounterManager.entries.length === 0) {
-            ui.notifications.warn("No enemies to place.");
+            VibeToast.warn("No enemies to place.");
             return;
         }
 
@@ -41,7 +42,7 @@ export class PlacementHandler {
         }
 
         if (this._placementQueue.length === 0) {
-            ui.notifications.warn("No valid actors to place.");
+            VibeToast.warn("No valid actors to place.");
             this.app.maximize();
             return;
         }
@@ -52,13 +53,13 @@ export class PlacementHandler {
 
     _activatePlacementTool() {
         if (this._placementIndex >= this._placementQueue.length) {
-            ui.notifications.info("All enemies placed.");
+            VibeToast.info("All enemies placed.");
             this.app.maximize();
             return;
         }
 
         const nextToPlace = this._placementQueue[this._placementIndex];
-        ui.notifications.info(`Click on the scene to place: ${nextToPlace.name} (${this._placementQueue.length - this._placementIndex} remaining). Right-click to cancel.`);
+        VibeToast.info(`Click on the scene to place: ${nextToPlace.name} (${this._placementQueue.length - this._placementIndex} remaining). Right-click to cancel.`);
 
         // We need to listen for a click on the canvas
         // Using a one-time listener on the canvas stage
@@ -157,7 +158,7 @@ export class PlacementHandler {
 
             await canvas.scene.createEmbeddedDocuments("Token", [tokenData]);
         } else {
-            ui.notifications.warn(`Could not find actor for ${nextToPlace.name}`);
+            VibeToast.warn(`Could not find actor for ${nextToPlace.name}`);
         }
 
         this._placementIndex++;
@@ -175,7 +176,7 @@ export class PlacementHandler {
             canvas.stage.off('mousedown', this._placementHandlers.click);
         }
 
-        ui.notifications.info("Placement cancelled.");
+        VibeToast.info("Placement cancelled.");
         this.app.maximize();
     }
 }
