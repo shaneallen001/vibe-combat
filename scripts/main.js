@@ -6,27 +6,43 @@
 import { registerModuleSettings } from "./settings.js";
 import { addVibeCombatButton } from "./ui/combat-button-injector.js";
 import { VibeCombatApp } from "./ui/vibe-combat-app.js";
+import { clearCache as clearCompendiumCache } from "./services/compendium-service.js";
+import { EncounterSuggestionService } from "./services/encounter-suggestion-service.js";
 
 Hooks.once("ready", () => {
   if (game.system.id !== "dnd5e") {
     console.warn("Vibe Combat: This module requires the dnd5e system.");
     return;
   }
+
+  const module = game.modules.get("vibe-combat");
+  if (module) {
+    module.api = {
+      VibeCombatApp
+    };
+  }
+
   registerModuleSettings();
 });
 
-/**
- * Add Vibe Combat button to Combat Tracker.
- * Mirrors the pattern used by vibe-actor (renderActorDirectory) and
- * vibe-scenes (renderSceneDirectory) which work correctly in v13.
- */
-Hooks.on("renderCombatTracker", (app, html, data) => {
-  requestAnimationFrame(() => addVibeCombatButton(app, html, VibeCombatApp));
-});
+// The original "Vibe Combat" sidebar button has been removed in favor of the unified Vibe Menu in vibe-common.
 
-// Also hook into renderSidebarTab for v13 (mirrors vibe-actor pattern exactly)
-Hooks.on("renderSidebarTab", (app, html, data) => {
-  if (app.tabName === "combat") {
-    requestAnimationFrame(() => addVibeCombatButton(app, html, VibeCombatApp));
+/**
+ * Cache Invalidation Hooks
+ * Listen for document creations or updates to clear the compendium index cache.
+ * We only clear if the document is part of a compendium or if we want world actors update.
+ */
+function handleDocumentChange(doc) {
+  // Clear caches if the document is in a compendium, or if it's an actor (world actors are used for suggestions)
+  if (doc.pack || doc.documentName === "Actor") {
+    clearCompendiumCache();
+    EncounterSuggestionService.clearCache();
   }
-});
+}
+
+Hooks.on("createActor", handleDocumentChange);
+Hooks.on("updateActor", handleDocumentChange);
+Hooks.on("deleteActor", handleDocumentChange);
+Hooks.on("createItem", handleDocumentChange);
+Hooks.on("updateItem", handleDocumentChange);
+Hooks.on("deleteItem", handleDocumentChange);

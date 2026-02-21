@@ -18,17 +18,15 @@
 -   **Quick Setup**: Rapidly clear and rebuild the tracker for new battles.
 
 ## Installation
-1.  Ensure **`vibe-common`** is installed and enabled.
+1.  Ensure **`vibe-common`** is installed and enabled (vibe-combat will cleanly abort initialization and show an error notification if this dependency is missing).
 2.  Install **`vibe-combat`** into your `Data/modules/` directory.
 3.  Enable the module.
 
 > **Recommended**: Install `vibe-actor` for AI NPC generation capabilities.
 
 ## Configuration
-Go to **Settings -> Configure Settings -> Vibe Combat**:
-
--   **Gemini API Key**: Required for AI Encounter Suggestions.
--   **Encounter Settings**: Configure saved parties and suggestion sources.
+- **API Keys**: Configure your Gemini API key in the **Vibe Common** module settings.
+- **Vibe Combat Settings**: Go to **Settings -> Configure Settings -> Vibe Combat** to configure saved parties and suggestion sources.
 
 ## Usage
 
@@ -47,6 +45,7 @@ Go to **Settings -> Configure Settings -> Vibe Combat**:
 This is the first file executed by Foundry. It registers two hooks to inject the Vibe Combat button into the Combat Tracker sidebar:
 
 ```
+Hooks.once("init")             → Checks for `vibe-common` dependency; aborts and notifies if missing
 Hooks.once("ready")            → Validates dnd5e system requirement, calls registerModuleSettings()
 Hooks.on("renderCombatTracker")→ Calls addVibeCombatButton() via requestAnimationFrame
 Hooks.on("renderSidebarTab")   → Same as above, but guards on app.tabName === "combat" for v13

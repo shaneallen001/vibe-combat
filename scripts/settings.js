@@ -10,16 +10,6 @@ import { SuggestionSourcesConfig } from "./ui/suggestion-sources-config.js";
  * Registers all module settings for Vibe Combat
  */
 export function registerModuleSettings() {
-  game.settings.register("vibe-combat", "geminiApiKey", {
-    name: "Gemini API Key",
-    hint: "Your Google Gemini API key for AI encounter suggestions.",
-    scope: "world",
-    config: true,
-    type: String,
-    default: "",
-    requiresReload: false
-  });
-
   game.settings.register("vibe-combat", "savedParties", {
     name: "Saved Parties",
     hint: "Internal setting for saved party configurations",

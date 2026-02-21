@@ -53,6 +53,16 @@ export async function initializeIndex() {
 }
 
 /**
+ * Clear the cache
+ */
+export function clearCache() {
+    if (_indexCache) {
+        _indexCache = null;
+        console.log("Vibe Combat | Compendium Index Cache cleared due to document update.");
+    }
+}
+
+/**
  * Search for items in the index
  * @param {string} query - The search query (name)
  * @param {string[]} types - Optional list of item types to filter by

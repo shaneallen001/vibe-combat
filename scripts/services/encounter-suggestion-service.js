@@ -51,6 +51,18 @@ const CLASS_ROLE_MAP = new Map([
 const PACK_INDEX_CACHE = new Map();
 
 export class EncounterSuggestionService {
+
+  /**
+   * Clear the compendium pack index cache.
+   * Useful when new actors are added to compendiums during a session.
+   */
+  static clearCache() {
+    if (PACK_INDEX_CACHE.size > 0) {
+      PACK_INDEX_CACHE.clear();
+      console.log("Vibe Combat | Encounter Suggestion Pack Index Cache cleared due to document update.");
+    }
+  }
+
   static _getPackDisplayLabel(pack) {
     const raw = String(pack?.metadata?.label || "").trim();
     const docName = String(pack?.documentName || "").trim().toLowerCase();

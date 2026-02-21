@@ -13,6 +13,7 @@ import { PartyDialogs } from "./dialogs/party-dialogs.js";
 import { EncounterDialogs } from "./dialogs/encounter-dialogs.js";
 import { DragDropHandler } from "../handlers/drag-drop-handler.js";
 import { PlacementHandler } from "../handlers/placement-handler.js";
+import { getGeminiApiKey } from "../../../vibe-common/scripts/settings.js";
 
 const SUGGESTION_REQUEST_COOLDOWN = 8000;
 const DEFAULT_SUGGESTION_IMAGE = "icons/svg/mystery-man.svg";
@@ -602,9 +603,10 @@ export class VibeCombatApp extends Application {
       return;
     }
 
-    const apiKey = game.settings.get("vibe-combat", "geminiApiKey");
-    if (!apiKey || apiKey.trim() === "") {
-      ui.notifications.error("Configure your Gemini API key in module settings first.");
+    let apiKey;
+    try {
+      apiKey = getGeminiApiKey();
+    } catch (e) {
       return;
     }
 
@@ -663,9 +665,10 @@ export class VibeCombatApp extends Application {
       return;
     }
 
-    const apiKey = game.settings.get("vibe-combat", "geminiApiKey");
-    if (!apiKey || apiKey.trim() === "") {
-      ui.notifications.error("Configure your Gemini API key in module settings first.");
+    let apiKey;
+    try {
+      apiKey = getGeminiApiKey();
+    } catch (e) {
       return;
     }
 
@@ -764,7 +767,12 @@ export class VibeCombatApp extends Application {
       } else {
         console.error("Vibe Combat: Failed to fetch encounter suggestions", error);
         this.suggestionState.status = "error";
-        this.suggestionState.error = error.message || "Gemini request failed.";
+
+        if (error.message.includes("Invalid JSON") || error.message.includes("Return unexpected")) {
+          this.suggestionState.error = "The AI returned unexpected data. Click Try Again to retry.";
+        } else {
+          this.suggestionState.error = error.message || "Gemini request failed.";
+        }
       }
     } finally {
       this._suggestionAbortController = null;
