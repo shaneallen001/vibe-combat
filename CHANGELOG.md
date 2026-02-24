@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.0] - Stability & Suite Synchronization
+- Finalized Phase 2 stability polish and architectural synchronization.
+- Unified versioning across the Vibe module suite.
+
 ## [1.2.0] - Agent Workflows & Stability
 - Synchronized agent development workflows across the Vibe suite.
 - Cleaned up legacy project-specific rules in favor of the centralized memory bank.
